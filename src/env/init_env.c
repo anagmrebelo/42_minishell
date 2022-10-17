@@ -6,10 +6,34 @@
 /*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/15 14:23:44 by mrollo           ###   ########.fr       */
+/*   Updated: 2022/10/17 12:32:26 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
+
+void	lst_to_array(t_master *master)
+{
+	t_list *tmp;
+	int		len;
+	int		i;
+
+	tmp = master->env;
+	i = 0;
+	len = env_mem(master->env, master);
+	while (i < len)
+	{
+		master->env_array[i] = ft_strdup(tmp->content);
+		tmp = tmp->next;
+		i++;
+	}
+	master->env_array[i] = "\0";
+/*	i = 0;
+	while (i < len)
+	{
+		printf("lst_array[%d]: %s\n", i, master->env_array[i]);
+		i++;
+		}*/
+}
 
 void	print_env(t_list *env)
 {
@@ -18,7 +42,7 @@ void	print_env(t_list *env)
 	temp = env;
     while (temp != NULL)
     {
-        printf("%s\n", temp->content);
+        //printf("%s\n", temp->content);
         printf("title \033[1;92m[%s]\n\033[0;39m", temp->title);
 		printf("value \033[1;91m[%s]\n\033[0;39m", temp->value);
 		temp = temp->next;

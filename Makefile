@@ -6,7 +6,7 @@
 #    By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/10/15 14:18:27 by mrollo           ###   ########.fr        #
+#    Updated: 2022/10/17 12:30:41 by mrollo           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 # **************************************************************************** #
@@ -37,7 +37,7 @@ LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
 
 INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
-SRC				= main.c env/init_env.c
+SRC				= main.c env/init_env.c env/free_lst.c env/env_mem.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

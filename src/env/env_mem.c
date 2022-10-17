@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env_mem.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/17 12:31:27 by mrollo           ###   ########.fr       */
+/*   Created: 2022/10/17 12:17:04 by mrollo            #+#    #+#             */
+/*   Updated: 2022/10/17 12:30:47 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-int main(int argc, char **argv, char **enviroment)
+int len_lst(t_list *env)
 {
-    t_master *master;
+    int len;
+    t_list  *tmp;
 
-	if (argc >= 1 && argv)
-	{
-		master = malloc(sizeof(t_master));
-		init_env(master, enviroment);
-		//print_env(master->env);
-		printf("len list: [%d]\n", len_lst(master->env));
-		lst_to_array(master);
-		//free_lst(master->env);
-	}
+    len = 0;
+    tmp = env;
+    while (tmp != NULL)
+    {
+        len++;
+        tmp = tmp->next;
+    }
+    return (len);
+}
+
+int	env_mem(t_list *env, t_master *master)
+{
+	int	len;
+
+	len = len_lst(env);
+    master->env_array = (char **)ft_calloc((len + 1), sizeof(char *));
+	if (!master->env_array)
+		return (1);
+	return (len);
 }

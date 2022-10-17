@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/17 12:31:27 by mrollo           ###   ########.fr       */
+/*   Created: 2022/10/17 10:17:45 by mrollo            #+#    #+#             */
+/*   Updated: 2022/10/17 10:32:38 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+#include <minishell.h>
 
-int main(int argc, char **argv, char **enviroment)
+//free del contenido de la lista y la lista
+void	free_lst(t_list *env)
 {
-    t_master *master;
+	t_list	*tmp;
+	t_list	*tmp2;
 
-	if (argc >= 1 && argv)
+	tmp = env;
+	while (tmp)
 	{
-		master = malloc(sizeof(t_master));
-		init_env(master, enviroment);
-		//print_env(master->env);
-		printf("len list: [%d]\n", len_lst(master->env));
-		lst_to_array(master);
-		//free_lst(master->env);
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free (tmp2->title);
+		free (tmp2->value);
+		free(tmp2);
 	}
+	free (env);
+	env = NULL;
+	tmp = NULL;
+	tmp2 = NULL;
 }
