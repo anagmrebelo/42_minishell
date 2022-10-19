@@ -24,14 +24,40 @@ typedef struct s_list
     struct s_list   *next;
 }   t_list;
 */
+
+typedef struct  s_token
+{
+    char            *str;
+    int             type;
+    struct s_token  *next;
+    struct s_token  *prev;
+} t_token;
+
 typedef struct s_master
 {
     t_list *env;
+    t_token *token_list;
 }   t_master;
 
+
+//Environment
 int		init_env(t_master *master, char **enviroment);
 char    *get_title(char *str);
 char    *get_value(char *str);
 void	print_env(t_list *env);
+
+
+//Parsing
+void	parsing(char * line, t_master *master);
+int     tokenize(char *line, t_master *master);
+t_token *new_token(char *line, int size);
+void    add_list(t_master *list, t_token *item);
+t_token *last_token(t_token *token);
+t_token *first_token(t_token *token);
+void    free_token(t_token *item);
+void    free_list(t_token *list);
+
+//Aux
+void    print_list_tokens(t_token *list);
 
 #endif

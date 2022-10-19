@@ -37,8 +37,13 @@ LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
 
 INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
-SRC				= main.c env/init_env.c
-
+SRC				= main.c\
+				env/init_env.c\
+				\
+				parse/parsing.c\
+				parse/token.c\
+				parse/aux_func.c
+				
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 DEP				= $(addsuffix .d, $(basename $(OBJ)))

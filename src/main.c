@@ -18,7 +18,21 @@ int main(int argc, char **argv, char **enviroment)
 	if (argc >= 1 && argv)
 	{
 		master = malloc(sizeof(t_master));
-		init_env(master, enviroment);
-		print_env(master->env);
+	
+	// ENVIRONMENT TESTING
+	//	init_env(master, enviroment);
+	//	print_env(master->env);
+		(void) enviroment;
+		
+	// PARSING TESTING
+		// char *line = argv[1];
+		char *line = "Hello''";
+		parsing(line, master);
+		print_list_tokens(master->token_list);
+		free_list(master->token_list);
+	
+	
+		free(master);
 	}
+	return (0);
 }
