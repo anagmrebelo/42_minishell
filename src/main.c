@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **enviroment)
 		
 	// PARSING TESTING
 		// char *line = argv[1];
-		char *line = "Hello''";
+		char *line = "echo AB\'C\"\'DE";
 		parsing(line, master);
 		print_list_tokens(master->token_list);
 		free_list(master->token_list);

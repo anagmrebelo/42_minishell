@@ -51,6 +51,8 @@ void	print_env(t_list *env);
 void	parsing(char * line, t_master *master);
 int     tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size);
+char	*quotes_clean(t_token *new);
+void	quotes_update(t_token *new);
 void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
@@ -59,5 +61,6 @@ void    free_list(t_token *list);
 
 //Aux
 void    print_list_tokens(t_token *list);
+size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
 #endif
