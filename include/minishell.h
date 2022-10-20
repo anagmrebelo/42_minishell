@@ -51,6 +51,7 @@ void	print_env(t_list *env);
 void	parsing(char * line, t_master *master);
 int     tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size);
+void	env_update(t_token *new);
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
 void    add_list(t_master *list, t_token *item);

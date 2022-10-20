@@ -43,6 +43,7 @@ SRC				= main.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\
+				parse/variables_env.c\
 				parse/aux_func.c
 				
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

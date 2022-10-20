@@ -57,7 +57,8 @@ int	tokenize(char *line, t_master *master)
 /**
  * Creates an instance of token (all initialized as zero)
  * Adds the string component of the token
- * Calls function to clean the sring of closed quotes
+ * Calls function to convert env variables $ into its value (env_update)
+ * Calls function to clean the sring of closed quotes (quotes_update)
 */
 t_token	*new_token(char *line, int size)
 {
@@ -71,6 +72,7 @@ t_token	*new_token(char *line, int size)
 	{
 		//Deal with error
 	}
+	env_update(new);
 	quotes_update(new);
 	return (new);
 }
