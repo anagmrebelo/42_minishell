@@ -50,10 +50,14 @@ void	print_env(t_list *env);
 //Parsing
 void	parsing(char * line, t_master *master);
 int     tokenize(char *line, t_master *master);
-t_token *new_token(char *line, int size);
-void	env_update(t_token *new);
+t_token *new_token(char *line, int size, t_master *master);
+
+void	env_update(t_token *new, t_master *master);
+char	*find_var(char * str, t_master *master);
+
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
+
 void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);

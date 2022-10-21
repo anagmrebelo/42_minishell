@@ -45,7 +45,7 @@ int	tokenize(char *line, t_master *master)
 	}
 	if (i != 0)
 	{
-		new = new_token(line, i);
+		new = new_token(line, i, master);
 		if (new)
 			add_list(master, new);
 	}
@@ -60,7 +60,7 @@ int	tokenize(char *line, t_master *master)
  * Calls function to convert env variables $ into its value (env_update)
  * Calls function to clean the sring of closed quotes (quotes_update)
 */
-t_token	*new_token(char *line, int size)
+t_token	*new_token(char *line, int size, t_master *master)
 {
 	t_token	*new;
 
@@ -72,7 +72,7 @@ t_token	*new_token(char *line, int size)
 	{
 		//Deal with error
 	}
-	env_update(new);
+	env_update(new, master);
 	quotes_update(new);
 	return (new);
 }

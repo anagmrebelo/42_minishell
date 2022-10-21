@@ -20,18 +20,18 @@ int main(int argc, char **argv, char **enviroment)
 		master = malloc(sizeof(t_master));
 	
 	// ENVIRONMENT TESTING
-	//	init_env(master, enviroment);
+		init_env(master, enviroment);
 	//	print_env(master->env);
-		(void) enviroment;
 		
 	// PARSING TESTING
 		// char *line = argv[1];
-		char *line = "echo a$HELLO$ANA$";
+		char *line = "echo a$HELLOANA$";
 		parsing(line, master);
 		print_list_tokens(master->token_list);
+
+
+	//FREE	
 		free_list(master->token_list);
-	
-	
 		free(master);
 	}
 	return (0);

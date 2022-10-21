@@ -34,10 +34,8 @@ char	*quotes_clean(t_token *new)
 */
 void	quotes_update(t_token *new)
 {
-	int	i;
 	char	*temp;
-
-	i = 0;
+	
 	temp = new->str;
 	new->str = quotes_clean(new);
 	free(temp);
