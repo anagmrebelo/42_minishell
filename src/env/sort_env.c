@@ -11,107 +11,85 @@
 /* ************************************************************************** */
 #include <minishell.h>
 
-// void	free_env(char **env_array, int len)
-// {
-// 	int	i;
+static int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		free (env_array[i]);
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			return (s1[i] - s2[i]);
+	}
+	return (s1[i] - s2[i]);
+}
 
-// static int	ft_strcmp(char *s1, char *s2)
-// {
-// 	int	i;
+void	sort(char **sort_array, int len)
+{
+	int i;
+	int j;
+	char	*tmp;
 
-// 	i = 0;
-// 	while (s1[i])
-// 	{
-// 		if (s1[i] == s2[i])
-// 			i++;
-// 		else
-// 			return (s1[i] - s2[i]);
-// 	}
-// 	return (s1[i] - s2[i]);
-// }
+	i = 0;
+	while (i < len)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (ft_strcmp(sort_array[i], sort_array[j]) > 0)
+			{
+				tmp = sort_array[i];
+				sort_array[i] = sort_array[j];
+				sort_array[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
-// void	print_sort_env(char	**env_array, int len)
-// {
-// 	int	i;
+char    **sort_env_array(char **sort_array, t_env *env, int len)
+{
+    int i;
+    char *str;
+    //char *aux;
 
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		printf("declare -x ");
-// 		printf("%s\n", env_array[i]);
-// 		i++;
-// 	}
-// }
+    i = 0;
+    while (i < len)
+    {
+        str = ft_strdup(env->title);
+        str = join_free(str, "=\"");
+        str = join_free(str, env->value);
+        str = join_free(str, "\"");
+        sort_array[i] = str;
+        //aux = join_free(str, "=\"");
+        // str = join_free(aux, env->value);
+        // aux = join_free(str, "\"");
+        // sort_array[i] = aux;
+        env = env->next;
+        i++;
+    }
+    sort(sort_array, len);
+    return (sort_array);
+}
 
-// void	sort_env(char **env_array, int len)
-// {
-// 	int i;
-// 	int j;
-// 	char	*tmp;
+void    print_sort_env(t_env *env)
+{
+    int len;
+    int i;
+    char    **sort_array;
 
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		j = i + 1;
-// 		while (j < len)
-// 		{
-// 			if (ft_strcmp(env_array[i], env_array[j]) > 0)
-// 			{
-// 				tmp = env_array[i];
-// 				env_array[i] = env_array[j];
-// 				env_array[j] = tmp;
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	print_sort_env(env_array, len);
-// 	free_env(env_array, len);
-// }
-
-// void	env_to_export(t_list *env)
-// {
-// 	int	len;
-// 	char	**env_array;
-// 	char	*str;
-// 	char	*aux;
-// 	t_list *tmp;
-// 	int i;
-
-// 	len = len_lst(env);
-// 	env_array = (char **)ft_calloc((len + 1), sizeof(char *));
-// 	tmp = env;
-// 	i = 0;
-// 	while (i < len)
-// 	{
-// 		str = ft_strdup(tmp->title);
-// //		aux = str;
-// //		free (str);
-// //		str = ft_strjoin(aux, "=\"");
-// //		free (aux);
-// 		aux = ft_strjoin(str, "=\"");
-// 		free (str);
-// //		aux = ft_strjoin(str, tmp->value);
-// //		free (str);
-// 		str = ft_strjoin(aux, tmp->value);
-// 		free (aux);
-// //		str = ft_strjoin(aux, "\"");
-// 		aux = ft_strjoin(str, "\"");
-// 		//printf("str: %s\n", str);
-// //		env_array[i] = str;
-// 		env_array[i] = aux;
-// //		free (str);
-// 		//printf("env: %s\n", env_array[i]);
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// 	sort_env(env_array, len);
-// }
+    len = env_len(env);
+    sort_array = ft_calloc((len + 1), sizeof(char *));
+    sort_env_array(sort_array, env, len);
+    i = 0;
+    while (sort_array && sort_array[i])
+    {
+        ft_putstr_fd("declare -x ", 1);
+        ft_putendl_fd(sort_array[i], 1);
+        i++;
+    }
+    free_array(sort_array);
+}

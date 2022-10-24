@@ -42,7 +42,9 @@ void    free_env_lst(t_env *list);
 char    **env_to_array(t_env *env);
 int 	env_len(t_env *env);
 void    free_array(char **array);
-
+void	sort(char **sort_array, int len);
+char    **sort_env_array(char **sort_array, t_env *env, int len);
+void    print_sort_env(t_env *env);
 
 //UTILS
 char	*join_free(char *s1, char *s2);
