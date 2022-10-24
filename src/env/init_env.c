@@ -18,8 +18,7 @@ void	print_env(t_env *env)
 	temp = env;
     while (temp != NULL)
     {
-        printf("title \033[1;92m[%s]\n\033[0;39m", temp->title);
-		printf("value \033[1;91m[%s]\n\033[0;39m", temp->value);
+		ft_putendl_fd(temp->content, 1);
 		temp = temp->next;
 	}
 }
@@ -92,11 +91,11 @@ int	init_env(t_master *master, char **enviroment)
 
 	env = ft_calloc(1, sizeof(t_env));
 	master->env = env;
-	env->content = ft_strdup(enviroment[0]);
-	env->title = get_title(enviroment[0]);
-	env->value = get_value(enviroment[0]);
-	env->next = NULL;
-	i = 1;
+	//env->content = ft_strdup(enviroment[0]);
+	//env->title = get_title(enviroment[0]);
+	//env->value = get_value(enviroment[0]);
+	//env->next = NULL;
+	i = 0;
 	while (enviroment && enviroment[i])
 	{
 		new = new_env(enviroment[i], get_title(enviroment[i]), get_value(enviroment[i]));
