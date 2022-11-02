@@ -49,7 +49,7 @@ char    *join_double_free(char *s1, char *s2)
 /**
  * Function equivalent to ft_strnjoin however it frees s1
  */
-char    *join_free(char *s1, char *s2)
+char    *join_free_s1(char *s1, char *s2)
 {
     int     i;
     int     j;
@@ -94,10 +94,7 @@ char    *join_free_s2(char *s1, char *s2)
         new[i] = s1[i];
     j = -1;
 	if(!s2)
-	{
-		free(s1);
    		return (new);
-	}
     while (s2[++j])
         new[i + j] = s2[j];
     free(s2);
@@ -134,7 +131,7 @@ void	env_update(t_token *new, t_master *master)
 			j = ++i;
 			while (new->str[i] && allowed_symbols(new->str[i]) && new->str[i] != '$')
 			 	i++;
-			line = join_free(line, find_var(ft_substr(new->str, j, i - j), master, j, new->str));
+			line = join_double_free(line, find_var(ft_substr(new->str, j, i - j), master, j, new->str));
 			j = i--;
 		}
 	}
@@ -190,5 +187,8 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 		free(str);
 		return (NULL);
 	}
-	return (join_free_s2("$", str));
+	char	*ll;
+	ll = ft_strjoin("$", str);
+	free(str);
+	return (ll);
 }

@@ -6,7 +6,7 @@
 #    By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/10/15 14:18:27 by mrollo           ###   ########.fr        #
+#    Updated: 2022/10/17 15:28:40 by mrollo           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 # **************************************************************************** #
@@ -39,14 +39,18 @@ INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
 SRC				= main.c\
 				env/init_env.c\
+				env/sort_env.c\
+				env/env.c \
+				env/free_env.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\
 				parse/variables_env.c\
 				parse/token_delete.c\
 				parse/aux_func.c\
-				utils/max_len.c
-				
+				utils/max_len.c\
+				utils/join_free.c
+
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 DEP				= $(addsuffix .d, $(basename $(OBJ)))

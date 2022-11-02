@@ -18,8 +18,7 @@ void	print_env(t_env *env)
 	temp = env;
     while (temp != NULL)
     {
-        printf("title \033[1;92m[%s]\n\033[0;39m", temp->title);
-		printf("value \033[1;91m[%s]\n\033[0;39m", temp->value);
+		ft_putendl_fd(temp->content, 1);
 		temp = temp->next;
 	}
 }

@@ -39,8 +39,7 @@ typedef struct s_master
     t_token *token_list;
 }   t_master;
 
-
-//Environment
+//ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
 t_env	*new_env(char *content, char *title, char *value);
 char    *get_title(char *str);
@@ -53,27 +52,25 @@ void    free_env_lst(t_env *list);
 char    **env_to_array(t_env *env);
 int 	env_len(t_env *env);
 void    free_array(char **array);
+void	sort(char **sort_array, int len);
+char    **sort_env_array(char **sort_array, t_env *env, int len);
+void    print_sort_env(t_env *env);
 
 
 //Parsing
 void	parsing(char * line, t_master *master);
 int		tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size, t_master *master);
-
 void	env_update(t_token *new, t_master *master);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
-
 _Bool	check_quotes(char *line);
-
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
-
 void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
 void    free_token(t_token *item);
 void    free_list(t_token *list);
-
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
 
