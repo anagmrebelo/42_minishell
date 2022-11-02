@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **enviroment)
 		
 	// PARSING TESTING
 		//char *line = argv[1];
-		char *line = "\'$PATH$\'";
+		char *line = "\'\"\'";
 		parsing(line, master);
 		print_list_tokens(master->token_list);
 

@@ -19,6 +19,11 @@ void	parsing(char *line, t_master *master)
 	int	i;
 
 	i = 0;
+	if(!check_quotes(line))
+	{
+		printf("Error: Quotes not closed\n");	//change to free memory and perror
+		return ;
+	}
 	while (line[i])
 		i += tokenize(&line[i], master);
 	clean_tokens(master);

@@ -1,4 +1,33 @@
 #include "../../include/minishell.h"
+/**
+ * Function that checks if all quotes are closed
+ * Returns 0 if not closed;
+*/
+_Bool	check_quotes(char *line)
+{
+	int		i;
+	int		j;
+	_Bool	allow_update;	
+
+	allow_update = 1;
+	i = 0;
+	j = -1;
+	while(line[i])
+	{
+		if(j < 0 && (line[i] == '\'' || line[i] == '\"' ))
+		{
+			j = i;
+			allow_update = 0;
+		}
+		else if (j >= 0 && line[i] == line[j])
+		{
+			j = -1;
+			allow_update = 1;
+		}	
+		i++;
+	}
+	return(allow_update);
+}
 
 /**
  * Function that creates a new char* cleaned of quotes 

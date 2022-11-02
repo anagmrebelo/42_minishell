@@ -75,6 +75,35 @@ char    *join_free(char *s1, char *s2)
     return (new);
 }
 
+/**
+ * Function equivalent to ft_strnjoin however it frees s2
+ */
+char    *join_free_s2(char *s1, char *s2)
+{
+    int     i;
+    int     j;
+    char    *new;
+
+    if (!s1)
+        s1 = ft_calloc(1, sizeof(char));
+   	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1), sizeof(char));
+    if (!new)
+        return (0);
+    i = -1;
+    while (s1[++i])
+        new[i] = s1[i];
+    j = -1;
+	if(!s2)
+	{
+		free(s1);
+   		return (new);
+	}
+    while (s2[++j])
+        new[i + j] = s2[j];
+    free(s2);
+    return (new);
+}
+
 _Bool	allowed_symbols(char c)
 {
 	if(c == ' ' || !ft_isalnum(c))
@@ -103,7 +132,7 @@ void	env_update(t_token *new, t_master *master)
 		{
 			line = join_double_free(line, ft_substr(new->str, j, i - j));
 			j = ++i;
-			while (new->str[i] && new->str[i] != ' ' && new->str[i] != '$')
+			while (new->str[i] && allowed_symbols(new->str[i]) && new->str[i] != '$')
 			 	i++;
 			line = join_free(line, find_var(ft_substr(new->str, j, i - j), master, j, new->str));
 			j = i--;
@@ -161,5 +190,5 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 		free(str);
 		return (NULL);
 	}
-	return (ft_strjoin("$", str));	//memory leak
+	return (join_free_s2("$", str));
 }

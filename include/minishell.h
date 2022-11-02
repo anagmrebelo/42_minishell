@@ -63,6 +63,8 @@ t_token *new_token(char *line, int size, t_master *master);
 void	env_update(t_token *new, t_master *master);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 
+_Bool	check_quotes(char *line);
+
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
 
