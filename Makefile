@@ -37,8 +37,19 @@ LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
 
 INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
-SRC				= main.c env/init_env.c env/sort_env.c env/env.c \
-					env/free_env.c utils/join_free.c
+SRC				= main.c\
+				env/init_env.c\
+				env/sort_env.c\
+				env/env.c \
+				env/free_env.c\
+				parse/parsing.c\
+				parse/token.c\
+				parse/quotes.c\
+				parse/variables_env.c\
+				parse/token_delete.c\
+				parse/aux_func.c\
+				utils/max_len.c\
+				utils/join_free.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

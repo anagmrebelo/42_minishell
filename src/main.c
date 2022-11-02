@@ -27,7 +27,13 @@ int main(int argc, char **argv, char **enviroment)
 		//free_array(array);
 		//print_sort_env(master->env);
 		
+		//PARSING
+		// char *line = "\'echo hello $PATH\'";
+		// parsing(line, master);
+		// print_list_tokens(master->token_list);
+
 		//FREE
+		free_list(master->token_list);
 		free_env_lst(master->env);
 		free (master);
 	}
