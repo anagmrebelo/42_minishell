@@ -6,19 +6,18 @@
 /*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/15 14:23:44 by mrollo           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:32:54 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	print_env(t_list *env)
+void	print_env(t_env *env)
 {
-	t_list *temp;
+	t_env *temp;
 
 	temp = env;
     while (temp != NULL)
     {
-        //printf("%s\n", temp->content);
         printf("title \033[1;92m[%s]\n\033[0;39m", temp->title);
 		printf("value \033[1;91m[%s]\n\033[0;39m", temp->value);
 		temp = temp->next;
@@ -49,23 +48,59 @@ char	*get_value(char *str)
 	return (value);
 }
 
+t_env	*last_env(t_env *env)
+{
+	if (!env)
+		return (NULL);
+	while (env->next)
+		env = env->next;
+	return (env);
+}
+
+void	add_back(t_env *env, t_env *new)
+{
+	t_env *end;
+
+	if (!new)
+		env = new;
+	else
+	{
+		end = last_env(env);
+		end->next = new;
+	}
+}
+
+t_env	*new_env(char *content, char *title, char *value)
+{
+	t_env *new;
+
+	new = ft_calloc(1, sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->content = ft_strdup(content);
+	new->title = title;
+	new->value = value;
+	new->next = NULL;
+	return (new);
+}
+
 int	init_env(t_master *master, char **enviroment)
 {
-	t_list *env;
-	t_list *new;
+	t_env *env;
+	t_env *new;
 	int i;
 
-	env = malloc(sizeof(t_list));
+	env = ft_calloc(1, sizeof(t_env));
 	master->env = env;
-	env->content = enviroment[0];
+	env->content = ft_strdup(enviroment[0]);
 	env->title = get_title(enviroment[0]);
 	env->value = get_value(enviroment[0]);
 	env->next = NULL;
 	i = 1;
 	while (enviroment && enviroment[i])
 	{
-		new = ft_lstnew(enviroment[i], get_title(enviroment[i]), get_value(enviroment[i]));
-		ft_lstadd_back(&env, new);
+		new = new_env(enviroment[i], get_title(enviroment[i]), get_value(enviroment[i]));
+		add_back(env, new);
 		i++;
 	}
 	return (0);

@@ -39,12 +39,13 @@ INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
 SRC				= main.c\
 				env/init_env.c\
-				\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\
 				parse/variables_env.c\
-				parse/aux_func.c
+				parse/token_delete.c\
+				parse/aux_func.c\
+				utils/max_len.c
 				
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

@@ -24,8 +24,8 @@ int main(int argc, char **argv, char **enviroment)
 	//	print_env(master->env);
 		
 	// PARSING TESTING
-		// char *line = argv[1];
-		char *line = "echo a$HELLOANA$";
+		//char *line = argv[1];
+		char *line = "\'$PATH$\'";
 		parsing(line, master);
 		print_list_tokens(master->token_list);
 

@@ -21,6 +21,7 @@ void	parsing(char *line, t_master *master)
 	i = 0;
 	while (line[i])
 		i += tokenize(&line[i], master);
+	clean_tokens(master);
 	return ;
 }
 
@@ -35,11 +36,11 @@ int	tokenize(char *line, t_master *master)
 
 	i = 0;
 	quotes = -1;
-	while (line[i] && (line[i] != ' ' || quotes > 0))
+	while (line[i] && (line[i] != ' ' || quotes >= 0 ))
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
 			quotes = i;
-		else if (quotes > 0 && line[i] == line[quotes])
+		else if (quotes >= 0 && line[i] == line[quotes])
 			quotes = -1;
 		i++;
 	}
@@ -75,4 +76,17 @@ t_token	*new_token(char *line, int size, t_master *master)
 	env_update(new, master);
 	quotes_update(new);
 	return (new);
+}
+
+void	clean_tokens(t_master *master)
+{
+	t_token	*temp;
+
+	temp = master->token_list;
+	while(temp)
+	{
+		if (!temp->str || !temp->str[0])
+			delete_token(temp, master);
+		temp = temp->next;
+	}
 }
