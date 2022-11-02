@@ -19,11 +19,15 @@ int main(int argc, char **argv, char **enviroment)
 	if (argc >= 1 && argv)
 	{
 		master = ft_calloc(1, sizeof(t_master));
+		
+		//ENV
 		init_env(master, enviroment);
 		//print_env(master->env);
 		//array = env_to_array(master->env);
 		//free_array(array);
-		print_sort_env(master->env);
+		//print_sort_env(master->env);
+		
+		//FREE
 		free_env_lst(master->env);
 		free (master);
 	}

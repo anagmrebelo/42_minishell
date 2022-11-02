@@ -47,7 +47,7 @@ char    **env_to_array(t_env *env)
     int i;
 
     len = env_len(env);
-    array_env = ft_calloc((len + 1), sizeof(char *));
+    array_env = (char **)ft_calloc((len + 1), sizeof(char *));
     if (!array_env)
         return (NULL);
     i = 0;
@@ -57,6 +57,6 @@ char    **env_to_array(t_env *env)
         env = env->next;
         i++;
     }
-    print_array(array_env, len);
+    //print_array(array_env, len);
     return (array_env);
 }
