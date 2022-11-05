@@ -28,9 +28,9 @@ int main(int argc, char **argv, char **enviroment)
 		//print_sort_env(master->env);
 		
 		//PARSING
-		// char *line = "\'echo hello $PATH\'";
-		// parsing(line, master);
-		// print_list_tokens(master->token_list);
+		char *line = "hello $$";
+		parsing(line, master);
+		print_list_tokens(master->token_list);
 
 		//FREE
 		free_list(master->token_list);

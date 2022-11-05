@@ -103,7 +103,7 @@ char    *join_free_s2(char *s1, char *s2)
 
 _Bool	allowed_symbols(char c)
 {
-	if(c == ' ' || !ft_isalnum(c))
+	if(!ft_isalnum(c) && c != '$')
 		return (0);
 	return (1);
 }
@@ -111,6 +111,7 @@ _Bool	allowed_symbols(char c)
 /**
  * Analyses the str from token and substitutes $ for the environment variables, if there is a match
  * It only substitutes if after the $ there is an alphanumeric and it is noit between simple quotes
+ * If there is $$ it should print bash pid
 */
 void	env_update(t_token *new, t_master *master)
 {
@@ -131,8 +132,17 @@ void	env_update(t_token *new, t_master *master)
 			j = ++i;
 			while (new->str[i] && allowed_symbols(new->str[i]) && new->str[i] != '$')
 			 	i++;
-			line = join_double_free(line, find_var(ft_substr(new->str, j, i - j), master, j, new->str));
-			j = i--;
+			if(j == i)
+			{
+				line = join_double_free(line, find_var(ft_substr(new->str, j, 1), master, j, new->str));
+				j = i + 1;
+			}
+			else
+			{
+				line = join_double_free(line, find_var(ft_substr(new->str, j, i - j), master, j, new->str));
+				j = i--;
+			}
+						
 		}
 	}
 	if(j != i)
@@ -173,6 +183,11 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 	}
 	if(allow_update)
 	{
+		if(ft_strncmp("$", str, find_max_len("$", str)) == 0)
+		{
+			free(str);
+			return(ft_itoa(getpid()));	// Change for bash pid	GETPID is not allowed
+		}
 		temp = master->env;
 		while(temp)
 		{
@@ -180,7 +195,7 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 			if(ft_strncmp(str, temp->title, find_max_len(str, temp->title)) == 0)
 			{
 				free(str);
-				return (temp->value); 
+				return (ft_strdup(temp->value)); 
 			}
 			temp = temp->next;
 		}
