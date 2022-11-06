@@ -14,6 +14,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <../libft/libft.h>
 
 typedef struct s_env
@@ -70,7 +72,7 @@ void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
 void    free_token(t_token *item);
-void    free_list(t_token *list);
+void    free_list(t_master *master);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
 

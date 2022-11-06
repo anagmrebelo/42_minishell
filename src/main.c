@@ -13,13 +13,15 @@
 
 int main(int argc, char **argv, char **enviroment)
 {
-    t_master *master;
+    t_master	*master;
+	char		*line;
+	int			i;
 	//char **array;
 
 	if (argc >= 1 && argv)
 	{
-		master = ft_calloc(1, sizeof(t_master));
-		
+		master = ft_calloc(1, sizeof(t_master));	//we have to protect master
+
 		//ENV
 		init_env(master, enviroment);
 		//print_env(master->env);
@@ -27,13 +29,31 @@ int main(int argc, char **argv, char **enviroment)
 		//free_array(array);
 		//print_sort_env(master->env);
 		
-		//PARSING
-		char *line = "hello $$";
-		parsing(line, master);
-		print_list_tokens(master->token_list);
-
+		i = 1;
+		while (i)
+   		{
+        	line = readline("minishell: ");
+        	if (ft_strncmp(line, "exit", find_max_len(line, "exit	")) == 0)	//Forbidden function
+			{
+				i = 0;
+				free(line);
+			}
+           		
+    		else
+        	{
+            	if (line[0] == '\0')
+               		i = 1;
+            	else
+				{
+					//PARSING
+					parsing(line, master);
+					print_list_tokens(master->token_list);
+					free_list(master);
+				}
+       		}
+   		}	
+		
 		//FREE
-		free_list(master->token_list);
 		free_env_lst(master->env);
 		free (master);
 	}

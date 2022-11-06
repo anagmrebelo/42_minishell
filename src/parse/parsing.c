@@ -27,6 +27,11 @@ void	parsing(char *line, t_master *master)
 	while (line[i])
 		i += tokenize(&line[i], master);
 	clean_tokens(master);
+	if(line)
+	{
+		free(line);
+		line = NULL;
+	}
 	return ;
 }
 
@@ -41,7 +46,7 @@ int	tokenize(char *line, t_master *master)
 
 	i = 0;
 	quotes = -1;
-	while (line[i] && (line[i] != ' ' || quotes >= 0 ))
+	while (line[i] && (line[i] != ' ' || quotes >= 0 )) // CAMBIAR espacio tabs...
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
 			quotes = i;

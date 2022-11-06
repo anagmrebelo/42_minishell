@@ -85,7 +85,7 @@ make_libs:
 -include $(DEP)
 
 $(NAME):	$(OBJ) $(LIBS)
-			@$(LINK) $(OBJ) $(LIBS) -o $(NAME)
+			@$(LINK) $(OBJ) $(LIBS) -o $(NAME) -lreadline
 			@ECHO "Created minishell (mandatory)"
 
 -include $(DEP_BONUS)
