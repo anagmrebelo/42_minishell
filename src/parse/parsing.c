@@ -35,6 +35,13 @@ void	parsing(char *line, t_master *master)
 	return ;
 }
 
+_Bool	isDelimeter(char c)
+{
+	if (c == ' ' || c == '|' || c == '<' || c == '>')	// add tabs
+		return (1);
+	return (0); 
+}
+
 /**
  * Function that creates token and sets i to last char or last space before starting new word
 */
@@ -46,7 +53,7 @@ int	tokenize(char *line, t_master *master)
 
 	i = 0;
 	quotes = -1;
-	while (line[i] && (line[i] != ' ' || quotes >= 0 )) // CAMBIAR espacio tabs...
+	while (line[i] && (!isDelimeter(line[i]) || quotes >= 0 ))
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
 			quotes = i;
@@ -54,13 +61,16 @@ int	tokenize(char *line, t_master *master)
 			quotes = -1;
 		i++;
 	}
-	if (i != 0)
+	if (i == 0)
 	{
-		new = new_token(line, i, master);
-		if (new)
-			add_list(master, new);
+		if (line[i] == '<' && line[i + 1] && line[i + 1] == '<')
+			i++;
+		i++;
 	}
-	while (line[i] && line[i] == ' ')
+	new = new_token(line, i, master);
+	if (new)
+		add_list(master, new);
+	while (line[i] && line[i] == ' ')	//add tabs
 		i++;
 	return (i);
 }
