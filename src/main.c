@@ -33,12 +33,12 @@ int main(int argc, char **argv, char **enviroment)
 		while (i)
    		{
         	line = readline("minishell: ");
+			add_history(line);
         	if (ft_strncmp(line, "exit", find_max_len(line, "exit	")) == 0)	//Forbidden function
 			{
 				i = 0;
 				free(line);
 			}
-           		
     		else
         	{
             	if (line[0] == '\0')
