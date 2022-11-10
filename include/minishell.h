@@ -13,6 +13,7 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -75,6 +76,12 @@ void    free_token(t_token *item);
 void    free_list(t_master *master);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
+
+
+//EXECUTE
+char    **find_path(t_master *master);
+char    *get_command(char **path, char *cmd);
+char    **token_to_array(t_token *token);
 
 
 //Aux to delete before submitting

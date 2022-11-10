@@ -49,7 +49,8 @@ SRC				= main.c\
 				parse/token_delete.c\
 				parse/aux_func.c\
 				utils/max_len.c\
-				utils/join_free.c
+				utils/join_free.c\
+				exec/exec.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

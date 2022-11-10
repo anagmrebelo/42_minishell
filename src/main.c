@@ -16,19 +16,19 @@ int main(int argc, char **argv, char **enviroment)
     t_master	*master;
 	char		*line;
 	int			i;
-	//char **array;
+	
+	//EXEC
+	char **path;
+	char *command;
+	char **str;
 
 	if (argc >= 1 && argv)
 	{
-		master = ft_calloc(1, sizeof(t_master));	//we have to protect master
+		master = ft_calloc(1, sizeof(t_master));  //we have to protect master
 
 		//ENV
 		init_env(master, enviroment);
-		//print_env(master->env);
-		//array = env_to_array(master->env);
-		//free_array(array);
-		//print_sort_env(master->env);
-		
+
 		i = 1;
 		while (i)
    		{
@@ -48,6 +48,14 @@ int main(int argc, char **argv, char **enviroment)
 					//PARSING
 					parsing(line, master);
 					print_list_tokens(master->token_list);
+					
+					//EXECVE
+					str = token_to_array(master->token_list);
+					path = find_path(master);
+					command = get_command(path, master->token_list->str);
+					if (execve(command, str, enviroment) == -1)
+						printf("error execve\n");
+					
 					free_list(master);
 				}
        		}
