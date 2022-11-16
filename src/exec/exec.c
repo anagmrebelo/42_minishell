@@ -11,47 +11,6 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-// int exec(char *command, t_master *master)
-// {
-//     if (ft_strcmp(command, "echo") == 0)
-//         printf("echo\n");
-//     if (ft_strcmp(command, "cd") == 0)
-//         printf("cd\n");
-//     if (ft_strcmp(command, "pwd") == 0)
-//         printf("pwd\n");
-//     if (ft_strcmp(command, "export") == 0)
-//         printf("export\n");
-//     if (ft_strcmp(command, "unset") == 0)
-//         printf("unset\n");
-//     if (ft_strcmp(command, "env") == 0)
-//         printf("env\n");
-//     if (ft_strcmp(command, "exit") == 0)
-//         printf("exit\n");
-//     else
-//         exec_bin(command, master);
-//     return (0);
-// }
-
-// int exec_bin(char *command, t_master *master)
-// {
-//     char    *path;
-//     int len;
-//     t_env *tmp;
-
-//     tmp = master->env;
-//     while (tmp != NULL)
-//     {
-//         if (ft_strcmp(tmp->title, "PATH") == 0)
-//         {
-//             path = ft_strdup(tmp->value);
-//             printf("path: %s\n", path);
-//             break;
-//         }
-//         tmp = tmp->next;
-//     }
-//     return (0);
-// }
-
 //Toma la variable $PATH y la separa (con split)
 
 char    **find_path(t_master *master)
