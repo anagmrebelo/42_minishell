@@ -82,6 +82,9 @@ void    delete_token(t_token *token, t_master *master);
 char    **find_path(t_master *master);
 char    *get_command(char **path, char *cmd);
 char    **token_to_array(t_token *token);
+int     exec_bin(t_master *master);
+int     exec(t_master *master);
+int     is_builtin(char *command);
 
 
 //Aux to delete before submitting

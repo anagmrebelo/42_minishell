@@ -52,6 +52,8 @@
 //     return (0);
 // }
 
+//Toma la variable $PATH y la separa (con split)
+
 char    **find_path(t_master *master)
 {
     char **path;
@@ -79,6 +81,10 @@ char    **find_path(t_master *master)
     return (path);
 }
 
+
+//Prueba en cada direccion de path si encuentra el comando necesario
+//y lo devuelve en formato "/bin/ls"
+
 char    *get_command(char **path, char *cmd)
 {
     int i;
@@ -97,6 +103,8 @@ char    *get_command(char **path, char *cmd)
     }
     return (NULL);
 }
+
+//convierte token list en array para pasarlo a execve
 
 char    **token_to_array(t_token *token)
 {
@@ -125,4 +133,61 @@ char    **token_to_array(t_token *token)
     }
     //print_array(array_env, len);
     return (token_array);
+}
+
+//ejecuta los comandos en un child process
+
+int exec_bin(t_master *master)
+{
+    char    **path;
+    char    **str;
+    char    *command;
+    char    **env;
+    pid_t   pid;
+
+    pid = fork();
+    if (pid < 0)
+        printf("error pid\n");
+    if (pid == 0)
+    {
+        str = token_to_array(master->token_list);
+	    path = find_path(master);
+	    command = get_command(path, master->token_list->str);
+	    env = env_to_array(master->env);
+        if (execve(command, str, env) == -1)
+            printf("error execve\n");
+    }
+    else
+        waitpid(pid, NULL, 0); //cambiar NULL x global
+    return (0);
+}
+
+int is_builtin(char *command)
+{
+    if (strcmp(command, "echo") == 0)
+        return (1);
+    if (ft_strcmp(command, "cd") == 0)
+        return (1);
+    if (ft_strcmp(command, "pwd") == 0)
+        return (1);
+    if (ft_strcmp(command, "export") == 0)
+        return (1);
+    if (ft_strcmp(command, "unset") == 0)
+        return (1);
+    if (ft_strcmp(command, "env") == 0)
+        return (1);
+    if (ft_strcmp(command, "exit") == 0)
+        return (1);
+    else
+        return (0);
+
+}
+
+int exec(t_master *master)
+{
+    if (is_builtin(master->token_list->str))
+        print_list_tokens(master->token_list);
+    else
+        exec_bin(master);
+    return (0);
 }

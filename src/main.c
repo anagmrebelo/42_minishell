@@ -18,9 +18,9 @@ int main(int argc, char **argv, char **enviroment)
 	int			i;
 	
 	//EXEC
-	char **path;
-	char *command;
-	char **str;
+	// char **path;
+	// char *command;
+	// char **str;
 
 	if (argc >= 1 && argv)
 	{
@@ -47,15 +47,12 @@ int main(int argc, char **argv, char **enviroment)
 				{
 					//PARSING
 					parsing(line, master);
-					print_list_tokens(master->token_list);
+					//print_list_tokens(master->token_list);
 					
 					//EXECVE
-					str = token_to_array(master->token_list);
-					path = find_path(master);
-					command = get_command(path, master->token_list->str);
-					if (execve(command, str, enviroment) == -1)
-						printf("error execve\n");
-					
+					//exec_bin(master);
+					exec(master);
+
 					free_list(master);
 				}
        		}
