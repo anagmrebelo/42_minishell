@@ -19,6 +19,13 @@
 # include <readline/history.h>
 # include <../libft/libft.h>
 
+# define ARG 0
+# define OUTPUT 1
+# define APPEND 2
+# define INPUT 3
+# define HEREDOC 4
+# define PIPE 5
+
 typedef struct s_env
 {
 	char *content;
@@ -31,7 +38,6 @@ typedef struct  s_token
 {
     char            *str;
     int             type; 
-    _Bool			env_update;
     struct s_token  *next;
     struct s_token  *prev;
 } t_token;
@@ -61,12 +67,15 @@ void    print_sort_env(t_env *env);
 
 
 //Parsing
-void	parsing(char * line, t_master *master);
+_Bool	parsing(char * line, t_master *master);
 int		tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size, t_master *master);
 void	env_update(t_token *new, t_master *master);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 _Bool	check_quotes(char *line);
+_Bool	check_syntax(t_master *master);
+void	add_type(t_token *new);
+void	add_types_redir(t_master *master);
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
 void    add_list(t_master *list, t_token *item);

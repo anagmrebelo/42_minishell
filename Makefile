@@ -47,6 +47,7 @@ SRC				= main.c\
 				parse/quotes.c\
 				parse/variables_env.c\
 				parse/token_delete.c\
+				parse/type.c\
 				parse/aux_func.c\
 				utils/max_len.c\
 				utils/join_free.c\
