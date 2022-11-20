@@ -14,25 +14,32 @@
 /**
  * Transforms char * line from readline into tokens
 */
-void	parsing(char *line, t_master *master)
+_Bool	parsing(char *line, t_master *master)
 {
 	int	i;
 
 	i = 0;
 	if(!check_quotes(line))
 	{
-		printf("Error: Quotes not closed\n");	//change to free memory and perror
-		return ;
+		printf("Error: Quotes not closed\n");	//change to perror
+		free(line);
+		return (0);
 	}
 	while (line[i])
 		i += tokenize(&line[i], master);
-	clean_tokens(master);
-	if(line)
+	if (check_syntax(master))
 	{
-		free(line);
-		line = NULL;
+		add_types_redir(master);
+		clean_tokens(master);
+		if(line)
+		{
+			free(line);
+			line = NULL;
+		}
+		return (1);
 	}
-	return ;
+	printf("Syntax Error\n");	// Handle error
+	return (0);
 }
 
 _Bool	isDelimeter(char c)
@@ -78,6 +85,7 @@ int	tokenize(char *line, t_master *master)
 /**
  * Creates an instance of token (all initialized as zero)
  * Adds the string component of the token
+ * Adds type to the token if it is '>' or '>>' or '<' or '<<' or '|'
  * Calls function to convert env variables $ into its value (env_update)
  * Calls function to clean the sring of closed quotes (quotes_update)
 */
@@ -93,11 +101,15 @@ t_token	*new_token(char *line, int size, t_master *master)
 	{
 		//Deal with error
 	}
+	add_type(new);
 	env_update(new, master);
 	quotes_update(new);
 	return (new);
 }
 
+/**
+ * Deletes tokens that have an empty str
+*/
 void	clean_tokens(t_master *master)
 {
 	t_token	*temp;

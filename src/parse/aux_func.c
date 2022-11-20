@@ -7,7 +7,7 @@ void    print_list_tokens(t_token *list)
     i = 0;
     while(list)
     {
-        printf("%d: %s\n", i, list->str);
+        printf("%d: %s  -> type: %d\n", i, list->str, list->type);
         list = list->next;
         i++;
     }

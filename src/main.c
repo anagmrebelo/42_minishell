@@ -46,8 +46,8 @@ int main(int argc, char **argv, char **enviroment)
             	else
 				{
 					//PARSING
-					parsing(line, master);
-					print_list_tokens(master->token_list);
+					if(parsing(line, master))
+						print_list_tokens(master->token_list);
 					free_list(master);
 				}
        		}
