@@ -34,7 +34,7 @@ int main(int argc, char **argv, char **enviroment)
    		{
         	line = readline("minishell: ");
 			add_history(line);
-        	if (ft_strncmp(line, "exit", find_max_len(line, "exit	")) == 0)	//Forbidden function
+        	if (ft_strncmp(line, "exit", find_max_len(line, "exit")) == 0)	//Forbidden function
 			{
 				i = 0;
 				free(line);
@@ -50,11 +50,10 @@ int main(int argc, char **argv, char **enviroment)
 					{
 						//print_list_tokens(master->token_list);
 					
-					//EXECVE
+						//EXECVE
 						//exec_bin(master);
 						exec(master);
 					}
-
 					free_list(master);
 				}
        		}

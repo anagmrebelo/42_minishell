@@ -36,6 +36,7 @@ _Bool	parsing(char *line, t_master *master)
 			free(line);
 			line = NULL;
 		}
+		pipe_separation(master);
 		return (1);
 	}
 	printf("Syntax Error\n");	// Handle error

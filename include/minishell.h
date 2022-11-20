@@ -42,10 +42,20 @@ typedef struct  s_token
     struct s_token  *prev;
 } t_token;
 
+typedef struct  s_pipe
+{
+	t_token	*args;
+	t_token	*inputs;
+	t_token	*outputs;
+	char	**args_char;
+    struct s_pipe	*next;
+} t_pipe;
+
 typedef struct s_master
 {
-    t_env *env;
-    t_token *token_list;
+    t_env	*env;
+    t_token	*token_list;
+    t_pipe	*pipes;
 }   t_master;
 
 //ENVIROMENT
@@ -85,6 +95,7 @@ void    free_token(t_token *item);
 void    free_list(t_master *master);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
+void	pipe_separation(t_master *master);
 
 
 //EXECUTE
