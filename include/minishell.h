@@ -44,10 +44,11 @@ typedef struct  s_token
 
 typedef struct  s_pipe
 {
-	t_token	*args;
-	t_token	*inputs;
-	t_token	*outputs;
-	char	**args_char;
+	t_token	        *args;
+	t_token	        *inputs;
+    _Bool           inv_file;
+	t_token	        *outputs;
+	char	        **args_char;
     struct s_pipe	*next;
 } t_pipe;
 
@@ -55,7 +56,8 @@ typedef struct s_master
 {
     t_env	*env;
     t_token	*token_list;
-    t_pipe	*pipes;
+    int     numPipe;
+    t_pipe	*pipes_list;
 }   t_master;
 
 //ENVIROMENT
@@ -96,6 +98,10 @@ void    free_list(t_master *master);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
 void	pipe_separation(t_master *master);
+int     count_pipes(t_master *master);
+void	add_to_pipe(t_token *member, t_token *list);
+void	insert_in_list(t_pipe *member, t_master *master);
+_Bool	validate_file(char *path);
 
 
 //EXECUTE
@@ -109,6 +115,7 @@ int     is_builtin(char *command);
 
 //Aux to delete before submitting
 void    print_list_tokens(t_token *list);
+void	print_pipes(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
 

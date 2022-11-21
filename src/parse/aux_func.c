@@ -24,3 +24,45 @@ void	print_list_tokens(t_token *list)
 		i++;
 	}
 }
+
+void	print_pipes(t_master *master)
+{
+	t_pipe *temp;
+	t_token *token;
+	int		i;
+
+	i = 1;
+	temp = master->pipes_list;
+	while(temp)
+	{
+		printf("PIPE %d:\n", i);
+		printf("ARGS:");
+		token = temp->args;
+		while(token)
+		{
+			printf("%s + ", token->str);
+			token = token->next;
+		}
+		printf("\n");
+		printf("INPUTS:");
+		token = temp->inputs;
+		while(token)
+		{
+			printf("%s + ", token->str);
+			token = token->next;
+		}
+		printf("\n");
+		printf("OUTPUTS:");
+		token = temp->outputs;
+		while(token)
+		{
+			printf("%s + ", token->str);
+			token = token->next;
+		}
+		printf("\n");
+		printf("\n");
+		temp = temp->next;
+		i++;
+	}
+	return ;
+}
