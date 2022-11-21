@@ -25,14 +25,14 @@ void	print_list_tokens(t_token *list)
 	}
 }
 
-void	print_pipes(t_master *master)
+void	print_commands(t_master *master)
 {
-	t_pipe *temp;
+	t_command *temp;
 	t_token *token;
 	int		i;
 
 	i = 1;
-	temp = master->pipes_list;
+	temp = master->commands_list;
 	while(temp)
 	{
 		printf("PIPE %d:\n", i);
@@ -60,7 +60,7 @@ void	print_pipes(t_master *master)
 			token = token->next;
 		}
 		printf("\n");
-		printf("\n");
+		printf("\n--------------------------//-----------------------------\n");
 		temp = temp->next;
 		i++;
 	}

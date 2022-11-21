@@ -42,22 +42,24 @@ typedef struct  s_token
     struct s_token  *prev;
 } t_token;
 
-typedef struct  s_pipe
+typedef struct  s_command
 {
-	t_token	        *args;
-	t_token	        *inputs;
-    _Bool           inv_file;
-	t_token	        *outputs;
-	char	        **args_char;
-    struct s_pipe	*next;
-} t_pipe;
+	t_token	            *args;
+	t_token	            *inputs;
+    _Bool               inv_file;
+	t_token             *outputs;
+	char	            **args_char;
+    struct s_command	*next;
+} t_command;
 
 typedef struct s_master
 {
-    t_env	*env;
-    t_token	*token_list;
-    int     numPipe;
-    t_pipe	*pipes_list;
+    t_env	    *env;
+    t_token	    *token_list;
+    int         numCommands;
+    t_command	*commands_list;
+    int         std_in;
+    int         std_out;
 }   t_master;
 
 //ENVIROMENT
@@ -94,14 +96,22 @@ void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
 void    free_token(t_token *item);
-void    free_list(t_master *master);
+void    free_token_list(t_token *ls);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
-void	pipe_separation(t_master *master);
-int     count_pipes(t_master *master);
-void	add_to_pipe(t_token *member, t_token *list);
-void	insert_in_list(t_pipe *member, t_master *master);
+t_token	*copy_token(t_token *src);
+void	command_separation(t_master *master);
+int     count_commands(t_master *master);
+void	add_to_command(t_token *member, t_token **list);
+void	insert_in_list(t_command *member, t_master *master);
+void	free_commands(t_master *master);
+void	free_command(t_command *pipe);    
 _Bool	validate_file(char *path);
+void    prep_next_line(t_master *master);
+
+//REDIRECTIONS
+_Bool   handle_redirs(t_command *cmd);
+void	reset_redirs(t_master *master);
 
 
 //EXECUTE
@@ -115,11 +125,12 @@ int     is_builtin(char *command);
 
 //Aux to delete before submitting
 void    print_list_tokens(t_token *list);
-void	print_pipes(t_master *master);
+void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
 
 //Utils
 char			*join_free(char *s1, char *s2);
 unsigned int	find_max_len(char *s1, char *s2);
+void	        free_double_array(char **table);
 #endif

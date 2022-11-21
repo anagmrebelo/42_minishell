@@ -48,10 +48,13 @@ SRC				= main.c\
 				parse/variables_env.c\
 				parse/token_delete.c\
 				parse/type.c\
-				parse/pipe_separation.c\
+				parse/command_separation.c\
+				parse/free.c\
 				parse/aux_func.c\
+				redir/initial_redir\
 				utils/max_len.c\
 				utils/join_free.c\
+				utils/free_double_array.c\
 				exec/exec.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

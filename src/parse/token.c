@@ -61,19 +61,18 @@ void	free_token(t_token *item)
 }
 
 /**
- * Frees the entire list of tokens and sets master token list to NULL
+ * Frees the entire list of tokens
 */
-void	free_list(t_master *master)
+void	free_token_list(t_token *ls)
 {
 	t_token	*list;
 	t_token	*temp;
 
-	list = master->token_list;
+	list = ls;
 	while (list)
 	{
 		temp = list->next;
 		free_token(list);
 		list = temp;
 	}
-	master->token_list = NULL;
 }

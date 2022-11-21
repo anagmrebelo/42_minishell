@@ -16,6 +16,7 @@ int main(int argc, char **argv, char **enviroment)
     t_master	*master;
 	char		*line;
 	int			i;
+	t_command	*cmd;
 	
 	//EXEC
 	// char **path;
@@ -28,7 +29,6 @@ int main(int argc, char **argv, char **enviroment)
 
 		//ENV
 		init_env(master, enviroment);
-
 		i = 1;
 		while (i)
    		{
@@ -41,20 +41,22 @@ int main(int argc, char **argv, char **enviroment)
 			}
     		else
         	{
-            	if (line[0] == '\0')
-               		i = 1;
-            	else
-				{
+            	// if (line[0] == '\0')		//Ask Mica if it is necessary
+               	// 	i = 1;
+            	// else
+				// {
 					//PARSING
 					if (parsing(line, master))
 					{
-						//print_list_tokens(master->token_list);
-					
-						//EXECVE
-						//exec_bin(master);
-						exec(master);
-					}
-					free_list(master);
+						cmd = master->commands_list;
+						while (cmd)
+						{
+							if (handle_redirs(cmd))
+								exec(master);
+							cmd = cmd->next;
+						}
+					// }
+					prep_next_line(master);
 				}
        		}
    		}	
