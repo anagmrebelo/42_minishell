@@ -46,13 +46,15 @@ int main(int argc, char **argv, char **enviroment)
             	// else
 				// {
 					//PARSING
+					init_redirs(master);
 					if (parsing(line, master))
 					{
 						cmd = master->commands_list;
 						while (cmd)
 						{
-							if (handle_redirs(cmd))
+							if (handle_redirs(cmd, master))
 								exec(master);
+							adjust_redirs(cmd, master);
 							cmd = cmd->next;
 						}
 					// }
@@ -62,6 +64,7 @@ int main(int argc, char **argv, char **enviroment)
    		}	
 		
 		//FREE
+		close_init_redirs(master);
 		free_env_lst(master->env);
 		free (master);
 	}

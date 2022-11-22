@@ -51,7 +51,9 @@ SRC				= main.c\
 				parse/command_separation.c\
 				parse/free.c\
 				parse/aux_func.c\
-				redir/initial_redir\
+				redir/initial_redir.c\
+				redir/final_redir.c\
+				redir/outputs.c\
 				utils/max_len.c\
 				utils/join_free.c\
 				utils/free_double_array.c\

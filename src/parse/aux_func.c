@@ -35,7 +35,7 @@ void	print_commands(t_master *master)
 	temp = master->commands_list;
 	while(temp)
 	{
-		printf("PIPE %d:\n", i);
+		printf("PIPE %d:\n", temp->cmd_nb);
 		printf("ARGS:");
 		token = temp->args;
 		while(token)

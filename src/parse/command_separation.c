@@ -10,15 +10,17 @@ void command_separation(t_master *master)
 {
 	t_token		*temp;
 	t_command	*cmd;
+	int			i;
 
+	i = 1;
 	temp = master->token_list;
 	master->numCommands = count_commands(master);
-
 	while (temp)
 	{
 		cmd = ft_calloc(1, sizeof(t_command));
 	 	if (!cmd)
 	 		break; // Fix to exit program
+		cmd->cmd_nb = i;
 	 	while (temp && temp->type != PIPE)
 	 	{
 	 		if(temp->type == ARG)
@@ -37,7 +39,8 @@ void command_separation(t_master *master)
 		// create_array(pipe);
 	 	insert_in_list(cmd, master);
 	 	if(temp && temp->type == PIPE)
-	 		temp = temp->next;	
+	 		temp = temp->next;
+		i++;
 	}
 	print_commands(master); //AUX
 	return ;

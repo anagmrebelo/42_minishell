@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <../libft/libft.h>
@@ -25,6 +26,9 @@
 # define INPUT 3
 # define HEREDOC 4
 # define PIPE 5
+
+# define READ 0
+# define WRITE 1
 
 typedef struct s_env
 {
@@ -44,6 +48,7 @@ typedef struct  s_token
 
 typedef struct  s_command
 {
+    int					cmd_nb;
 	t_token	            *args;
 	t_token	            *inputs;
     _Bool               inv_file;
@@ -60,6 +65,7 @@ typedef struct s_master
     t_command	*commands_list;
     int         std_in;
     int         std_out;
+    int         fd[2];
 }   t_master;
 
 //ENVIROMENT
@@ -110,8 +116,14 @@ _Bool	validate_file(char *path);
 void    prep_next_line(t_master *master);
 
 //REDIRECTIONS
-_Bool   handle_redirs(t_command *cmd);
+_Bool   handle_redirs(t_command *cmd, t_master *master);
 void	reset_redirs(t_master *master);
+void    init_redirs(t_master *master);
+void	adjust_redirs(t_command *cmd, t_master *master);
+void    close_init_redirs(t_master *master);
+void	handle_outputs(t_command *cmd, t_master *master);
+int		input_func(t_command *cmd, t_master *master);
+int		output_func(t_command *cmd, t_master *master);
 
 
 //EXECUTE
