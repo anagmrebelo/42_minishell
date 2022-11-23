@@ -130,8 +130,8 @@ int		output_func(t_command *cmd, t_master *master);
 char    **find_path(t_master *master);
 char    *get_command(char **path, char *cmd);
 char    **token_to_array(t_token *token);
-int     exec_bin(t_master *master);
-int     exec(t_master *master);
+int     exec_bin(t_master *master, t_command *cmd);
+int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
 
 

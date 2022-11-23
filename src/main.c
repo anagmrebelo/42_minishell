@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **enviroment)
 						while (cmd)
 						{
 							if (handle_redirs(cmd, master))
-								exec(master);
+								exec(master, cmd);
 							adjust_redirs(cmd, master);
 							cmd = cmd->next;
 						}

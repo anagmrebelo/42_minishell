@@ -96,10 +96,10 @@ char    **token_to_array(t_token *token)
 
 //ejecuta los comandos en un child process
 
-int exec_bin(t_master *master)
+int exec_bin(t_master *master, t_command *cmd)
 {
     char    **path;
-    char    **str;
+//    char    **str;
     char    *command;
     char    **env;
     pid_t   pid;
@@ -109,11 +109,11 @@ int exec_bin(t_master *master)
         printf("error pid\n");
     if (pid == 0)
     {
-        str = token_to_array(master->token_list);
+//        str = token_to_array(master->token_list);
 	    path = find_path(master);
-	    command = get_command(path, master->token_list->str);
+	    command = get_command(path, cmd->args_char[0]);
 	    env = env_to_array(master->env);
-        if (execve(command, str, env) == -1)
+        if (execve(command, cmd->args_char, env) == -1)
             printf("error execve\n");
     }
     else
@@ -142,11 +142,11 @@ int is_builtin(char *command)
 
 }
 
-int exec(t_master *master)
+int exec(t_master *master, t_command *cmd)
 {
     if (is_builtin(master->token_list->str))
         print_list_tokens(master->token_list);
     else
-        exec_bin(master);
+        exec_bin(master, cmd);
     return (0);
 }
