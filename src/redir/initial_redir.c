@@ -20,42 +20,24 @@ void	init_redirs(t_master *master)
  * Sets STDIN to either default, pipe or token from cmd->inputs
 */
 _Bool	handle_redirs(t_command *cmd, t_master *master)
-{
-//	int	fd_input;
-//	int	fd_output;
-
+{	
+	close(master->fd[READ]);
 	handle_outputs(cmd, master);
 	if(cmd->inv_file)
-		return (0);
-	close(master->fd[READ]);
+	{
+		close(master->fd[WRITE]);
+		exit(1);//correct
+	}
+	if(cmd->inputs)
+	{
+		dup2(last_token(cmd->inputs)->fd, STDIN_FILENO);
+		close(last_token(cmd->inputs)->fd);
+	}
 	if(cmd->cmd_nb != master->numCommands)
 		dup2(master->fd[WRITE], STDOUT_FILENO);
 	close(master->fd[WRITE]);
 	return (1);
 }
-
-// int	input_func(t_command *cmd, t_master *master)
-// {
-// 	if (cmd->inputs)
-// 		printf("FD_INPUT: %s\n", last_token(cmd->inputs)->str);
-// 	else if(cmd->cmd_nb != 1)
-// 		printf("FD_INPUT: PIPE\n");
-// 	else
-// 		printf("FD_INPUT: STDIN_FILENO\n");
-// 	return (dup(master->std_in));
-// }
-
-// int	output_func(t_command *cmd, t_master *master)
-// {
-// 	if (cmd->outputs)
-// 		printf("FD_OUTPUT: %s\n", last_token(cmd->outputs)->str);
-// 	else if(cmd->cmd_nb != master->numCommands)
-// 		printf("FD_OUTPUT: PIPE\n");
-// 	else
-// 		printf("FD_OUTPUT: STDOUT_FILENO\n");
-// 	return (dup(master->std_out));
-// }
-
 
 void	handle_pipe(t_master *master, t_command *cmd)
 {
@@ -64,4 +46,14 @@ void	handle_pipe(t_master *master, t_command *cmd)
 	close(master->fd[READ]);
 	pipe(master->fd);
 	return ;
+}
+
+void    prep_next_line(t_master *master)
+{
+	close(master->fd[READ]);
+	dup2(master->std_in, STDIN_FILENO);
+    free_token_list(master->token_list);
+	master->token_list = NULL;
+	free_commands(master);
+	close_init_redirs(master);
 }

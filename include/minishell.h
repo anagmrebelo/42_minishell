@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/25 22:09:37 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:52:42 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ _Bool	validate_file(char *path);
 void    prep_next_line(t_master *master);
 
 //REDIRECTIONS
-_Bool   handle_redirs(t_command *cmd, t_master *master);
+_Bool	handle_redirs(t_command *cmd, t_master *master);
 void	handle_pipe(t_master *master, t_command *cmd);
 void    init_redirs(t_master *master);
 void    close_init_redirs(t_master *master);

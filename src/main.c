@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/25 22:12:15 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:53:35 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,18 @@ void	minishell(char *line, t_master *master)
 		cmd = master->commands_list;
 		while (cmd)
 		{
-			if (cmd->cmd_nb != 1)
-				dup2(master->fd[READ], STDIN_FILENO);
-			close(master->fd[READ]);
-			pipe(master->fd);
+			handle_pipe(master, cmd);
 			master->pid = fork();
 			if (master->pid < 0)
-				break;	//Correct
+				break ; //Correct + close fd[write]
 			if (master->pid == 0)
-				if (handle_redirs(cmd, master))
+				if(handle_redirs(cmd, master))
 					exec(master, cmd);
 			close(master->fd[WRITE]);
 			waitpid(master->pid, NULL, 0);
 			cmd = cmd->next;
 		}
-		close(master->fd[READ]);
-		dup2(master->std_in, STDIN_FILENO);
 		prep_next_line(master);
-		close_init_redirs(master);
 	}
 }
 
