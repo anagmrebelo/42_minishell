@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/08 12:18:58 by mrollo           ###   ########.fr       */
+/*   Updated: 2022/11/25 20:14:07 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 //Toma la variable $PATH y la separa (con split)
@@ -96,56 +97,45 @@ char    **token_to_array(t_token *token)
 
 //ejecuta los comandos en un child process
 
-int exec_bin(t_master *master, t_command *cmd)
+void exec_bin(t_master *master, t_command *cmd)
 {
     char    **path;
-//    char    **str;
     char    *command;
     char    **env;
-    pid_t   pid;
 
-    pid = fork();
-    if (pid < 0)
-        printf("error pid\n");
-    if (pid == 0)
-    {
-//        str = token_to_array(master->token_list);
-	    path = find_path(master);
-	    command = get_command(path, cmd->args_char[0]);
-	    env = env_to_array(master->env);
-        if (execve(command, cmd->args_char, env) == -1)
-            printf("error execve\n");
-    }
-    else
-        waitpid(pid, NULL, 0); //cambiar NULL x global
-    return (0);
+	path = find_path(master);
+	command = get_command(path, cmd->args_char[0]);
+	env = env_to_array(master->env);
+	execve(command, cmd->args_char, env);	
+	exit(1);// Adjust
 }
 
 int is_builtin(char *command)
 {
+	if(1)
+		return (0);
     if (strcmp(command, "echo") == 0)
-        return (1);
+		return (1);
     if (ft_strcmp(command, "cd") == 0)
-        return (1);
+		return (1);
     if (ft_strcmp(command, "pwd") == 0)
-        return (1);
+		return (1);
     if (ft_strcmp(command, "export") == 0)
-        return (1);
-    if (ft_strcmp(command, "unset") == 0)
-        return (1);
+		return (1);
+	if (ft_strcmp(command, "unset") == 0)
+		return (1);
     if (ft_strcmp(command, "env") == 0)
         return (1);
     if (ft_strcmp(command, "exit") == 0)
         return (1);
     else
         return (0);
-
 }
 
 int exec(t_master *master, t_command *cmd)
 {
-    if (is_builtin(master->token_list->str))
-        print_list_tokens(master->token_list);
+    if (is_builtin(cmd->args_char[0]))
+        print_list_tokens(cmd->args);
     else
         exec_bin(master, cmd);
     return (0);

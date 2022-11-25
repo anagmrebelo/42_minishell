@@ -6,7 +6,7 @@
 #    By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/10/17 15:28:40 by mrollo           ###   ########.fr        #
+#    Updated: 2022/11/25 14:19:29 by arebelo          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 # **************************************************************************** #
@@ -69,7 +69,7 @@ DEP				= $(addsuffix .d, $(basename $(OBJ)))
 
 COMPILE			= gcc -c
 LINK			= gcc
-CFLAGS			= -Wall -Werror -Wextra -MMD $(INC)
+CFLAGS			= -Wall -Werror -Wextra -MMD -g $(INC)
 LIBC			= ar -rcs
 RM_FILE			= rm -f
 RM_DIR			= rm -rf

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/19 16:37:19 by mrollo           ###   ########.fr       */
+/*   Updated: 2022/11/25 22:09:37 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
@@ -30,6 +31,14 @@
 # define READ 0
 # define WRITE 1
 
+# define RED     "\x1b[31m"
+# define GREEN   "\x1b[32m"
+# define YELLOW  "\x1b[33m"
+# define BLUE    "\x1b[34m"
+# define MAGENTA "\x1b[35m"
+# define CYAN    "\x1b[36m"
+# define RESET   "\x1b[0m"
+
 typedef struct s_env
 {
 	char *content;
@@ -41,7 +50,8 @@ typedef struct s_env
 typedef struct  s_token
 {
     char            *str;
-    int             type; 
+    int             type;
+	int				fd;
     struct s_token  *next;
     struct s_token  *prev;
 } t_token;
@@ -66,7 +76,14 @@ typedef struct s_master
     int         std_in;
     int         std_out;
     int         fd[2];
+	_Bool		status;
+	int			pid;
 }   t_master;
+
+//MAIN
+_Bool	add_hist_exit_check(char *line);
+void	minishell(char *line, t_master *master);
+void	clean_free(t_master *master);
 
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
@@ -117,9 +134,8 @@ void    prep_next_line(t_master *master);
 
 //REDIRECTIONS
 _Bool   handle_redirs(t_command *cmd, t_master *master);
-void	reset_redirs(t_master *master);
+void	handle_pipe(t_master *master, t_command *cmd);
 void    init_redirs(t_master *master);
-void	adjust_redirs(t_command *cmd, t_master *master);
 void    close_init_redirs(t_master *master);
 void	handle_outputs(t_command *cmd, t_master *master);
 int		input_func(t_command *cmd, t_master *master);
@@ -130,7 +146,7 @@ int		output_func(t_command *cmd, t_master *master);
 char    **find_path(t_master *master);
 char    *get_command(char **path, char *cmd);
 char    **token_to_array(t_token *token);
-int     exec_bin(t_master *master, t_command *cmd);
+void     exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
 
