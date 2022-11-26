@@ -10,13 +10,13 @@ void	add_type(t_token *new)
 	{
 		if (!ft_strncmp(new->str, ">", find_max_len(new->str, ">")))	// cambiar funcion de strncmp
 			new->type = OUTPUT;
-		else if (!ft_strncmp(new->str, ">>", find_max_len(new->str, ">>")))
+		else if (!ft_strcmp(new->str, ">>"))
 			new->type = APPEND;
-		else if (!ft_strncmp(new->str, "<", find_max_len(new->str, "<")))
+		else if (!ft_strcmp(new->str, "<"))
 			new->type = INPUT;
-		else if (!ft_strncmp(new->str, "<<", find_max_len(new->str, "<<")))
+		else if (!ft_strcmp(new->str, "<<"))
 			new->type = HEREDOC;
-		else if (!ft_strncmp(new->str, "|", find_max_len(new->str, "|")))
+		else if (!ft_strcmp(new->str, "|"))
 			new->type = PIPE;
 		else
 			new->type = ARG;

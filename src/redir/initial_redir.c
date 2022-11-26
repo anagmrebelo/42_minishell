@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initial_redir.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
+/*   Updated: 2022/11/26 19:21:52 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /**
@@ -22,19 +34,14 @@ void	init_redirs(t_master *master)
 _Bool	handle_redirs(t_command *cmd, t_master *master)
 {	
 	close(master->fd[READ]);
-	handle_outputs(cmd, master);
+	handle_outputs(cmd);
 	if(cmd->inv_file)
 	{
 		close(master->fd[WRITE]);
 		exit(1);//correct
 	}
-	if(cmd->inputs)
-	{
-		dup2(last_token(cmd->inputs)->fd, STDIN_FILENO);
-		close(last_token(cmd->inputs)->fd);
-	}
-	if(cmd->cmd_nb != master->numCommands)
-		dup2(master->fd[WRITE], STDOUT_FILENO);
+	redir_inputs(cmd);
+	redir_outputs(cmd, master);
 	close(master->fd[WRITE]);
 	return (1);
 }

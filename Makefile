@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/11/25 22:23:52 by arebelo          ###   ########.fr        #
+#    Updated: 2022/11/26 17:00:51 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC				= main.c\
 				redir/initial_redir.c\
 				redir/final_redir.c\
 				redir/outputs.c\
+				redir/inputs.c\
 				utils/max_len.c\
 				utils/join_free.c\
 				utils/free_double_array.c\

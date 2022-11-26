@@ -36,14 +36,12 @@ void command_separation(t_master *master)
 			}
 	 		temp = temp->next;
 	 	}
-		// create_array(pipe);
 		cmd->args_char = token_to_array(cmd->args);
 	 	insert_in_list(cmd, master);
 	 	if(temp && temp->type == PIPE)
 	 		temp = temp->next;
 		i++;
 	}
-	//print_commands(master); //AUX
 	return ;
 }
 
@@ -65,15 +63,6 @@ int	count_commands(t_master *master)
 		temp = temp->next;
 	}
 	return (i);
-}
-
-/**
- * Function that evaluates if path to a file is valid
-*/
-_Bool	validate_file(char *path)
-{
-	(void) path;
-	return (1);
 }
 
 /**

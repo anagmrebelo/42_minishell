@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42barcelo>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/10/18 19:29:04 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/26 17:38:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	tokenize(char *line, t_master *master)
 	if (i == 0)
 	{
 		if (line[i] == '<' && line[i + 1] && line[i + 1] == '<')
+			i++;
+		else if (line[i] == '>' && line[i + 1] && line[i + 1] == '>')
 			i++;
 		i++;
 	}
