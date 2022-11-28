@@ -25,25 +25,25 @@ int	main(int argc, char **argv, char **enviroment)
 		while (!master->status)
 		{
 			master->line = readline(YELLOW"minishell: "RESET);
-			master->status = add_hist_exit_check(master->line);
+			master->status = add_hist_exit_check(master);
 			if (master->status)
 				break ;
 			minishell(master->line, master);
 		}
-		clean_free(master);
+		//clean_free(master);
+		free_master(master);
 	}
 }
 
-_Bool	add_hist_exit_check(char *line)
+_Bool	add_hist_exit_check(t_master *master)
 {
-	add_history(line);
-	if (line && ft_strcmp(line, "exit") == 0)
+	add_history(master->line);
+	if (master->line && ft_strcmp(master->line, "exit") == 0)
 	{
-		if(line)
-			free(line);
+		free_line(master);
 		return (1);
 	}
-	if (isatty(STDIN_FILENO) == 0 && !line)
+	if (isatty(STDIN_FILENO) == 0 && !master->line)
 		return(1);
 	return (0);
 }

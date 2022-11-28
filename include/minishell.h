@@ -82,7 +82,7 @@ typedef struct s_master
 }   t_master;
 
 //MAIN
-_Bool	add_hist_exit_check(char *line);
+_Bool	add_hist_exit_check(t_master *master);
 void	minishell(char *line, t_master *master);
 void	clean_free(t_master *master);
 
@@ -162,6 +162,7 @@ void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
 //FREE
+void    free_master(t_master *master);
 void    free_line(t_master *master);
 
 

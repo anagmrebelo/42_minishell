@@ -22,8 +22,7 @@ _Bool	parsing(char *line, t_master *master)
 	if(!check_quotes(line))
 	{
 		printf("Error: Quotes not closed\n");	//change to perror
-		if(line)
-			free(line);
+		free_line(master);
 		return (0);
 	}
 	while (line[i])
@@ -32,11 +31,7 @@ _Bool	parsing(char *line, t_master *master)
 	{
 		add_types_redir(master);
 		clean_tokens(master);
-		if(line)
-		{
-			free(line);
-			line = NULL;
-		}
+		free_line(master);
 		check_heredoc(master);
 		command_separation(master);
 		return (1);
