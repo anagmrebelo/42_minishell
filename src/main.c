@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/26 19:22:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:59:49 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **enviroment)
 _Bool	add_hist_exit_check(char *line)
 {
 	add_history(line);
-	if (ft_strcmp(line, "exit") == 0)	//ERROR ESTA AQUI
+	if (line && ft_strcmp(line, "exit") == 0)
 	{
 		if(line)
 			free(line);
