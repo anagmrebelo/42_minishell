@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char **enviroment)
 {
 	t_master	*master;
-	char		*line;
 
 	if (argc >= 1 && argv)
 	{
@@ -25,11 +24,11 @@ int	main(int argc, char **argv, char **enviroment)
 		init_env(master, enviroment);
 		while (!master->status)
 		{
-			line = readline(YELLOW"minishell: "RESET);
-			master->status = add_hist_exit_check(line);
+			master->line = readline(YELLOW"minishell: "RESET);
+			master->status = add_hist_exit_check(master->line);
 			if (master->status)
 				break ;
-			minishell(line, master);
+			minishell(master->line, master);
 		}
 		clean_free(master);
 	}

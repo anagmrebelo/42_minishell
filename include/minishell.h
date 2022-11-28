@@ -69,6 +69,7 @@ typedef struct  s_command
 
 typedef struct s_master
 {
+    char        *line;
     t_env	    *env;
     t_token	    *token_list;
     int         numCommands;
@@ -113,6 +114,7 @@ _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
 void	add_type(t_token *new);
 void	add_types_redir(t_master *master);
+void	check_heredoc(t_master *master);
 char	*quotes_clean(t_token *new);
 void	quotes_update(t_token *new);
 void    add_list(t_master *list, t_token *item);
@@ -158,6 +160,9 @@ void exec_one(t_master *master, t_command *cmd);
 void    print_list_tokens(t_token *list);
 void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
+
+//FREE
+void    free_line(t_master *master);
 
 
 //Utils

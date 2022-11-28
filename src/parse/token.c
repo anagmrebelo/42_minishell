@@ -56,6 +56,7 @@ void	free_token(t_token *item)
 	if (item)
 	{
 		free(item->str);
+		item->str = NULL;
 		free(item);
 	}
 }

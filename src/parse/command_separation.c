@@ -152,5 +152,9 @@ void	free_command(t_command *command)
 	free_token_list(command->inputs);
 	free_token_list(command->outputs);
 	free_double_array(command->args_char);
+	command->args = NULL;
+	command->inputs = NULL;
+	command->outputs = NULL;
+	command->args_char = NULL;
 }
 

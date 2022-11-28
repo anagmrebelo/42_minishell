@@ -37,6 +37,7 @@ _Bool	parsing(char *line, t_master *master)
 			free(line);
 			line = NULL;
 		}
+		check_heredoc(master);
 		command_separation(master);
 		return (1);
 	}
@@ -126,3 +127,22 @@ void	clean_tokens(t_master *master)
 		temp = temp->next;
 	}
 }
+
+/**
+ * Checks the line for heredoc
+*/
+void	check_heredoc(t_master *master)
+{
+	t_token	*token;
+
+	token = master->token_list;
+	while(token)
+	{
+		if(token->type == HEREDOC)
+			printf("HEREDOC\n");	//@mrollo cambiar printf por tu funcion
+		token = token->next;
+	}
+}
+
+// @mrollo: la funcion deberia al final dejar el token->str con el nombre del archivo oculto
+// @mrollo: no olvidar de hacer free(token->str) antes de darle un nuevo valor

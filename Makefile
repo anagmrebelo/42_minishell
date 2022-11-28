@@ -49,6 +49,7 @@ SRC				= main.c\
 				parse/token_delete.c\
 				parse/type.c\
 				parse/command_separation.c\
+				parse/free.c\
 				parse/aux_func.c\
 				redir/initial_redir.c\
 				redir/final_redir.c\
