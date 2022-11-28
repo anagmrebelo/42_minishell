@@ -106,6 +106,7 @@ void exec_bin(t_master *master, t_command *cmd)
 	path = find_path(master);
 	command = get_command(path, cmd->args_char[0]);
 	env = env_to_array(master->env);
+
 	execve(command, cmd->args_char, env);	
 	exit(1);// Adjust
 }
@@ -136,6 +137,8 @@ int exec(t_master *master, t_command *cmd)
 {
     if (is_builtin(cmd->args_char[0]))
         print_list_tokens(cmd->args);
+    else if (master->numCommands == 1)
+        exec_one(master, cmd);
     else
         exec_bin(master, cmd);
     return (0);

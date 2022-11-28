@@ -38,11 +38,14 @@ int	main(int argc, char **argv, char **enviroment)
 _Bool	add_hist_exit_check(char *line)
 {
 	add_history(line);
-	if (ft_strcmp(line, "exit") == 0)
+	if (ft_strcmp(line, "exit") == 0)	//ERROR ESTA AQUI
 	{
-		free(line);
+		if(line)
+			free(line);
 		return (1);
 	}
+	if (isatty(STDIN_FILENO) == 0 && !line)
+		return(1);
 	return (0);
 }
 
@@ -53,19 +56,24 @@ void	minishell(char *line, t_master *master)
 	init_redirs(master);
 	if (parsing(line, master))
 	{
-		cmd = master->commands_list;
-		while (cmd)
+		if(master->numCommands == 1)
+			minishell_one(master);
+		else
 		{
-			handle_pipe(master, cmd);
-			master->pid = fork();
-			if (master->pid < 0)
-				break ; //Correct + close fd[write]
-			if (master->pid == 0)
-				if(handle_redirs(cmd, master))
-					exec(master, cmd);
-			close(master->fd[WRITE]);
-			waitpid(master->pid, NULL, 0);
-			cmd = cmd->next;
+			cmd = master->commands_list;
+			while (cmd)
+			{
+				handle_pipe(master, cmd);
+				master->pid = fork();
+				if (master->pid < 0)
+					break ; //Correct + close fd[write]
+				if (master->pid == 0)
+					if(handle_redirs(cmd, master))
+						exec(master, cmd);
+				close(master->fd[WRITE]);
+				waitpid(master->pid, NULL, 0);
+				cmd = cmd->next;
+			}
 		}
 		prep_next_line(master);
 	}
@@ -76,4 +84,43 @@ void	clean_free(t_master *master)
 	free_env_lst(master->env);
 	free (master);
 	return ;
+}
+
+void	minishell_one(t_master *master)
+{
+	t_command *cmd;
+
+	cmd = master->commands_list;
+	close(master->fd[READ]);
+	handle_outputs(cmd);
+	if(cmd->inv_file)
+	{
+		close(master->fd[WRITE]);
+		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
+		return ;
+	}
+	exec(master, cmd);
+	return ;
+}
+
+void exec_one(t_master *master, t_command *cmd)
+{
+    char    **path;
+    char    *command;
+    char    **env;
+	int	 	pid;
+
+	pid = fork();
+	//protect
+	if (pid == 0)
+	{
+		redir_inputs(cmd);
+		redir_outputs(cmd, master);
+		path = find_path(master);
+		command = get_command(path, cmd->args_char[0]);
+		env = env_to_array(master->env);
+		execve(command, cmd->args_char, env);	
+		exit(1);// Adjust
+	}
+	waitpid(pid, NULL, 0);
 }

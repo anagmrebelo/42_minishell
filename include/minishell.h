@@ -131,6 +131,7 @@ void	free_commands(t_master *master);
 void	free_command(t_command *pipe);    
 _Bool	validate_file(char *path);
 void    prep_next_line(t_master *master);
+void	minishell_one(t_master *master);
 
 //REDIRECTIONS
 _Bool	handle_redirs(t_command *cmd, t_master *master);
@@ -149,6 +150,8 @@ char    **token_to_array(t_token *token);
 void     exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
+
+void exec_one(t_master *master, t_command *cmd);
 
 
 //Aux to delete before submitting

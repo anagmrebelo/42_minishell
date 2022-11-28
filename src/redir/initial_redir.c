@@ -38,6 +38,7 @@ _Bool	handle_redirs(t_command *cmd, t_master *master)
 	if(cmd->inv_file)
 	{
 		close(master->fd[WRITE]);
+		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
 		exit(1);//correct
 	}
 	redir_inputs(cmd);

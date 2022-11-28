@@ -32,6 +32,7 @@ void command_separation(t_master *master)
 			if(temp->type == INPUT && !validate_file(temp->str))
 			{
 				cmd->inv_file = 1;
+				temp = NULL;
 				break;
 			}
 	 		temp = temp->next;

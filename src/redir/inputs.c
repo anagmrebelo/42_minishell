@@ -27,10 +27,7 @@ void	redir_inputs(t_command *cmd)
 				close(last_token(cmd->inputs)->fd);
 			}
 			else
-			{
-				printf("minishell: %s: No such file or directory", last_token(cmd->inputs)->str);
 				exit(1); //handle error
-			}
 		}
 }
 
