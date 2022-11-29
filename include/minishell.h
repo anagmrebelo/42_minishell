@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 09:47:13 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 12:30:55 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 
 # define READ 0
 # define WRITE 1
+
+# define I 0
+# define J 1
 
 # define RED     "\x1b[31m"
 # define GREEN   "\x1b[32m"
@@ -107,8 +110,16 @@ void    print_sort_env(t_env *env);
 _Bool	parsing(char * line, t_master *master);
 int		tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size, t_master *master);
+
 void	env_update(t_token *new, t_master *master);
+char	*aux1_env(t_token *new, t_master *master, char *line, int *c);
+char	*aux2_env(t_token *new, t_master *master, char *line, int *c);
+char	*aux3_env(t_token *new, t_master *master, char *line, int *c);
+char	*aux4_env(t_token *new, t_master *master, char *line, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
+char	*find_aux(char *str, t_master *master);
+_Bool	ok(char c);
+
 _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
 void	add_type(t_token *new);
@@ -135,10 +146,12 @@ void    prep_next_line(t_master *master);
 void	minishell_one(t_master *master);
 
 //REDIRECTIONS
+void    init_redirs(t_master *master);
+void	init_pipe(t_master *master);
+void    close_init_redirs(t_master *master);
+
 _Bool	handle_redirs(t_command *cmd, t_master *master);
 void	handle_pipe(t_master *master, t_command *cmd);
-void    init_redirs(t_master *master);
-void    close_init_redirs(t_master *master);
 void	handle_outputs(t_command *cmd);
 void	redir_inputs(t_command *cmd);
 void	redir_outputs(t_command *cmd, t_master *master);
@@ -163,10 +176,15 @@ size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 //FREE
 void    free_master(t_master *master);
 void    free_line(t_master *master);
+void	clean_free_pipe_read(t_master *master);
 
 
 //Utils
 char			*join_free(char *s1, char *s2);
 unsigned int	find_max_len(char *s1, char *s2);
 void	        free_double_array(char **table);
+size_t			ft_strlen_null(const char *str);
+char			*join_double_free(char *s1, char *s2);
+char			*join_free_s1(char *s1, char *s2);
+char			*join_free_s2(char *s1, char *s2);
 #endif

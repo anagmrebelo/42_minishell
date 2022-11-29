@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/26 19:21:52 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 10:42:23 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,27 @@ void	init_redirs(t_master *master)
 {
 	master->std_in = dup(STDIN_FILENO);
 	master->std_out = dup(STDOUT_FILENO);
+	if (master->std_in == -1 || master->std_out == -1)
+	{
+		printf("Error on dup\n");
+		close_init_redirs(master);
+		free_master(master);
+		exit(1);
+	}
+}
+
+/**
+ * Create pipe and exit if error
+*/
+void	init_pipe(t_master *master)
+{
 	if(pipe(master->fd) == -1)
-		printf("Error or creating pipe - function init redirs\n");	// Change to exit program
+	{
+		printf("Error on creating pipe - function init redirs\n");	// Change to exit program
+		close_init_redirs(master);
+		free_master(master);
+		exit(1);
+	}
 	close(master->fd[WRITE]);
 }
 
@@ -63,5 +82,4 @@ void    prep_next_line(t_master *master)
     free_token_list(master->token_list);
 	master->token_list = NULL;
 	free_commands(master);
-	close_init_redirs(master);
 }

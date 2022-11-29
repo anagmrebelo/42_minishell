@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/11/26 17:00:51 by arebelo          ###   ########.fr        #
+#    Updated: 2022/11/29 12:06:18 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC				= main.c\
 				parse/token.c\
 				parse/quotes.c\
 				parse/variables_env.c\
+				parse/find_var.c\
 				parse/token_delete.c\
 				parse/type.c\
 				parse/command_separation.c\

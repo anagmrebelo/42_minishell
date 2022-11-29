@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 10:08:27 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 10:45:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **enviroment)
 		if (!master)
 			return (1);
 		init_env(master, enviroment);
+		init_redirs(master);
 		while (!master->status)
 		{
 			master->line = readline(YELLOW"minishell: "RESET);
@@ -30,6 +31,7 @@ int	main(int argc, char **argv, char **enviroment)
 				break ;
 			minishell(master->line, master);
 		}
+		close_init_redirs(master);
 		free_master(master);
 	}
 	return (0);
@@ -57,7 +59,7 @@ void	minishell(char *line, t_master *master)
 {
 	t_command	*cmd;
 
-	init_redirs(master);
+	init_pipe(master);
 	if (parsing(line, master))
 	{
 		if (master->numCommands == 1)

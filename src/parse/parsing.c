@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/26 17:38:24 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 12:16:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if(!check_quotes(line))
 	{
-		printf("Error: Quotes not closed\n");	//change to perror
+		printf("minishell: syntax error\n");
 		free_line(master);
 		return (0);
 	}
@@ -40,9 +40,12 @@ _Bool	parsing(char *line, t_master *master)
 	return (0);
 }
 
+/**
+ * Returns true if space, tab, pipe or redirs
+*/
 _Bool	isDelimeter(char c)
 {
-	if (c == ' ' || c == '|' || c == '<' || c == '>')	// add tabs
+	if (c == ' ' || c == '	' || c == '|' || c == '<' || c == '>')	//@arebelo create function isspace
 		return (1);
 	return (0); 
 }
@@ -95,12 +98,10 @@ t_token	*new_token(char *line, int size, t_master *master)
 
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
-		return (NULL);
+		clean_free_pipe_read(master);
 	new->str = ft_substr(line, 0, size);
-	if (new->str == NULL)
-	{
-		//Deal with error
-	}
+	if (!new->str)
+		clean_free_pipe_read(master);
 	add_type(new);
 	env_update(new, master);
 	quotes_update(new);
