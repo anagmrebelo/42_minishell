@@ -32,7 +32,7 @@ _Bool	check_quotes(char *line)
 /**
  * Function that creates a new char* cleaned of quotes 
 */
-char	*quotes_clean(t_token *new)
+char	*quotes_clean(t_token *new, t_master *master)
 {
 	int		i;
 	int		j;
@@ -41,7 +41,7 @@ char	*quotes_clean(t_token *new)
 	i = 0;
 	clean = ft_calloc((ft_strlen(new->str) + 1), sizeof(char));
 	if (!clean)
-		return (NULL);
+		clean_free_pipe_read(master);
 	while(new->str[i])
 	{
 		j = i;
@@ -61,35 +61,16 @@ char	*quotes_clean(t_token *new)
 /**
  * Function that frees initial str of token with quotes and also elimiates excessive memory in char* from quotes_clean
 */
-void	quotes_update(t_token *new)
+void	quotes_update(t_token *new, t_master *master)
 {
 	char	*temp;
 	
 	temp = new->str;
-	new->str = quotes_clean(new);
+	new->str = quotes_clean(new, master);
 	free(temp);
 	temp = new->str;
 	new->str = ft_strdup(new->str);
 	free(temp);
-}
-
-
-
-size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize)
-{
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	length;
-
-	i = 0;
-	j = ft_strlen(dst);
-	length = ft_strlen(dst) + ft_strlen(src);
-	while (src[i] && j < dstsize - 1)
-	{
-		dst[j] = src[i];
-		i++;
-		j++;
-	}
-	dst[j] = '\0';
-	return (length);
+	if(!new->str)
+		clean_free_pipe_read(master);
 }

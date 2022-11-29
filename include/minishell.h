@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 12:30:55 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:10:26 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,31 +118,39 @@ char	*aux3_env(t_token *new, t_master *master, char *line, int *c);
 char	*aux4_env(t_token *new, t_master *master, char *line, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 char	*find_aux(char *str, t_master *master);
+char	*find_aux2(char *str, t_master *master);
 _Bool	ok(char c);
 
+char	*quotes_clean(t_token *new, t_master *master);
+void	quotes_update(t_token *new, t_master *master);
 _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
+
+
 void	add_type(t_token *new);
 void	add_types_redir(t_master *master);
+
 void	check_heredoc(t_master *master);
-char	*quotes_clean(t_token *new);
-void	quotes_update(t_token *new);
+
 void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
+t_token	*copy_token(t_token *src, t_master *master);
+
 void    free_token(t_token *item);
 void    free_token_list(t_token *ls);
 void	clean_tokens(t_master *master);
 void    delete_token(t_token *token, t_master *master);
-t_token	*copy_token(t_token *src);
+void	free_commands(t_master *master);
+void	free_command(t_command *pipe);
+void	prep_next_line(t_master *master);
+
 void	command_separation(t_master *master);
 int     count_commands(t_master *master);
-void	add_to_command(t_token *member, t_token **list);
+void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
-void	free_commands(t_master *master);
-void	free_command(t_command *pipe);    
+   
 _Bool	validate_file(char *path);
-void    prep_next_line(t_master *master);
 void	minishell_one(t_master *master);
 
 //REDIRECTIONS
@@ -160,7 +168,7 @@ void	redir_outputs(t_command *cmd, t_master *master);
 //EXECUTE
 char    **find_path(t_master *master);
 char    *get_command(char **path, char *cmd);
-char    **token_to_array(t_token *token);
+char    **token_to_array(t_token *token, t_master *master);
 void     exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);

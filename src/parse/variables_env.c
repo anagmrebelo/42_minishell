@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 12:16:45 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:29:06 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	*aux1_env(t_token *new, t_master *master, char *line, int *c)
 		clean_free_pipe_read(master);
 	line = join_double_free(line, temp);
 	if (!line)
+	{
+		free(temp);
 		clean_free_pipe_read(master);
+	}	
 	c[J] = ++c[I];
 	return (line);
 }
@@ -69,7 +72,10 @@ char	*aux2_env(t_token *new, t_master *master, char *line, int *c)
 		clean_free_pipe_read(master);
 	line = join_double_free(line, find_var(temp, master, c[J], new->str));
 	if (!line)
+	{
+		free(temp);
 		clean_free_pipe_read(master);
+	}
 	c[J] = c[I] + 1;
 	return (line);
 }
@@ -83,7 +89,10 @@ char	*aux3_env(t_token *new, t_master *master, char *line, int *c)
 		clean_free_pipe_read(master);
 	line = join_double_free(line, find_var(temp, master, c[J], new->str));
 	if (!line)
+	{
+		free(temp);
 		clean_free_pipe_read(master);
+	}
 	c[J] = c[I]--;
 	return (line);
 }
@@ -97,6 +106,9 @@ char	*aux4_env(t_token *new, t_master *master, char *line, int *c)
 		clean_free_pipe_read(master);
 	line = join_double_free(line, temp);
 	if (!line)
+	{
+		free(temp);
 		clean_free_pipe_read(master);
+	}
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 10:42:23 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:43:07 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,4 @@ void	handle_pipe(t_master *master, t_command *cmd)
 	close(master->fd[READ]);
 	pipe(master->fd);
 	return ;
-}
-
-void    prep_next_line(t_master *master)
-{
-	close(master->fd[READ]);
-	dup2(master->std_in, STDIN_FILENO);
-    free_token_list(master->token_list);
-	master->token_list = NULL;
-	free_commands(master);
 }

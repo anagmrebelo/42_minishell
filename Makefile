@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/11/29 12:06:18 by arebelo          ###   ########.fr        #
+#    Updated: 2022/11/29 14:19:30 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC				= main.c\
 				utils/max_len.c\
 				utils/join_free.c\
 				utils/free_double_array.c\
+				utils/strlcat.c\
 				exec/exec.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

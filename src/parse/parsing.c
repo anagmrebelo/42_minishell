@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 12:16:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:58:28 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ _Bool	parsing(char *line, t_master *master)
 	int	i;
 
 	i = 0;
-	if(!check_quotes(line))
+	if (!check_quotes(line))
 	{
-		printf("minishell: syntax error\n");
-		free_line(master);
+		printf("minishell: syntax error\n"); //Error
 		return (0);
 	}
 	while (line[i])
@@ -30,13 +29,11 @@ _Bool	parsing(char *line, t_master *master)
 	if (check_syntax(master))
 	{
 		add_types_redir(master);
-		clean_tokens(master);
-		free_line(master);
-		check_heredoc(master);
+		check_heredoc(master);	//@arebelo check memory leaks
 		command_separation(master);
 		return (1);
 	}
-	printf("Syntax Error\n");	// Handle error
+	printf("minishell: syntax error\n"); //Error
 	return (0);
 }
 
@@ -80,7 +77,7 @@ int	tokenize(char *line, t_master *master)
 	new = new_token(line, i, master);
 	if (new)
 		add_list(master, new);
-	while (line[i] && line[i] == ' ')	//add tabs
+	while (line[i] && line[i] == ' ')	//@arebelo function isspace
 		i++;
 	return (i);
 }
@@ -101,10 +98,13 @@ t_token	*new_token(char *line, int size, t_master *master)
 		clean_free_pipe_read(master);
 	new->str = ft_substr(line, 0, size);
 	if (!new->str)
+	{
+		free(new);
 		clean_free_pipe_read(master);
+	}
 	add_type(new);
 	env_update(new, master);
-	quotes_update(new);
+	quotes_update(new, master);
 	return (new);
 }
 

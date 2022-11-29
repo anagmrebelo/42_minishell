@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 12:32:11 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:13:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 	int		i;
 	int		j;
 	_Bool	allow_update;
-	char	*ll;
 
 	allow_update = 1;
 	i = 0;
@@ -54,30 +53,35 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 	}
 	if (allow_update)
 		return (find_aux(str, master));
-	ll = ft_strjoin("$", str);
-	free(str);
-	return (ll);
+	return (find_aux2(str, master));
 }
 
 char	*find_aux(char *str, t_master *master)
 {
 	t_env	*temp;
-	
-	if (ft_strncmp("$", str, find_max_len("$", str)) == 0)
-	{
-		free(str);
-		return(ft_itoa(getpid()));	// Change for bash pid	GETPID is not allowed
-	}
+	char	*a;
+
 	temp = master->env;
-	while (temp)
+	while (temp && str)
 	{
-		if (ft_strncmp(str, temp->title, find_max_len(str, temp->title)) == 0)
+		if (ft_strcmp(str, temp->title) == 0)
 		{
 			free(str);
-			return (ft_strdup(temp->value));
+			a = ft_strdup(temp->value);
+			if (!a)
+				clean_free_pipe_read(master);
+			return (a);
 		}
 		temp = temp->next;
 	}
 	free(str);
 	return (NULL);
+}
+
+char	*find_aux2(char *str, t_master *master)
+{
+	str = join_free_s2("$", str);
+	if (!str)
+		clean_free_pipe_read(master);
+	return (str);
 }

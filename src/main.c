@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 10:45:46 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 15:40:29 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	minishell(char *line, t_master *master)
 				cmd = cmd->next;
 			}
 		}
-		prep_next_line(master);
 	}
+	prep_next_line(master);
 }
 
 void	minishell_one(t_master *master)

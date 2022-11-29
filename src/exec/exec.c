@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/25 20:14:07 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:10:55 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,6 @@ char    *get_command(char **path, char *cmd)
         i++;
     }
     return (NULL);
-}
-
-//convierte token list en array para pasarlo a execve
-
-char    **token_to_array(t_token *token)
-{
-    char    **token_array;
-    t_token *aux;
-    int len;
-    int i;
-
-    aux = token;
-    len = 0;
-    while (aux != NULL)
-    {
-        len++;
-        aux = aux->next;
-    }
-    //len = env_len(env);
-    token_array = (char **)ft_calloc((len + 1), sizeof(char *));
-    if (!token_array)
-        return (NULL);
-    i = 0;
-    while (i < len)
-    {
-        token_array[i] = ft_strdup(token->str);
-        token = token->next;
-        i++;
-    }
-    //print_array(array_env, len);
-    return (token_array);
 }
 
 //ejecuta los comandos en un child process
