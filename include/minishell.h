@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/26 19:10:20 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/29 09:47:13 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_master
 //MAIN
 _Bool	add_hist_exit_check(t_master *master);
 void	minishell(char *line, t_master *master);
-void	clean_free(t_master *master);
 
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
