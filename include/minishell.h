@@ -134,6 +134,9 @@ _Bool	validate_file(char *path);
 void    prep_next_line(t_master *master);
 void	minishell_one(t_master *master);
 
+//HEREDOC pasarlo a parsing
+int     handle_heredoc(t_token *token, char *limit);
+
 //REDIRECTIONS
 _Bool	handle_redirs(t_command *cmd, t_master *master);
 void	handle_pipe(t_master *master, t_command *cmd);

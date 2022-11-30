@@ -134,7 +134,7 @@ void	check_heredoc(t_master *master)
 	while(token)
 	{
 		if(token->type == HEREDOC)
-			printf("HEREDOC\n");	//@mrollo cambiar printf por tu funcion
+			handle_heredoc(token, token->str);
 		token = token->next;
 	}
 }

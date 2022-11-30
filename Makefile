@@ -58,7 +58,8 @@ SRC				= main.c\
 				utils/max_len.c\
 				utils/join_free.c\
 				utils/free_double_array.c\
-				exec/exec.c
+				exec/exec.c\
+				heredoc/heredoc.c\
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
