@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/30 17:45:40 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:06:27 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_one(t_master *master, t_command *cmd)
 	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
 	if (is_builtin(cmd->args_char[0]))
-        exec_builtin(cmd->args_char[0], cmd, master->env);
+        exec_builtin(cmd->args_char[0], cmd, master->env); //@arebelo check leaks and reset dirs
 	else
         exec_bin_one(master, cmd);
 	reset_redirs_one(master);

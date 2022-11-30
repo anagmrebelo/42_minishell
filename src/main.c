@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/30 17:43:29 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:11:26 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	minishell(char *line, t_master *master)
 	init_pipe(master);
 	if (parsing(line, master))
 	{
-		// if (master->numCommands == 1)
-		// 	minishell_one(master);
-		// else
-		// {
+		if (master->numCommands == 1)
+			minishell_one(master);
+		else
+		{
 			cmd = master->commands_list;
 			while (cmd)
 			{
@@ -81,6 +81,7 @@ void	minishell(char *line, t_master *master)
 				cmd = cmd->next;
 			}
 		}
+	}
 	prep_next_line(master);
 }
 	
