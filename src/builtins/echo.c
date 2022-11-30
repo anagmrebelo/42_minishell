@@ -14,7 +14,7 @@ int ft_echo(char **args)
     flag = 0;
     if (!args[0])
     {
-        ft_putchar_fd('\n', STDIN_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
         return (0);
     }
     if (args[0][0] == '-' && args[0][1] == 'n' && args[0][2] == '\0')
@@ -25,12 +25,12 @@ int ft_echo(char **args)
     i = 0;
     while(args[i])
     {
-        print_echo(args[i], STDIN_FILENO);
+        print_echo(args[i], STDOUT_FILENO);
         if (args[i + 1])
-            ft_putchar_fd(' ', STDIN_FILENO);
+            ft_putchar_fd(' ', STDOUT_FILENO);
         i++;
     }
     if (!args[i] && !flag)
-        ft_putchar_fd('\n', STDIN_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
     return (0);
 }

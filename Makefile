@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/11/26 17:00:51 by arebelo          ###   ########.fr        #
+#    Updated: 2022/11/30 17:44:46 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC				= main.c\
 				parse/token.c\
 				parse/quotes.c\
 				parse/variables_env.c\
+				parse/find_var.c\
 				parse/token_delete.c\
 				parse/type.c\
 				parse/command_separation.c\
@@ -55,13 +56,16 @@ SRC				= main.c\
 				redir/final_redir.c\
 				redir/outputs.c\
 				redir/inputs.c\
-				utils/max_len.c\
-				utils/join_free.c\
-				utils/free_double_array.c\
-				exec/exec.c\
+				exec/exec_one.c\
+				exec/exec_multi.c\
 				heredoc/heredoc.c\
 				builtins/echo.c\
 				builtins/pwd.c\
+				utils/double_array.c\
+				utils/strlcat.c\
+				utils/max_len.c\
+				utils/join_free.c
+				
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 

@@ -8,7 +8,7 @@ void	add_type(t_token *new)
 {
 	if (new && new->str)
 	{
-		if (!ft_strncmp(new->str, ">", find_max_len(new->str, ">")))	// cambiar funcion de strncmp
+		if (!ft_strcmp(new->str, ">"))
 			new->type = OUTPUT;
 		else if (!ft_strcmp(new->str, ">>"))
 			new->type = APPEND;

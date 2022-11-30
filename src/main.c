@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 10:08:27 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 17:43:29 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **enviroment)
 		if (!master)
 			return (1);
 		init_env(master, enviroment);
+		init_redirs(master);
 		while (!master->status)
 		{
 			master->line = readline(YELLOW"minishell: "RESET);
@@ -30,6 +31,7 @@ int	main(int argc, char **argv, char **enviroment)
 				break ;
 			minishell(master->line, master);
 		}
+		close_init_redirs(master);
 		free_master(master);
 	}
 	return (0);
@@ -57,7 +59,7 @@ void	minishell(char *line, t_master *master)
 {
 	t_command	*cmd;
 
-	init_redirs(master);
+	init_pipe(master);
 	if (parsing(line, master))
 	{
 		// if (master->numCommands == 1)
@@ -78,46 +80,7 @@ void	minishell(char *line, t_master *master)
 				waitpid(master->pid, NULL, 0);
 				cmd = cmd->next;
 			}
-		//}
-		prep_next_line(master);
-	}
+		}
+	prep_next_line(master);
 }
-
-void	minishell_one(t_master *master)
-{
-	t_command	*cmd;
-
-	cmd = master->commands_list;
-	close(master->fd[READ]);
-	handle_outputs(cmd);
-	if (cmd->inv_file)
-	{
-		close(master->fd[WRITE]);
-		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
-		return ;
-	}
-	exec(master, cmd);
-	return ;
-}
-
-void	exec_one(t_master *master, t_command *cmd)
-{
-	char	**path;
-	char	*command;
-	char	**env;
-	int		pid;
-
-	pid = fork();
-	//protect
-	if (pid == 0)
-	{
-		redir_inputs(cmd);
-		redir_outputs(cmd, master);
-		path = find_path(master);
-		command = get_command(path, cmd->args_char[0]);
-		env = env_to_array(master->env);
-		execve(command, cmd->args_char, env);
-		exit(1);// Adjust
-	}
-	waitpid(pid, NULL, 0);
-}
+	

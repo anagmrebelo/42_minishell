@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   final_redir.c                                      :+:      :+:    :+:   */
+/*   strlcat.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 16:58:11 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 10:27:00 by arebelo          ###   ########.fr       */
+/*   Created: 2022/11/29 14:18:34 by arebelo           #+#    #+#             */
+/*   Updated: 2022/11/29 14:18:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * Closes file descriptors initially saved with dup 
-*/
-void	close_init_redirs(t_master *master)
+size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize)
 {
-	if (master->std_in != -1)
-		close(master->std_in);
-	if (master->std_out != -1)
-		close(master->std_out);
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	length;
+
+	i = 0;
+	j = ft_strlen(dst);
+	length = ft_strlen(dst) + ft_strlen(src);
+	while (src[i] && j < dstsize - 1)
+	{
+		dst[j] = src[i];
+		i++;
+		j++;
+	}
+	dst[j] = '\0';
+	return (length);
 }

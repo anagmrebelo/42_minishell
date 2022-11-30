@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/25 20:14:07 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 17:47:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char    **find_path(t_master *master)
         if (ft_strcmp(tmp->title, "PATH") == 0)
         {
             path = ft_split(tmp->value, ':');
+			if(!path)	//@arebelo confirmar con mica
+				clean_free(master);
             break;
         }
         tmp = tmp->next;
@@ -45,9 +47,9 @@ char    **find_path(t_master *master)
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
 
-char    *get_command(char **path, char *cmd)
+char    *get_command(char **path, char *cmd, t_master *master)
 {
-    int i;
+    int 	i;
     char    *aux;
     char    *path_cmd;
 
@@ -55,44 +57,19 @@ char    *get_command(char **path, char *cmd)
     while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
+		if(!aux)
+			clean_free(master);
         path_cmd = join_free(aux, cmd);
-        //printf("probando: %s\n", path_cmd);
+		if(!path_cmd)
+		{
+			free(aux);
+			clean_free(master);
+		}
         if (access(path_cmd, 0) == 0)
             return (path_cmd);
         i++;
     }
     return (NULL);
-}
-
-//convierte token list en array para pasarlo a execve
-
-char    **token_to_array(t_token *token)
-{
-    char    **token_array;
-    t_token *aux;
-    int len;
-    int i;
-
-    aux = token;
-    len = 0;
-    while (aux != NULL)
-    {
-        len++;
-        aux = aux->next;
-    }
-    //len = env_len(env);
-    token_array = (char **)ft_calloc((len + 1), sizeof(char *));
-    if (!token_array)
-        return (NULL);
-    i = 0;
-    while (i < len)
-    {
-        token_array[i] = ft_strdup(token->str);
-        token = token->next;
-        i++;
-    }
-    //print_array(array_env, len);
-    return (token_array);
 }
 
 //ejecuta los comandos en un child process
@@ -104,7 +81,7 @@ void exec_bin(t_master *master, t_command *cmd)
     char    **env;
 
 	path = find_path(master);
-	command = get_command(path, cmd->args_char[0]);
+	command = get_command(path, cmd->args_char[0], master);
 	env = env_to_array(master->env);
 
 	execve(command, cmd->args_char, env);	
@@ -153,11 +130,10 @@ int is_builtin(char *command)
 
 int exec(t_master *master, t_command *cmd)
 {
-    if (is_builtin(cmd->args_char[0]))
-        //print_list_tokens(cmd->args);
+    if (master->numCommands == 1)
+        exec_one(master, cmd);
+	else if (is_builtin(cmd->args_char[0]))
         exec_builtin(cmd->args_char[0], cmd, master->env);
-    // else if (master->numCommands == 1)
-    //     exec_one(master, cmd);
     else
         exec_bin(master, cmd);
     return (0);
