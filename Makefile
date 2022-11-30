@@ -60,6 +60,8 @@ SRC				= main.c\
 				utils/free_double_array.c\
 				exec/exec.c\
 				heredoc/heredoc.c\
+				builtins/echo.c\
+				builtins/pwd.c\
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
