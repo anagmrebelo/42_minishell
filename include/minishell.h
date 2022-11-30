@@ -154,6 +154,10 @@ int     is_builtin(char *command);
 
 void exec_one(t_master *master, t_command *cmd);
 
+//BUILTINS
+int     ft_echo(char **args);
+void    print_echo(char *str, int fd);
+int     ft_pwd(t_env *env);
 
 //Aux to delete before submitting
 void    print_list_tokens(t_token *list);

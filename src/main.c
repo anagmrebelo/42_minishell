@@ -60,10 +60,10 @@ void	minishell(char *line, t_master *master)
 	init_redirs(master);
 	if (parsing(line, master))
 	{
-		if (master->numCommands == 1)
-			minishell_one(master);
-		else
-		{
+		// if (master->numCommands == 1)
+		// 	minishell_one(master);
+		// else
+		// {
 			cmd = master->commands_list;
 			while (cmd)
 			{
@@ -78,7 +78,7 @@ void	minishell(char *line, t_master *master)
 				waitpid(master->pid, NULL, 0);
 				cmd = cmd->next;
 			}
-		}
+		//}
 		prep_next_line(master);
 	}
 }

@@ -111,15 +111,33 @@ void exec_bin(t_master *master, t_command *cmd)
 	exit(1);// Adjust
 }
 
+void    exec_builtin(char *command, t_command *cmd, t_env *env)
+{
+    if (strcmp(command, "echo") == 0)
+        ft_echo(cmd->args_char);
+    else if (ft_strcmp(command, "cd") == 0)
+		return ;
+    else if (ft_strcmp(command, "pwd") == 0)
+		ft_pwd(env);
+    else if (ft_strcmp(command, "export") == 0)
+		return ;
+	else if (ft_strcmp(command, "unset") == 0)
+		return ;
+    else if (ft_strcmp(command, "env") == 0)
+        return ;
+    else if (ft_strcmp(command, "exit") == 0)
+        return ;
+}
+
 int is_builtin(char *command)
 {
+    if (strcmp(command, "echo") == 0)
+        return (1);
+    if (ft_strcmp(command, "pwd") == 0)
+		return (1);
 	if(1)
 		return (0);
-    if (strcmp(command, "echo") == 0)
-		return (1);
     if (ft_strcmp(command, "cd") == 0)
-		return (1);
-    if (ft_strcmp(command, "pwd") == 0)
 		return (1);
     if (ft_strcmp(command, "export") == 0)
 		return (1);
@@ -136,9 +154,10 @@ int is_builtin(char *command)
 int exec(t_master *master, t_command *cmd)
 {
     if (is_builtin(cmd->args_char[0]))
-        print_list_tokens(cmd->args);
-    else if (master->numCommands == 1)
-        exec_one(master, cmd);
+        //print_list_tokens(cmd->args);
+        exec_builtin(cmd->args_char[0], cmd, master->env);
+    // else if (master->numCommands == 1)
+    //     exec_one(master, cmd);
     else
         exec_bin(master, cmd);
     return (0);
