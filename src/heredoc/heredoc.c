@@ -16,6 +16,6 @@ int    handle_heredoc(t_token *token, char *limit)
    free (line);
    close(fd);
    free(token->str);
-   token->str = ft_strdup(".hdoc"); //??
+   token->str = ft_strdup(".hdoc");
    return (0);
 }
