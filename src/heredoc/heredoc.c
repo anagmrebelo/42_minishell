@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int    handle_heredoc(t_token *token, char *limit)
+void    handle_heredoc(t_token *token, char *limit)
 {
    int      fd;
    char     *line;
@@ -17,5 +17,4 @@ int    handle_heredoc(t_token *token, char *limit)
    close(fd);
    free(token->str);
    token->str = ft_strdup(".hdoc");
-   return (0);
 }
