@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 16:58:15 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:29:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	command_separation(t_master *master)
 				add_to_command(temp, &cmd->outputs, master);
 			else if (temp->type == HEREDOC || temp->type == INPUT)
 				add_to_command(temp, &cmd->inputs, master);
-			if (temp->type == INPUT && !validate_file(temp->str))
+			if (temp->type == INPUT && !validate_file(temp->str, master))
 			{
 				cmd->inv_file = 1;
 				temp = NULL;

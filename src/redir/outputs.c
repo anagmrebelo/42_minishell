@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/28 16:02:24 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 13:27:52 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * If type = OUTPUT clears content
  * Closes all files
 */
-void	handle_outputs(t_command *cmd)
+void	handle_outputs(t_command *cmd, t_master *master)
 {
 	t_token	*temp;
 
@@ -27,14 +27,14 @@ void	handle_outputs(t_command *cmd)
 		{
 			temp->fd = open(temp->str, O_WRONLY | O_CREAT, 0644);
 			if (temp->fd == -1)
-				exit(1);	//Correct
+				clean_free((master));
 			close(temp->fd);
 		}
 		else
 		{
 			temp->fd = open(temp->str, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			if (temp->fd == -1)
-				exit(1);	//Correct
+				clean_free((master));
 			close(temp->fd);
 		}
 		temp = temp->next;
@@ -57,13 +57,16 @@ void	redir_outputs(t_command *cmd, t_master *master)
 		last_token(cmd->outputs)->fd = open(last_token(cmd->outputs)->str, O_WRONLY | flag);
 		if (last_token(cmd->outputs)->fd != -1)
 		{
-			dup2(last_token(cmd->outputs)->fd, STDOUT_FILENO);
+			if(dup2(last_token(cmd->outputs)->fd, STDOUT_FILENO) == -1)
+			{
+				close(last_token(cmd->outputs)->fd);
+				clean_free(master);
+			}
 			close(last_token(cmd->outputs)->fd);
 		}
 		else
-			exit(1); //handle error
+			clean_free(master);
 	}
 	else if(cmd->cmd_nb != master->numCommands)
 		dup2(master->fd[WRITE], STDOUT_FILENO);
 }
-//0_trunc

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 16:10:26 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 17:29:56 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	quotes_update(t_token *new, t_master *master);
 _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
 
-
 void	add_type(t_token *new);
 void	add_types_redir(t_master *master);
 
@@ -149,50 +148,59 @@ void	command_separation(t_master *master);
 int     count_commands(t_master *master);
 void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
-   
-_Bool	validate_file(char *path);
+
+
+//EXEC ONE COMMAND
 void	minishell_one(t_master *master);
+void	reset_redirs_one(t_master *master);
+void	exec_one(t_master *master, t_command *cmd);
+void	exec_bin_one(t_master *master, t_command *cmd);
+void	exec_aux_free(t_command *cmd, char **path, t_master *master);
+
 
 //REDIRECTIONS
 void    init_redirs(t_master *master);
 void	init_pipe(t_master *master);
 void    close_init_redirs(t_master *master);
-
 _Bool	handle_redirs(t_command *cmd, t_master *master);
 void	handle_pipe(t_master *master, t_command *cmd);
-void	handle_outputs(t_command *cmd);
-void	redir_inputs(t_command *cmd);
+void	handle_outputs(t_command *cmd, t_master *master);
+void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
+_Bool	validate_file(char *path, t_master *master);
 
 
 //EXECUTE
 char    **find_path(t_master *master);
-char    *get_command(char **path, char *cmd);
+char    *get_command(char **path, char *cmd, t_master *master);
 char    **token_to_array(t_token *token, t_master *master);
 void     exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
 
-void exec_one(t_master *master, t_command *cmd);
 
+//FREE
+void    free_master(t_master *master);
+void    free_line(t_master *master);
+void	clean_free_pipe_read(t_master *master);
+void	clean_free(t_master *master);
+void	clean_free_no_exit(t_master *master);
+void	free_fail_exec(char *command, char **path, char **env);
+
+
+//UTILS
+char			*join_free(char *s1, char *s2);
+unsigned int	find_max_len(char *s1, char *s2);
+void	        free_double_array(char **table);
+size_t			ft_strlen_null(const char *str);
+char			**copy_double_array(char ** src);
+char			*join_double_free(char *s1, char *s2);
+char			*join_free_s1(char *s1, char *s2);
+char			*join_free_s2(char *s1, char *s2);
 
 //Aux to delete before submitting
 void    print_list_tokens(t_token *list);
 void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
-//FREE
-void    free_master(t_master *master);
-void    free_line(t_master *master);
-void	clean_free_pipe_read(t_master *master);
-
-
-//Utils
-char			*join_free(char *s1, char *s2);
-unsigned int	find_max_len(char *s1, char *s2);
-void	        free_double_array(char **table);
-size_t			ft_strlen_null(const char *str);
-char			*join_double_free(char *s1, char *s2);
-char			*join_free_s1(char *s1, char *s2);
-char			*join_free_s2(char *s1, char *s2);
 #endif

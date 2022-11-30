@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 14:43:07 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 10:25:02 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void	init_pipe(t_master *master)
 _Bool	handle_redirs(t_command *cmd, t_master *master)
 {	
 	close(master->fd[READ]);
-	handle_outputs(cmd);
+	handle_outputs(cmd, master);
 	if(cmd->inv_file)
 	{
 		close(master->fd[WRITE]);
 		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
 		exit(1);//correct
 	}
-	redir_inputs(cmd);
+	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
 	close(master->fd[WRITE]);
 	return (1);

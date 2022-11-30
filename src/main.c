@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/29 15:40:29 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:40:25 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,43 +83,4 @@ void	minishell(char *line, t_master *master)
 		}
 	}
 	prep_next_line(master);
-}
-
-void	minishell_one(t_master *master)
-{
-	t_command	*cmd;
-
-	cmd = master->commands_list;
-	close(master->fd[READ]);
-	handle_outputs(cmd);
-	if (cmd->inv_file)
-	{
-		close(master->fd[WRITE]);
-		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
-		return ;
-	}
-	exec(master, cmd);
-	return ;
-}
-
-void	exec_one(t_master *master, t_command *cmd)
-{
-	char	**path;
-	char	*command;
-	char	**env;
-	int		pid;
-
-	pid = fork();
-	//protect
-	if (pid == 0)
-	{
-		redir_inputs(cmd);
-		redir_outputs(cmd, master);
-		path = find_path(master);
-		command = get_command(path, cmd->args_char[0]);
-		env = env_to_array(master->env);
-		execve(command, cmd->args_char, env);
-		exit(1);// Adjust
-	}
-	waitpid(pid, NULL, 0);
 }

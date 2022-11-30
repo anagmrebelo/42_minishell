@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 16:58:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/11/30 10:48:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ _Bool	parsing(char *line, t_master *master)
 	if (check_syntax(master))
 	{
 		add_types_redir(master);
+		clean_tokens(master);
 		check_heredoc(master);	//@arebelo check memory leaks
 		command_separation(master);
 		return (1);
