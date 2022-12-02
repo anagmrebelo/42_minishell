@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/12/02 14:18:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 19:22:43 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_master
     int         fd[2];
 	_Bool		status;
 	int			pid;
+	int			error;
 }   t_master;
 
 //MAIN
