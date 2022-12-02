@@ -57,6 +57,5 @@ char    **env_to_array(t_env *env)
         env = env->next;
         i++;
     }
-    //print_array(array_env, len);
     return (array_env);
 }
