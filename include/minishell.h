@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/30 17:46:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 14:18:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,12 @@ int     count_commands(t_master *master);
 void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
 
+_Bool	is_delimeter(char c);
+_Bool	is_space(char c);
+
 
 //EXEC ONE COMMAND
 void	minishell_one(t_master *master);
-void	reset_redirs_one(t_master *master);
 void	exec_one(t_master *master, t_command *cmd);
 void	exec_bin_one(t_master *master, t_command *cmd);
 void	exec_aux_free(t_command *cmd, char **path, t_master *master);
@@ -165,24 +167,24 @@ void     handle_heredoc(t_token *token, char *limit);
 void    init_redirs(t_master *master);
 void	init_pipe(t_master *master);
 void    close_init_redirs(t_master *master);
-_Bool	handle_redirs(t_command *cmd, t_master *master);
+void	handle_redirs(t_command *cmd, t_master *master);
 void	handle_pipe(t_master *master, t_command *cmd);
 void	handle_outputs(t_command *cmd, t_master *master);
 void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
 _Bool	validate_file(char *path, t_master *master);
+void	reset_redirs(t_master *master);
 
 
 //EXECUTE
 char    **find_path(t_master *master);
 char    *get_command(char **path, char *cmd, t_master *master);
 char    **token_to_array(t_token *token, t_master *master);
-void     exec_bin(t_master *master, t_command *cmd);
+void	exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
 void    exec_builtin(char *command, t_command *cmd, t_env *env);
-
-void exec_one(t_master *master, t_command *cmd);
+void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master);
 
 //BUILTINS
 int     ft_echo(char **args);

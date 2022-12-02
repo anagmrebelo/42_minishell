@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/30 18:13:25 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 19:14:27 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	clean_free_no_exit(t_master *master)
 
 void    prep_next_line(t_master *master)
 {
-//	dup2(master->std_in, STDIN_FILENO);
 	close(master->fd[READ]);
+	reset_redirs(master);
     free_token_list(master->token_list);
 	master->token_list = NULL;
 	free_commands(master);

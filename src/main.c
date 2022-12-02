@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/30 18:13:07 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 19:14:31 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,9 @@ int	main(int argc, char **argv, char **enviroment)
 */
 _Bool	add_hist_exit_check(t_master *master)
 {
-	add_history(master->line);
+	add_history(master->line);	//@arebelo error of this function?
 	if (master->line && ft_strcmp(master->line, "exit") == 0)
-	{
-		free_line(master);
 		return (1);
-	}
 	if (isatty(STDIN_FILENO) == 0 && !master->line)
 		return (1);
 	return (0);
@@ -69,15 +66,23 @@ void	minishell(char *line, t_master *master)
 			cmd = master->commands_list;
 			while (cmd)
 			{
+				handle_outputs(cmd, master);
 				handle_pipe(master, cmd);
 				master->pid = fork();
 				if (master->pid < 0)
-					break ; //Correct + close fd[write]
+				{
+					clean_free(master);
+					close(master->fd[WRITE]);
+					close(master->fd[READ]);
+				}
 				if (master->pid == 0)
-					if (handle_redirs(cmd, master))
-						exec(master, cmd);
+				{
+					handle_redirs(cmd, master);
+					exec(master, cmd);
+				}
 				close(master->fd[WRITE]);
-				waitpid(master->pid, NULL, 0);
+				if(waitpid(master->pid, NULL, 0) == -1)
+					clean_free_pipe_read(master);
 				cmd = cmd->next;
 			}
 		}

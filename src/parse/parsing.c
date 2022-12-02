@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/30 10:48:10 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 14:22:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,18 @@ _Bool	parsing(char *line, t_master *master)
 /**
  * Returns true if space, tab, pipe or redirs
 */
-_Bool	isDelimeter(char c)
+_Bool	is_delimeter(char c)
 {
-	if (c == ' ' || c == '	' || c == '|' || c == '<' || c == '>')	//@arebelo create function isspace
+	if (is_space(c) || c == '|' || c == '<' || c == '>')	
 		return (1);
 	return (0); 
+}
+
+_Bool	is_space(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ') //@arebelo check function isspace
+		return (1);
+	return (0);
 }
 
 /**
@@ -59,7 +66,7 @@ int	tokenize(char *line, t_master *master)
 
 	i = 0;
 	quotes = -1;
-	while (line[i] && (!isDelimeter(line[i]) || quotes >= 0 ))
+	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0 ))
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
 			quotes = i;
@@ -78,7 +85,7 @@ int	tokenize(char *line, t_master *master)
 	new = new_token(line, i, master);
 	if (new)
 		add_list(master, new);
-	while (line[i] && line[i] == ' ')	//@arebelo function isspace
+	while (line[i] && is_space(line[i]))
 		i++;
 	return (i);
 }

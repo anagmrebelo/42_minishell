@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/30 17:47:46 by arebelo          ###   ########.fr       */
+/*   Updated: 2022/12/02 13:37:22 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char    **find_path(t_master *master)
 {
     char **path;
     t_env *tmp;
-    //int i;
 
     path = NULL;
     tmp = master->env;
@@ -33,13 +32,6 @@ char    **find_path(t_master *master)
         }
         tmp = tmp->next;
     }
-    //imprimir path
-    // i = 0;
-    // while (path[i])
-    // {
-    //     printf("path[%d]: %s\n", i, path[i]);
-    //     i++;
-    // }
     return (path);
 }
 
@@ -54,7 +46,7 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-    while (path[i])
+    while (path && path[i])
     {
         aux = ft_strjoin(path[i], "/");
 		if(!aux)
@@ -82,10 +74,28 @@ void exec_bin(t_master *master, t_command *cmd)
 
 	path = find_path(master);
 	command = get_command(path, cmd->args_char[0], master);
+	if (!command)
+		exec_aux_free(cmd, path, master);
+	free_double_array(path);
+	path = copy_double_array(cmd->args_char);
 	env = env_to_array(master->env);
+	if (!path || !env)
+		exec_aux_bin_free(command, path, env, master);
+	clean_free_no_exit(master);
+	execve(command, path, env);
+	free_fail_exec(command, path, env);
+}
 
-	execve(command, cmd->args_char, env);	
-	exit(1);// Adjust
+void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
+{
+	if (command)
+		free(command);
+	if (path)
+		free_double_array(path);
+	if(env)
+		free_double_array(env);
+	clean_free(master);
+	
 }
 
 void    exec_builtin(char *command, t_command *cmd, t_env *env)
@@ -133,7 +143,7 @@ int exec(t_master *master, t_command *cmd)
     if (master->numCommands == 1)
         exec_one(master, cmd);
 	else if (is_builtin(cmd->args_char[0]))
-        exec_builtin(cmd->args_char[0], cmd, master->env);
+        exec_builtin(cmd->args_char[0], cmd, master->env); //@areview for leaks
     else
         exec_bin(master, cmd);
     return (0);
