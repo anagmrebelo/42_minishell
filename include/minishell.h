@@ -192,6 +192,7 @@ void    print_echo(char *str, int fd);
 int     ft_pwd(t_env *env);
 void    ft_env(t_env *env);
 void    ft_unset(t_env *env, char **args);
+int     ft_export(t_env *env, char **args);
 
 //FREE
 void    free_master(t_master *master);

@@ -27,16 +27,13 @@
 void    ft_unset(t_env *env, char **args)
 {
     t_env *next;
-    t_env *aux;
+    //t_env *aux;
 
-    aux = env;
-    printf("args = %s\n", args[0]);
-    printf("args = %s\n", args[1]);
+    //aux = env;
     while (env != NULL)
     {
         if (env->next != NULL && (ft_strcmp(env->next->value, args[1]) == 0))
         {
-            printf("si\n");
             next = env->next->next;
             free_env(env->next);
             env->next = next;
