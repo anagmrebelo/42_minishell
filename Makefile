@@ -61,6 +61,10 @@ SRC				= main.c\
 				heredoc/heredoc.c\
 				builtins/echo.c\
 				builtins/pwd.c\
+				builtins/cd.c\
+				builtins/env.c\
+				builtins/export.c\
+				builtins/unset.c\
 				utils/double_array.c\
 				utils/strlcat.c\
 				utils/max_len.c\

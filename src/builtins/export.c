@@ -45,6 +45,46 @@ char    *get_var_title(char *str)
     return (str);
 }
 
+void    update_var(t_env *env, char *str)
+{
+    char    *end;
+    size_t  n;
+
+    end = ft_strchr(str, '=');
+    if (!end)
+        n = ft_strlen(str);
+    else
+        n = end - str;
+    while (env != NULL)
+    {
+        if (ft_strncmp(env->title, str, n) == 0)
+        {
+            env->value = get_var_value(str);
+            break ;
+        }
+        env = env->next;
+    }
+}
+
+int var_exist(t_env *env, char *str)
+{
+    char    *end;
+    size_t  n;
+
+    end = ft_strchr(str, '=');
+    if (!end)
+        n = ft_strlen(str);
+    else
+        n = end - str;
+    while (env != NULL)
+    {
+        if (ft_strncmp(env->title, str, n) == 0)
+            return (1);
+        env = env->next;
+    }
+    return (0);
+}
+
 int var_title_check(char *str)
 {
     if (!ft_isalpha(str[0]) && str[0] != '_')
@@ -59,7 +99,6 @@ int ft_export(t_env *env, char **args)
     //printf("args[0]: %s\nargs[1]: %s\nargs[2]: %s\n", args[0], args[1], args[2]);
     if (!args[1])
     {
-        printf("hola\n");
         print_sort_env(env);
         return (0);
     }
@@ -70,10 +109,10 @@ int ft_export(t_env *env, char **args)
         {
             if(var_title_check(args[i]))
             {
-                printf("ok\n");
-                //printf("title: %s\n", get_var_title(args[i]));
-                //printf("value: %s\n", get_var_value(args[i]));
-                add_to_env(args[i], get_var_title(args[i]), get_var_value(args[i]), env);
+                if (var_exist(env, args[i]))
+                    update_var(env, args[i]);
+                else
+                    add_to_env(args[i], get_var_title(args[i]), get_var_value(args[i]), env);
             }
             else
                 printf("not a valid identifier\n");
