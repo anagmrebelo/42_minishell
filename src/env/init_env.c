@@ -18,7 +18,10 @@ void	print_env(t_env *env)
 	temp = env;
     while (temp != NULL)
     {
-		ft_putendl_fd(temp->content, 1);
+		//ft_putendl_fd(temp->content, 1);
+		ft_putstr_fd(temp->title, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(temp->value, 1);
 		temp = temp->next;
 	}
 }

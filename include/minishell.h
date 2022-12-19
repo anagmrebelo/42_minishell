@@ -190,6 +190,12 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master);
 int     ft_echo(char **args);
 void    print_echo(char *str, int fd);
 int     ft_pwd(t_env *env);
+int     ft_cd(t_env *env, char **args);
+char    *get_env_value(char *title, t_env *env);
+void    update_env(char *oldpwd, t_env *env);
+void    update_pwd(t_env *env);
+void    update_oldpwd(char *oldpwd, t_env *env);
+void    change_dir(char *arg, char *oldpwd, t_env *env);
 
 
 //FREE
