@@ -3,10 +3,7 @@
 void change_dir(char *arg, char *oldpwd, t_env *env)
 {
     if (chdir(arg) == 0)
-    {
         update_env(oldpwd, env);
-        print_env(env);
-    }
     else
     {
         ft_putstr_fd("cd: ", 1);
