@@ -1,5 +1,12 @@
 #include "../../include/minishell.h"
 
+void    print_export_error(char *str)
+{
+    ft_putstr_fd("minishell: export: `", 2);
+    ft_putstr_fd(str, 2);
+    ft_putendl_fd("': not a valid identifier", 2);
+}
+
 void    add_to_env(char *content, char *title, char *value, t_env *env)
 {
     t_env   *new;
@@ -115,7 +122,7 @@ int ft_export(t_env *env, char **args)
                     add_to_env(args[i], get_var_title(args[i]), get_var_value(args[i]), env);
             }
             else
-                printf("not a valid identifier\n");
+                print_export_error(args[i]);
             i++;
         }
     }

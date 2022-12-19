@@ -199,6 +199,7 @@ void    change_dir(char *arg, char *oldpwd, t_env *env);
 void    ft_env(t_env *env);
 void    ft_unset(t_env *env, char **args);
 int     ft_export(t_env *env, char **args);
+void    print_export_error(char *str);
 
 //FREE
 void    free_master(t_master *master);
