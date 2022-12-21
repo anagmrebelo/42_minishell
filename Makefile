@@ -37,6 +37,9 @@ LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
 
 INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
+COMFLAGS		= -I/Users/$(USER)/.brew/opt/readline/include
+LINKFLAGS		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+
 SRC				= main.c\
 				env/init_env.c\
 				env/sort_env.c\
@@ -94,7 +97,7 @@ MKDIR			= mkdir -p
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 				@$(MKDIR) -p $(dir $@)
-				@$(COMPILE) $(CFLAGS) -o $@ $<
+				@$(COMPILE) $(CFLAGS) $(COMFLAGS) -o $@ $<
 				@ECHO "Compiling... $^"
 
 all:			make_libs $(NAME)
@@ -105,7 +108,7 @@ make_libs:
 -include $(DEP)
 
 $(NAME):	$(OBJ) $(LIBS)
-			@$(LINK) $(OBJ) $(LIBS) -o $(NAME) -lreadline
+			@$(LINK) $(OBJ) $(LIBS) $(LINKFLAGS) -o $(NAME) -lreadline
 			@ECHO "Created minishell (mandatory)"
 
 -include $(DEP_BONUS)

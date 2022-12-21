@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **enviroment)
 		while (!master->status)
 		{
 			master->line = readline(YELLOW"minishell: "RESET);
+			add_history(master->line); //asi parece que se soluciona
 			master->status = add_hist_exit_check(master);
 			if (master->status)
 				break ;
@@ -44,7 +45,7 @@ int	main(int argc, char **argv, char **enviroment)
 */
 _Bool	add_hist_exit_check(t_master *master)
 {
-	add_history(master->line);	//@arebelo error of this function?
+	//add_history(master->line);	//@arebelo error of this function?
 	if (master->line && ft_strcmp(master->line, "exit") == 0)
 		return (1);
 	if (isatty(STDIN_FILENO) == 0 && !master->line)
