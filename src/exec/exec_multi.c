@@ -115,7 +115,7 @@ void    exec_builtin(char *command, t_command *cmd, t_env *env)
     else if (ft_strcmp(command, "exit") == 0)
         return ;
 }
-
+// cambio todos los tab de los if x 4 espacios , para codespaces
 int is_builtin(char *command)
 {
     if (strcmp(command, "echo") == 0)
@@ -124,13 +124,13 @@ int is_builtin(char *command)
 		return (1);
     if (ft_strcmp(command, "env") == 0)
         return (1);
-	if (ft_strcmp(command, "unset") == 0)
+    if (ft_strcmp(command, "unset") == 0)
 		return (1);
     if (ft_strcmp(command, "export") == 0)
 		return (1);
     if (ft_strcmp(command, "cd") == 0)
 		return (1);
-	if(1)
+    if(1)
 		return (0);
     if (ft_strcmp(command, "exit") == 0)
         return (1);

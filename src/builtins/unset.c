@@ -10,7 +10,7 @@ void    ft_unset(t_env *env, char **args)
     //aux = env;
     while (env != NULL)
     {
-        if (env->next != NULL && (ft_strcmp(env->next->value, args[1]) == 0))
+        if (env->next != NULL && (ft_strcmp(env->next->title, args[1]) == 0))
         {
             next = env->next->next;
             free_env(env->next);

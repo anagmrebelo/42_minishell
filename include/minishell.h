@@ -20,6 +20,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <../libft/libft.h>
+# include <sys/types.h> //para portatil en codespaces
+# include <sys/wait.h> //para portatil en codespaces
 
 # define ARG 0
 # define OUTPUT 1

@@ -98,7 +98,7 @@ MKDIR			= mkdir -p
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 				@$(MKDIR) -p $(dir $@)
 				@$(COMPILE) $(CFLAGS) $(COMFLAGS) -o $@ $<
-				@ECHO "Compiling... $^"
+				@echo "Compiling... $^"
 
 all:			make_libs $(NAME)
 
@@ -109,7 +109,7 @@ make_libs:
 
 $(NAME):	$(OBJ) $(LIBS)
 			@$(LINK) $(OBJ) $(LIBS) $(LINKFLAGS) -o $(NAME) -lreadline
-			@ECHO "Created minishell (mandatory)"
+			@echo "Created minishell (mandatory)"
 
 -include $(DEP_BONUS)
 
@@ -121,7 +121,7 @@ clean:
 fclean:		clean
 			@$(RM) $(NAME) $(NAME_BONUS)
 			@make fclean -C $(LIBS_DIR)
-			@ECHO "Minishell cleaned"
+			@echo "Minishell cleaned"
 
 re:			fclean all
 

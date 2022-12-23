@@ -59,7 +59,7 @@ WHITE = \033[0;97m
 
 all:
 	@echo "🎯 $(YELLOW)Starting $(WHITE)[${NAME}] $(YELLOW)compilation..$(DEF_COLOR)"
-	@Make ${NAME}
+	@make ${NAME}
 	@echo "\n🔰 $(GREEN)${NAME} done!\n$(DEF_COLOR)"
 
 ${NAME}:${OBJS} ${OBJS_BONUS} libft.h Makefile
