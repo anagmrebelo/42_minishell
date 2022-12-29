@@ -65,12 +65,9 @@ SRC				= main.c\
 				builtins/echo.c\
 				builtins/pwd.c\
 				builtins/cd.c\
-<<<<<<< HEAD
-=======
 				builtins/env.c\
 				builtins/export.c\
 				builtins/unset.c\
->>>>>>> env-unset
 				utils/double_array.c\
 				utils/strlcat.c\
 				utils/max_len.c\
