@@ -90,6 +90,9 @@ typedef struct s_master
 _Bool	add_hist_exit_check(t_master *master);
 void	minishell(char *line, t_master *master);
 
+//SIGNALS
+void    init_signal(int i);
+
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
 t_env	*new_env(char *content, char *title, char *value);
