@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2022/12/02 13:28:48 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 15:55:02 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	minishell_one(t_master *master)
 	if (cmd->inv_file)
 	{
 		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
-		clean_free(master);
+		clean_free(master, 1); // TEMP
 	}
 	exec(master, cmd);
 	return ;
@@ -47,7 +47,7 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 
 	pid = fork();
 	if (pid == -1)
-		clean_free(master);
+		clean_free(master, 1); // TEMP
 	if (pid == 0)
 	{
 		path = find_path(master);
@@ -59,25 +59,25 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 		env = env_to_array(master->env);
 		if (!path || !env)
 			exec_aux_bin_free(command, path, env, master);
-		clean_free_no_exit(master);
+		clean_free(master, 1); // TEMP
 		execve(command, path, env);
 		free_fail_exec(command, path, env);
 	}
 	if (waitpid(pid, NULL, 0) == -1)
-		clean_free(master);
+		clean_free(master, 1); // TEMP
 }
 
 void	reset_redirs(t_master *master)
 {
 	if(dup2(master->std_in, STDIN_FILENO) == -1)
-		clean_free(master);
+		clean_free(master, 1); // TEMP
 	if(dup2(master->std_out, STDOUT_FILENO) == -1)
-		clean_free(master);
+		clean_free(master, 1); // TEMP
 }
 
 void	exec_aux_free(t_command *cmd, char **path, t_master *master)
 {
 	printf("minishell: %s: command not found\n", cmd->args_char[0]);
 	free_double_array(path);
-	clean_free(master);
+	clean_free(master, 1); // TEMP
 }

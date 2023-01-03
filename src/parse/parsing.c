@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/12/02 19:31:52 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 17:01:02 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if (!check_quotes(line))
 	{
-		printf("minishell: syntax error\n"); //Error
+		print_error("minishell", NULL, "syntax error\n", 258);
 		return (0);
 	}
 	while (line[i])
@@ -34,7 +34,6 @@ _Bool	parsing(char *line, t_master *master)
 		command_separation(master);
 		return (1);
 	}
-	printf("minishell: syntax error\n"); //Error
 	return (0);
 }
 
@@ -104,12 +103,12 @@ t_token	*new_token(char *line, int size, t_master *master)
 
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	new->str = ft_substr(line, 0, size);
 	if (!new->str)
 	{
 		free(new);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	add_type(new);
 	env_update(new, master);

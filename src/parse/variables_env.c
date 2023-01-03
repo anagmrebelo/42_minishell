@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 14:29:06 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:22:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ char	*aux1_env(t_token *new, t_master *master, char *line, int *c)
 
 	temp = ft_substr(new->str, c[J], c[I] - c[J]);
 	if (!temp)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	line = join_double_free(line, temp);
 	if (!line)
 	{
 		free(temp);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}	
 	c[J] = ++c[I];
 	return (line);
@@ -69,12 +69,12 @@ char	*aux2_env(t_token *new, t_master *master, char *line, int *c)
 
 	temp = ft_substr(new->str, c[J], 1);
 	if (!temp)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	line = join_double_free(line, find_var(temp, master, c[J], new->str));
 	if (!line)
 	{
 		free(temp);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	c[J] = c[I] + 1;
 	return (line);
@@ -86,12 +86,12 @@ char	*aux3_env(t_token *new, t_master *master, char *line, int *c)
 
 	temp = ft_substr(new->str, c[J], c[I] - c[J]);
 	if (!temp)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	line = join_double_free(line, find_var(temp, master, c[J], new->str));
 	if (!line)
 	{
 		free(temp);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	c[J] = c[I]--;
 	return (line);
@@ -103,12 +103,12 @@ char	*aux4_env(t_token *new, t_master *master, char *line, int *c)
 
 	temp = ft_substr(new->str, c[J], c[I] - c[J]);
 	if (!temp)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	line = join_double_free(line, temp);
 	if (!line)
 	{
 		free(temp);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	return (line);
 }

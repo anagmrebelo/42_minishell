@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2022/12/02 19:22:43 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:49:13 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <unistd.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <../libft/libft.h>
@@ -41,6 +42,8 @@
 # define MAGENTA "\x1b[35m"
 # define CYAN    "\x1b[36m"
 # define RESET   "\x1b[0m"
+
+int     g_error;
 
 typedef struct s_env
 {
@@ -88,6 +91,7 @@ typedef struct s_master
 //MAIN
 _Bool	add_hist_exit_check(t_master *master);
 void	minishell(char *line, t_master *master);
+void	wait_childs(t_master *master);
 
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
@@ -107,7 +111,7 @@ char    **sort_env_array(char **sort_array, t_env *env, int len);
 void    print_sort_env(t_env *env);
 
 
-//Parsing
+//PARSING
 _Bool	parsing(char * line, t_master *master);
 int		tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size, t_master *master);
@@ -164,6 +168,7 @@ void	exec_aux_free(t_command *cmd, char **path, t_master *master);
 //HEREDOC pasarlo a parsing
 void     handle_heredoc(t_token *token, char *limit);
 
+
 //REDIRECTIONS
 void    init_redirs(t_master *master);
 void	init_pipe(t_master *master);
@@ -193,11 +198,16 @@ void    print_echo(char *str, int fd);
 int     ft_pwd(t_env *env);
 
 
+//ERRORS
+void    print_error(char *bash, char *builtin, char *message, int error_code);
+char	*create_message(t_master *master, char *message, char *token, char *msg);
+
+
 //FREE
 void    free_master(t_master *master);
 void    free_line(t_master *master);
-void	clean_free_pipe_read(t_master *master);
-void	clean_free(t_master *master);
+void	clean_free_pipe_read(t_master *master, int exit_code);
+void	clean_free(t_master *master, int exit_code);
 void	clean_free_no_exit(t_master *master);
 void	free_fail_exec(char *command, char **path, char **env);
 

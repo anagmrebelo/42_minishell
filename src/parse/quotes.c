@@ -41,7 +41,7 @@ char	*quotes_clean(t_token *new, t_master *master)
 	i = 0;
 	clean = ft_calloc((ft_strlen(new->str) + 1), sizeof(char));
 	if (!clean)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	while(new->str[i])
 	{
 		j = i;
@@ -72,5 +72,5 @@ void	quotes_update(t_token *new, t_master *master)
 	new->str = ft_strdup(new->str);
 	free(temp);
 	if(!new->str)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 }

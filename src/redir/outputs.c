@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2022/12/02 13:10:04 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:47:36 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	handle_outputs(t_command *cmd, t_master *master)
 		{
 			temp->fd = open(temp->str, O_WRONLY | O_CREAT, 0644);
 			if (temp->fd == -1)
-				clean_free_pipe_read((master));
+				clean_free_pipe_read(master, 1); //TEMP
 			close(temp->fd);
 		}
 		else
 		{
 			temp->fd = open(temp->str, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			if (temp->fd == -1)
-				clean_free_pipe_read((master));
+				clean_free_pipe_read(master, 1); //TEMP
 			close(temp->fd);
 		}
 		temp = temp->next;
@@ -62,19 +62,19 @@ void	redir_outputs(t_command *cmd, t_master *master)
 			if(dup2(last_token(cmd->outputs)->fd, STDOUT_FILENO) == -1)
 			{
 				close(last_token(cmd->outputs)->fd);
-				clean_free(master);
+				clean_free(master, 1); // TEMP
 			}
 			close(last_token(cmd->outputs)->fd);
 		}
 		else
-			clean_free(master);
+			clean_free(master, 1); // TEMP
 	}
 	else if(cmd->cmd_nb != master->numCommands)
 	{
 		if (dup2(master->fd[WRITE], STDOUT_FILENO) == -1)
 		{
 			close(master->fd[WRITE]);
-			clean_free(master);
+			clean_free(master, 1); // TEMP
 		}
 		close(master->fd[WRITE]);
 	}	

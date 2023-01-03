@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/12/02 19:14:31 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:45:23 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,41 @@ int	main(int argc, char **argv, char **enviroment)
 */
 _Bool	add_hist_exit_check(t_master *master)
 {
-	add_history(master->line);	//@arebelo error of this function?
+	add_history(master->line);
 	if (master->line && ft_strcmp(master->line, "exit") == 0)
 		return (1);
 	if (isatty(STDIN_FILENO) == 0 && !master->line)
 		return (1);
 	return (0);
+}
+
+/**
+ * Waits for all child processes
+ * if there is only one command, the waitpid is done in the function exec_bin_one
+*/
+void	wait_childs(t_master *master)
+{
+	int	i;
+	int	pid;
+	int	j;
+	int	exit;
+
+	i = master->numCommands;
+	if(i == 1)
+		return ;
+	while(i--)
+	{
+		pid = waitpid(-1, &j, 0);
+		if (pid == -1)
+			clean_free_pipe_read(master, 1); //TEMP
+		if (pid == master->pid)
+		{
+			if (WIFEXITED(j))
+			exit = WEXITSTATUS(j);
+			printf("EXIT STATUS %d\n", exit);
+		}
+	}
+	return ;
 }
 
 void	minishell(char *line, t_master *master)
@@ -71,7 +100,7 @@ void	minishell(char *line, t_master *master)
 				master->pid = fork();
 				if (master->pid < 0)
 				{
-					clean_free(master);
+					clean_free(master, 1); //TEMP
 					close(master->fd[WRITE]);
 					close(master->fd[READ]);
 				}
@@ -81,12 +110,11 @@ void	minishell(char *line, t_master *master)
 					exec(master, cmd);
 				}
 				close(master->fd[WRITE]);
-				if(waitpid(master->pid, NULL, 0) == -1)
-					clean_free_pipe_read(master);
 				cmd = cmd->next;
 			}
 		}
 	}
+	wait_childs(master);
 	prep_next_line(master);
 }
 	
