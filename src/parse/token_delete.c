@@ -13,6 +13,7 @@ void    delete_token(t_token *token, t_master *master)
         token->next->prev = token->prev;
     if(token->str)
         free(token->str);   //CAN BE PROBLEMATIC; MAKE SURE IF IT WAS EMPTIED WE CHANGED TO NULL;
+    free(token);
 }
 
 /**

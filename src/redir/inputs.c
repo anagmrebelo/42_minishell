@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 15:55:30 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:26:46 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	redir_inputs(t_command *cmd, t_master *master)
 	{
 		last_token(cmd->inputs)->fd = open(last_token(cmd->inputs)->str, O_RDONLY);
 		if (last_token(cmd->inputs)->fd == -1)
-			clean_free(master, 1); // TEMP
+			clean_free(master, 1);
 		if (dup2(last_token(cmd->inputs)->fd, STDIN_FILENO) == -1)
 		{
 			close(last_token(cmd->inputs)->fd);
-			clean_free(master, 1); // TEMP
+			clean_free(master, 1);
 		}
 		close(last_token(cmd->inputs)->fd);
 	}		
@@ -35,7 +35,7 @@ void	redir_inputs(t_command *cmd, t_master *master)
 /**
  * Function that evaluates if path to a file is valid
 */
-_Bool	validate_file(char *path, t_master *master)
+_Bool	validate_file(char *path)
 {
 	int	status;
 
@@ -43,5 +43,4 @@ _Bool	validate_file(char *path, t_master *master)
 	if (status == 0)
 		return (1);
 	return (0);
-	(void) master;
 }

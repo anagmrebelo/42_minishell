@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 15:55:02 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:28:05 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	minishell_one(t_master *master)
 {
 	t_command	*cmd;
-
+	
 	cmd = master->commands_list;
 	handle_outputs(cmd, master);
 	close(master->fd[READ]);
 	if (cmd->inv_file)
 	{
-		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
-		clean_free(master, 1); // TEMP
+		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n", 2);
+		return ;
 	}
 	exec(master, cmd);
 	return ;
@@ -33,9 +33,9 @@ void	exec_one(t_master *master, t_command *cmd)
 	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
 	if (is_builtin(cmd->args_char[0]))
-        exec_builtin(cmd->args_char[0], cmd, master->env); //@arebelo check leaks and reset dirs
+		exec_builtin(cmd->args_char[0], cmd, master->env); //@arebelo check leaks and reset dirs
 	else
-        exec_bin_one(master, cmd);
+		exec_bin_one(master, cmd);
 }
 
 void	exec_bin_one(t_master *master, t_command *cmd)
@@ -44,27 +44,30 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 	char	*command;
 	char	**env;
 	int		pid;
+	int		exit;
 
 	pid = fork();
 	if (pid == -1)
-		clean_free(master, 1); // TEMP
+		clean_free(master, 1);
 	if (pid == 0)
 	{
 		path = find_path(master);
 		command = get_command(path, cmd->args_char[0], master);
-		if(!command)
-			exec_aux_free(cmd, path, master);
 		free_double_array(path);
+		if(!command)
+			exec_aux_free(cmd, master);
 		path = copy_double_array(cmd->args_char);
 		env = env_to_array(master->env);
 		if (!path || !env)
 			exec_aux_bin_free(command, path, env, master);
-		clean_free(master, 1); // TEMP
+		clean_free_no_exit(master);
 		execve(command, path, env);
 		free_fail_exec(command, path, env);
 	}
-	if (waitpid(pid, NULL, 0) == -1)
-		clean_free(master, 1); // TEMP
+	if (waitpid(pid, &exit, 0) == -1)
+		clean_free(master, 1);
+	if (WIFEXITED(exit))
+		g_error = WEXITSTATUS(exit);
 }
 
 void	reset_redirs(t_master *master)
@@ -75,9 +78,8 @@ void	reset_redirs(t_master *master)
 		clean_free(master, 1); // TEMP
 }
 
-void	exec_aux_free(t_command *cmd, char **path, t_master *master)
+void	exec_aux_free(t_command *cmd, t_master *master)
 {
-	printf("minishell: %s: command not found\n", cmd->args_char[0]);
-	free_double_array(path);
-	clean_free(master, 1); // TEMP
+	print_error("minishell", cmd->args_char[0], "command not found\n", 127);
+	clean_free(master, 127);
 }

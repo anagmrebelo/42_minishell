@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/03 16:45:23 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:36:38 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **enviroment)
 		init_redirs(master);
 		while (!master->status)
 		{
+			//	printf("ERROR CODE: %d\n", g_error);
 			master->line = readline(YELLOW"minishell: "RESET);
 			master->status = add_hist_exit_check(master);
 			if (master->status)
@@ -61,7 +62,6 @@ void	wait_childs(t_master *master)
 	int	i;
 	int	pid;
 	int	j;
-	int	exit;
 
 	i = master->numCommands;
 	if(i == 1)
@@ -70,12 +70,11 @@ void	wait_childs(t_master *master)
 	{
 		pid = waitpid(-1, &j, 0);
 		if (pid == -1)
-			clean_free_pipe_read(master, 1); //TEMP
+			clean_free_pipe_read(master, 1);
 		if (pid == master->pid)
 		{
 			if (WIFEXITED(j))
-			exit = WEXITSTATUS(j);
-			printf("EXIT STATUS %d\n", exit);
+				g_error = WEXITSTATUS(j);
 		}
 	}
 	return ;
@@ -100,7 +99,7 @@ void	minishell(char *line, t_master *master)
 				master->pid = fork();
 				if (master->pid < 0)
 				{
-					clean_free(master, 1); //TEMP
+					clean_free(master, 1);
 					close(master->fd[WRITE]);
 					close(master->fd[READ]);
 				}
@@ -109,6 +108,7 @@ void	minishell(char *line, t_master *master)
 					handle_redirs(cmd, master);
 					exec(master, cmd);
 				}
+				printf("Got here!\n");
 				close(master->fd[WRITE]);
 				cmd = cmd->next;
 			}

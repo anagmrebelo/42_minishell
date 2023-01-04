@@ -6,31 +6,28 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 16:07:48 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 14:50:45 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	clean_free_pipe_read(t_master *master, int exit_code)
-{
-	close(master->fd[READ]);
-	close_init_redirs(master);
-	free_master(master);
-	exit(exit_code);
-}
-
-void	clean_free(t_master *master, int exit_code)
-{
-	close_init_redirs(master);
-	free_master(master);
-	exit(exit_code);
-}
-
 void	clean_free_no_exit(t_master *master)
 {
 	close_init_redirs(master);
 	free_master(master);
+}
+
+void	clean_free(t_master *master, int exit_code)
+{
+	clean_free_no_exit(master);
+	exit(exit_code);
+}
+
+void	clean_free_pipe_read(t_master *master, int exit_code)
+{
+	close(master->fd[READ]);
+	clean_free(master, exit_code);
 }
 
 void    prep_next_line(t_master *master)
@@ -64,11 +61,10 @@ void	free_line(t_master *master)
 
 void	free_fail_exec(char *command, char **path, char **env)
 {
-	printf("minishell: error of execve\n");
 	free(command);
 	free_double_array(path);
 	free_double_array(env);
-	exit(0);
+	exit(1);
 }
 
 /**

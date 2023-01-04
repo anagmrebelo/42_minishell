@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/03 15:54:26 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:32:29 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char    **find_path(t_master *master)
         if (ft_strcmp(tmp->title, "PATH") == 0)
         {
             path = ft_split(tmp->value, ':');
-			if(!path)	//@arebelo confirmar con mica
+			if(!path)	//@arebelo confirmar con mica 
 				clean_free(master, 1); // TEMP
             break;
         }
@@ -50,12 +50,12 @@ char    *get_command(char **path, char *cmd, t_master *master)
     {
         aux = ft_strjoin(path[i], "/");
 		if(!aux)
-			clean_free(master, 1); // TEMP
+			clean_free(master, 1);
         path_cmd = join_free(aux, cmd);
 		if(!path_cmd)
 		{
 			free(aux);
-			clean_free(master, 1); // TEMP
+			clean_free(master, 1);
 		}
         if (access(path_cmd, 0) == 0)
             return (path_cmd);
@@ -74,9 +74,9 @@ void exec_bin(t_master *master, t_command *cmd)
 
 	path = find_path(master);
 	command = get_command(path, cmd->args_char[0], master);
-	if (!command)
-		exec_aux_free(cmd, path, master);
 	free_double_array(path);
+    if (!command)
+		exec_aux_free(cmd, master);
 	path = copy_double_array(cmd->args_char);
 	env = env_to_array(master->env);
 	if (!path || !env)
@@ -94,7 +94,7 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 		free_double_array(path);
 	if(env)
 		free_double_array(env);
-	clean_free(master, 1); // TEMP
+	clean_free(master, 1);
 	
 }
 

@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/03 16:49:13 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 12:43:06 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ _Bool	is_space(char c);
 void	minishell_one(t_master *master);
 void	exec_one(t_master *master, t_command *cmd);
 void	exec_bin_one(t_master *master, t_command *cmd);
-void	exec_aux_free(t_command *cmd, char **path, t_master *master);
+void	exec_aux_free(t_command *cmd, t_master *master);
 
 
 //HEREDOC pasarlo a parsing
@@ -178,7 +178,7 @@ void	handle_pipe(t_master *master, t_command *cmd);
 void	handle_outputs(t_command *cmd, t_master *master);
 void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
-_Bool	validate_file(char *path, t_master *master);
+_Bool	validate_file(char *path);
 void	reset_redirs(t_master *master);
 
 

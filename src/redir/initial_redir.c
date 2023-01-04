@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 16:47:25 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:25:40 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	handle_redirs(t_command *cmd, t_master *master)
 	close(master->fd[READ]);
 	if(cmd->inv_file)
 	{
-		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
+		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n", 2);
 		close(master->fd[WRITE]);
-		clean_free(master, 1); // TEMP
+		clean_free(master, 2);
 	}
 	redir_outputs(cmd, master);
 	redir_inputs(cmd, master);
@@ -57,9 +57,9 @@ void	handle_pipe(t_master *master, t_command *cmd)
 {
 	if (cmd->cmd_nb != 1)
 		if(dup2(master->fd[READ], STDIN_FILENO) == -1)
-			clean_free_pipe_read(master, 1); //TEMP
+			clean_free_pipe_read(master, 1);
 	close(master->fd[READ]);
 	if(pipe(master->fd) == -1)
-		clean_free(master, 1); // TEMP
+		clean_free(master, 1);
 	return ;
 }

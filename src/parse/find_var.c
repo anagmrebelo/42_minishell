@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 16:47:04 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 15:56:15 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 _Bool	ok(char c)
 {
-	if (!ft_isalnum(c) && c != '$')
+	if (!ft_isalnum(c) && c != '$' && c != '?')
 		return (0);
 	return (1);
 }
@@ -60,8 +60,17 @@ char	*find_aux(char *str, t_master *master)
 {
 	t_env	*temp;
 	char	*a;
+	char	*test;
 
 	temp = master->env;
+	if (ft_strcmp(str, "?") == 0)
+	{
+		free(str);
+		test = ft_itoa(g_error);
+		if (!test)
+			clean_free_pipe_read(master, 1);
+		return (test);
+	}
 	while (temp && str)
 	{
 		if (ft_strcmp(str, temp->title) == 0)
