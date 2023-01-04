@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/04 15:36:38 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 17:04:19 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	minishell(char *line, t_master *master)
 					handle_redirs(cmd, master);
 					exec(master, cmd);
 				}
-				printf("Got here!\n");
 				close(master->fd[WRITE]);
 				cmd = cmd->next;
 			}

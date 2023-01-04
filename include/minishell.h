@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/04 12:43:06 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/04 17:03:39 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*quotes_clean(t_token *new, t_master *master);
 void	quotes_update(t_token *new, t_master *master);
 _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
+_Bool	check_exceptions(t_token *fst_ty, t_token *scnd_ty);
 
 void	add_type(t_token *new);
 void	add_types_redir(t_master *master);

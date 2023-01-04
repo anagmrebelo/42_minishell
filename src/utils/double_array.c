@@ -8,8 +8,8 @@ void	free_double_array(char **table)
 	int		i;
 
 	i = 0;
-    if (!table)
-        return ;
+	if (!table)
+		return ;
 	while(table[i])
 	{
 		free(table[i]);

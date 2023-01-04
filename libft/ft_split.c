@@ -3,13 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:15:36 by mrollo            #+#    #+#             */
-/*   Updated: 2022/01/28 16:25:12 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/01/04 16:10:01 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
+
+void	free_d_array(char **table)
+{
+	int		i;
+
+	i = 0;
+	if (!table)
+		return ;
+	while(table[i])
+	{
+		free(table[i]);
+		i++;
+	}
+	free(table);
+}
 
 static int	ft_count_words(char const *s, char c)
 {
@@ -61,6 +77,8 @@ char	**ft_split(char const *s, char c)
 			i++;
 		len = ft_len(&s[i], c);
 		ptr[j] = ft_substr(s, i, len);
+		if(!ptr[j])
+			free_d_array(ptr);
 		i = i + len;
 		j++;
 	}

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 15:02:49 by mrollo            #+#    #+#             */
-/*   Updated: 2022/01/28 17:21:30 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/01/04 16:12:07 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_numlen(long int n)
@@ -40,10 +41,10 @@ char	*ft_itoa(int n)
 	nb = n;
 	len = ft_numlen(n);
 	str = ft_calloc(1, len + 1);
+	if (!str)
+		return (NULL);
 	if (n == 0)
 		str[0] = '0';
-	if (!str)
-		return (0);
 	str[len] = '\0';
 	if (n < 0)
 	{
