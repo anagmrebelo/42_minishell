@@ -68,7 +68,7 @@ _Bool	check_exceptions(t_token *fst, t_token *scnd)
 	if (fst->type < 5 && scnd->type)
 		return (1);
 	if (fst->type == 5 && scnd->type == 5)
-		return (1);
+		return (1);	
 	return (0);
 }
 
@@ -95,7 +95,8 @@ _Bool	check_syntax(t_master *master)
 				}
 				else
 					message = create_message(master, "syntax error near unexpected token \'", temp->next->str, "\'\n");
-				print_error("minishell", NULL, message, 258);
+				print_error("minishell", NULL, message);
+				g_error = 258;
 				free(message);
 				return (0);
 			}

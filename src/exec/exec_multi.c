@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/04 15:32:29 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/05 13:18:47 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,57 @@ char    **find_path(t_master *master)
     return (path);
 }
 
+/**
+ * Checks if it can't find the file, if it is a directory and if it has the correct permissions to execute
+*/
+char	*executable(char *cmd, t_master *master)
+{
+	DIR	*ptr;
+
+    if (access(cmd, F_OK) != 0)
+    {
+		print_error("minishell", cmd, "No such file or directory\n");
+		clean_free(master, 2);
+	}
+    ptr = opendir(cmd);
+	if (errno != 20) 
+    {
+		if (ptr)
+			closedir(ptr);
+        print_error("minishell", cmd, "is a directory\n");
+		clean_free(master, 21);
+    }
+    if (access(cmd, X_OK) == 0)
+        return (cmd);
+    print_error("minishell", cmd, "Permission denied\n");
+    clean_free(master, 126);
+	return (NULL);
+}
+
+
+/**
+ * Checks if first arg starts with one or more '.' and it is followed by a '/'
+*/
+_Bool	is_path(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i] && cmd[i] != '/')
+	{
+		if (cmd[i] != '.')
+			return (0);
+		i++;
+	}
+	if (!cmd[i])
+		return (0);
+	return (1);
+}
+
+
 
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
-
 char    *get_command(char **path, char *cmd, t_master *master)
 {
     int 	i;
@@ -46,7 +93,9 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-    while (path && path[i])
+	if (!path || is_path(cmd))
+		return (executable(cmd, master));
+    while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
 		if(!aux)
@@ -61,7 +110,7 @@ char    *get_command(char **path, char *cmd, t_master *master)
             return (path_cmd);
         i++;
     }
-    return (NULL);
+	return (NULL);
 }
 
 //ejecuta los comandos en un child process

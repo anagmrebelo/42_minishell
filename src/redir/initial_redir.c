@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/04 15:25:40 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/05 11:01:20 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	handle_redirs(t_command *cmd, t_master *master)
 	close(master->fd[READ]);
 	if(cmd->inv_file)
 	{
-		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n", 2);
+		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
 		close(master->fd[WRITE]);
 		clean_free(master, 2);
 	}

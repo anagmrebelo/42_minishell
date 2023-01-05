@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/04 17:03:39 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/05 11:30:02 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <errno.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <../libft/libft.h>
@@ -200,7 +201,7 @@ int     ft_pwd(t_env *env);
 
 
 //ERRORS
-void    print_error(char *bash, char *builtin, char *message, int error_code);
+void    print_error(char *bash, char *builtin, char *message);
 char	*create_message(t_master *master, char *message, char *token, char *msg);
 
 

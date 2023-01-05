@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/03 17:01:02 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/05 11:00:21 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if (!check_quotes(line))
 	{
-		print_error("minishell", NULL, "syntax error\n", 258);
+		print_error("minishell", NULL, "syntax error\n");
+		g_error = 258;
 		return (0);
 	}
 	while (line[i])
