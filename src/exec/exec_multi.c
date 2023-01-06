@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/05 13:18:47 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 18:05:03 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char    **find_path(t_master *master)
         if (ft_strcmp(tmp->title, "PATH") == 0)
         {
             path = ft_split(tmp->value, ':');
-			if(!path)	//@arebelo confirmar con mica 
-				clean_free(master, 1); // TEMP
+			if(!path)
+				clean_free(master, 1);
             break;
         }
         tmp = tmp->next;
@@ -51,7 +51,8 @@ char	*executable(char *cmd, t_master *master)
 	if (errno != 20) 
     {
 		if (ptr)
-			closedir(ptr);
+			if (closedir(ptr) == -1)
+                clean_free(master, 1);
         print_error("minishell", cmd, "is a directory\n");
 		clean_free(master, 21);
     }

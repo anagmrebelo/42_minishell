@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/04 17:04:19 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 17:30:49 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,17 @@ void	minishell(char *line, t_master *master)
 				master->pid = fork();
 				if (master->pid < 0)
 				{
-					clean_free(master, 1);
 					close(master->fd[WRITE]);
 					close(master->fd[READ]);
+					clean_free(master, 1);
 				}
 				if (master->pid == 0)
 				{
 					handle_redirs(cmd, master);
 					exec(master, cmd);
 				}
-				close(master->fd[WRITE]);
+				if(close(master->fd[WRITE]) == -1)
+					clean_free_pipe_read(master, 1);
 				cmd = cmd->next;
 			}
 		}

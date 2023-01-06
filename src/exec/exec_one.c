@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/05 11:01:30 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 17:31:18 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	minishell_one(t_master *master)
 	
 	cmd = master->commands_list;
 	handle_outputs(cmd, master);
-	close(master->fd[READ]);
+	if (close(master->fd[READ]) == -1)
+		clean_free(master, 1);
 	if (cmd->inv_file)
 	{
 		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");

@@ -24,41 +24,6 @@ void	add_type(t_token *new)
 }
 
 /**
- * Checks if there is an arg after special symbols (e.g. '<') and that isn't another special symbol
-*/
-/*
-_Bool	check_syntax(t_master *master)
-{
-	t_token	*temp;
-	char	*message;
-	
-	temp = master->token_list;
-	while(temp)
-	{
-		if(temp->type > 0)
-		{
-			if(!temp->next || temp->next->type)
-			{
-				if (!temp->next)
-				{
-					message = ft_strdup("syntax error near unexpected token \'newline\'\n");
-					if(!message)
-						clean_free_pipe_read(master, 1);
-				}
-				else
-					message = create_message(master, "syntax error near unexpected token \'", temp->next->str, "\'\n");
-				print_error("minishell", NULL, message, 258);
-				free(message);
-				return (0);
-			}
-		}
-		temp = temp->next;
-	}
-	return (1);
-}
-*/
-
-/**
  * First condition: < >
  * Second condition: | |
  * Third condition | < >

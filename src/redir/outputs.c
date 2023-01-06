@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/04 15:26:29 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 17:55:32 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	handle_outputs(t_command *cmd, t_master *master)
 			temp->fd = open(temp->str, O_WRONLY | O_CREAT, 0644);
 			if (temp->fd == -1)
 				clean_free_pipe_read(master, 1);
-			close(temp->fd);
+			if (close(temp->fd) == -1)
+				clean_free_pipe_read(master, 1);
 		}
 		else
 		{
 			temp->fd = open(temp->str, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			if (temp->fd == -1)
 				clean_free_pipe_read(master, 1);
-			close(temp->fd);
+			if (close(temp->fd) == -1)
+				clean_free_pipe_read(master, 1);
 		}
 		temp = temp->next;
 	}
@@ -52,8 +54,9 @@ void	redir_outputs(t_command *cmd, t_master *master)
 	flag = O_WRONLY;
 	if (cmd->outputs)
 	{
-		if(cmd->cmd_nb != master->numCommands) //@arebelo review condition
-			close(master->fd[WRITE]);
+		if(master->numCommands != 1)
+			if (close(master->fd[WRITE]) == -1)
+				clean_free(master, 1);
 		if(last_token(cmd->outputs)->type == APPEND)
 			flag = O_APPEND;
 		last_token(cmd->outputs)->fd = open(last_token(cmd->outputs)->str, O_WRONLY | flag);
@@ -64,7 +67,8 @@ void	redir_outputs(t_command *cmd, t_master *master)
 				close(last_token(cmd->outputs)->fd);
 				clean_free(master, 1);
 			}
-			close(last_token(cmd->outputs)->fd);
+			if (close(last_token(cmd->outputs)->fd) == -1)
+				clean_free(master, 1);
 		}
 		else
 			clean_free(master, 1);
@@ -76,6 +80,7 @@ void	redir_outputs(t_command *cmd, t_master *master)
 			close(master->fd[WRITE]);
 			clean_free(master, 1);
 		}
-		close(master->fd[WRITE]);
+		if (close(master->fd[WRITE]) == -1)
+			clean_free(master, 1);
 	}	
 }

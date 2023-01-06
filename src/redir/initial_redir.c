@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/05 11:01:20 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 18:01:18 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	init_pipe(t_master *master)
 {
 	if(pipe(master->fd) == -1)
 		clean_free(master, 1);
-	close(master->fd[WRITE]);
+	if (close(master->fd[WRITE]) == -1)
+		clean_free_pipe_read(master, 1);
 }
 
 /**
@@ -42,11 +43,13 @@ void	init_pipe(t_master *master)
 */
 void	handle_redirs(t_command *cmd, t_master *master)
 {	
-	close(master->fd[READ]);
+	if(close(master->fd[READ]) == -1)
+		clean_free(master, 1);
 	if(cmd->inv_file)
 	{
 		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
-		close(master->fd[WRITE]);
+		if(close(master->fd[WRITE]) == -1)
+			clean_free(master, 1);
 		clean_free(master, 2);
 	}
 	redir_outputs(cmd, master);
@@ -58,7 +61,8 @@ void	handle_pipe(t_master *master, t_command *cmd)
 	if (cmd->cmd_nb != 1)
 		if(dup2(master->fd[READ], STDIN_FILENO) == -1)
 			clean_free_pipe_read(master, 1);
-	close(master->fd[READ]);
+	if (close(master->fd[READ]) == -1)
+		clean_free(master, 1);
 	if(pipe(master->fd) == -1)
 		clean_free(master, 1);
 	return ;
