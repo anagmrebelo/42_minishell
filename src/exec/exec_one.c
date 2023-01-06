@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/06 17:31:18 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/06 18:09:35 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 void	reset_redirs(t_master *master)
 {
 	if(dup2(master->std_in, STDIN_FILENO) == -1)
-		clean_free(master, 1); // TEMP
+		clean_free(master, 1);
 	if(dup2(master->std_out, STDOUT_FILENO) == -1)
-		clean_free(master, 1); // TEMP
+		clean_free(master, 1);
 }
 
 void	exec_aux_free(t_command *cmd, t_master *master)
