@@ -18,7 +18,6 @@ int	main(int argc, char **argv, char **enviroment)
 
 	if (argc >= 1 && argv)
 	{
-		init_signal(1);
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
