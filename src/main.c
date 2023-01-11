@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 15:33:57 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 17:13:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv, char **enviroment)
 		init_redirs(master);
 		while (!master->status)
 		{
-			//	printf("ERROR CODE: %d\n", g_error);
 			master->line = readline(YELLOW"minishell: "RESET);
 			master->status = add_hist_exit_check(master);
 			if (master->status)
@@ -77,6 +76,7 @@ void	wait_childs(t_master *master)
 		return ;
 	while(i--)
 	{
+		j = 0;
 		pid = waitpid(-1, &j, 0);
 		if (pid == -1)
 			clean_free_pipe_read(master, 1);
@@ -86,7 +86,6 @@ void	wait_childs(t_master *master)
 				g_error = WEXITSTATUS(j);
 		}
 	}
-	return ;
 }
 
 void	minishell(char *line, t_master *master)
