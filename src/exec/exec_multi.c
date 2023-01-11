@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/06 18:05:03 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/11 15:49:06 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,22 +148,24 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 	
 }
 
-void    exec_builtin(char *command, t_command *cmd, t_env *env)
+int	exec_builtin(char *command, t_command *cmd, t_env *env)
 {
     if (strcmp(command, "echo") == 0)
-        ft_echo(cmd->args_char);
+        return (ft_echo(cmd->args_char));
     else if (ft_strcmp(command, "cd") == 0)
-		ft_cd(env, cmd->args_char);
+		return (ft_cd(env, cmd->args_char));
     else if (ft_strcmp(command, "pwd") == 0)
-		ft_pwd(env);
+		return (ft_pwd(env));
     else if (ft_strcmp(command, "export") == 0)
-		ft_export(env, cmd->args_char);
+		return (ft_export(env, cmd->args_char));
 	else if (ft_strcmp(command, "unset") == 0)
-		ft_unset(env, cmd->args_char);
+		return (ft_unset(env, cmd->args_char));
     else if (ft_strcmp(command, "env") == 0)
-        ft_env(env);
+		return (ft_env(env));
     else if (ft_strcmp(command, "exit") == 0)
-        return ;
+        return (0);
+	return (0);
+	
 }
 // cambio todos los tab de los if x 4 espacios , para codespaces
 int is_builtin(char *command)
@@ -193,7 +195,7 @@ int exec(t_master *master, t_command *cmd)
     if (master->numCommands == 1)
         exec_one(master, cmd);
 	else if (is_builtin(cmd->args_char[0]))
-        exec_builtin(cmd->args_char[0], cmd, master->env); //@areview for leaks
+    	exit(exec_builtin(cmd->args_char[0], cmd, master->env)); //@areview for leaks
     else
         exec_bin(master, cmd);
     return (0);

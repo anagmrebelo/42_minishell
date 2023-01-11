@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/06 17:23:11 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/11 15:42:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ char    **token_to_array(t_token *token, t_master *master);
 void	exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
-void    exec_builtin(char *command, t_command *cmd, t_env *env);
+int		exec_builtin(char *command, t_command *cmd, t_env *env);
 void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master);
 
 //BUILTINS
