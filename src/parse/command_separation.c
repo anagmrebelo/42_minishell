@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_separation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/30 11:29:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/04 10:28:31 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	command_separation(t_master *master)
 	{
 		cmd = ft_calloc(1, sizeof(t_command));
 		if (!cmd)
-			clean_free_pipe_read(master);
+			clean_free_pipe_read(master, 1);
 		cmd->cmd_nb = i;
 		while (temp && temp->type != PIPE)
 		{
@@ -41,7 +41,7 @@ void	command_separation(t_master *master)
 				add_to_command(temp, &cmd->outputs, master);
 			else if (temp->type == HEREDOC || temp->type == INPUT)
 				add_to_command(temp, &cmd->inputs, master);
-			if (temp->type == INPUT && !validate_file(temp->str, master))
+			if (temp->type == INPUT && !validate_file(temp->str))
 			{
 				cmd->inv_file = 1;
 				temp = NULL;
@@ -126,12 +126,12 @@ t_token	*copy_token(t_token *src, t_master *master)
 
 	res = ft_calloc(1, sizeof(t_token));
 	if (!res)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	res->str = ft_strdup(src->str);
 	if (!res->str)
 	{
 		free(res);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	res->type = src->type;
 	res->next = NULL;
@@ -158,7 +158,7 @@ char    **token_to_array(t_token *token, t_master *master)
     }
     token_array = (char **)ft_calloc((len + 1), sizeof(char *));
     if (!token_array)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
     i = 0;
     while (i < len)
     {
@@ -166,7 +166,7 @@ char    **token_to_array(t_token *token, t_master *master)
 		if(!token_array[i])
 		{
 			free_double_array(token_array);
-			clean_free_pipe_read(master);
+			clean_free_pipe_read(master, 1);
 		}
         token = token->next;
         i++;

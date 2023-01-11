@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2022/12/02 13:37:22 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:05:03 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char    **find_path(t_master *master)
         if (ft_strcmp(tmp->title, "PATH") == 0)
         {
             path = ft_split(tmp->value, ':');
-			if(!path)	//@arebelo confirmar con mica
-				clean_free(master);
+			if(!path)
+				clean_free(master, 1);
             break;
         }
         tmp = tmp->next;
@@ -35,10 +35,58 @@ char    **find_path(t_master *master)
     return (path);
 }
 
+/**
+ * Checks if it can't find the file, if it is a directory and if it has the correct permissions to execute
+*/
+char	*executable(char *cmd, t_master *master)
+{
+	DIR	*ptr;
+
+    if (access(cmd, F_OK) != 0)
+    {
+		print_error("minishell", cmd, "No such file or directory\n");
+		clean_free(master, 2);
+	}
+    ptr = opendir(cmd);
+	if (errno != 20) 
+    {
+		if (ptr)
+			if (closedir(ptr) == -1)
+                clean_free(master, 1);
+        print_error("minishell", cmd, "is a directory\n");
+		clean_free(master, 21);
+    }
+    if (access(cmd, X_OK) == 0)
+        return (cmd);
+    print_error("minishell", cmd, "Permission denied\n");
+    clean_free(master, 126);
+	return (NULL);
+}
+
+
+/**
+ * Checks if first arg starts with one or more '.' and it is followed by a '/'
+*/
+_Bool	is_path(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd[i] && cmd[i] != '/')
+	{
+		if (cmd[i] != '.')
+			return (0);
+		i++;
+	}
+	if (!cmd[i])
+		return (0);
+	return (1);
+}
+
+
 
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
-
 char    *get_command(char **path, char *cmd, t_master *master)
 {
     int 	i;
@@ -46,22 +94,24 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-    while (path && path[i])
+	if (!path || is_path(cmd))
+		return (executable(cmd, master));
+    while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
 		if(!aux)
-			clean_free(master);
+			clean_free(master, 1);
         path_cmd = join_free(aux, cmd);
 		if(!path_cmd)
 		{
 			free(aux);
-			clean_free(master);
+			clean_free(master, 1);
 		}
         if (access(path_cmd, 0) == 0)
             return (path_cmd);
         i++;
     }
-    return (NULL);
+	return (NULL);
 }
 
 //ejecuta los comandos en un child process
@@ -74,9 +124,9 @@ void exec_bin(t_master *master, t_command *cmd)
 
 	path = find_path(master);
 	command = get_command(path, cmd->args_char[0], master);
-	if (!command)
-		exec_aux_free(cmd, path, master);
 	free_double_array(path);
+    if (!command)
+		exec_aux_free(cmd, master);
 	path = copy_double_array(cmd->args_char);
 	env = env_to_array(master->env);
 	if (!path || !env)
@@ -94,7 +144,7 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 		free_double_array(path);
 	if(env)
 		free_double_array(env);
-	clean_free(master);
+	clean_free(master, 1);
 	
 }
 

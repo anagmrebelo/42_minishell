@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2022/12/02 12:21:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:01:18 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	init_redirs(t_master *master)
 	master->std_in = dup(STDIN_FILENO);
 	master->std_out = dup(STDOUT_FILENO);
 	if (master->std_in == -1 || master->std_out == -1)
-	{
-		printf("Error on dup\n");
-		clean_free(master);
-	}
+		clean_free(master, errno);
 }
 
 /**
@@ -33,11 +30,9 @@ void	init_redirs(t_master *master)
 void	init_pipe(t_master *master)
 {
 	if(pipe(master->fd) == -1)
-	{
-		printf("Error on creating pipe - function init redirs\n");	// Change to exit program
-		clean_free(master);
-	}
-	close(master->fd[WRITE]);
+		clean_free(master, 1);
+	if (close(master->fd[WRITE]) == -1)
+		clean_free_pipe_read(master, 1);
 }
 
 /**
@@ -48,12 +43,14 @@ void	init_pipe(t_master *master)
 */
 void	handle_redirs(t_command *cmd, t_master *master)
 {	
-	close(master->fd[READ]);
+	if(close(master->fd[READ]) == -1)
+		clean_free(master, 1);
 	if(cmd->inv_file)
 	{
-		printf("minishell: %s: No such file or directory\n", last_token(cmd->inputs)->str);
-		close(master->fd[WRITE]);
-		clean_free(master);
+		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
+		if(close(master->fd[WRITE]) == -1)
+			clean_free(master, 1);
+		clean_free(master, 2);
 	}
 	redir_outputs(cmd, master);
 	redir_inputs(cmd, master);
@@ -63,9 +60,10 @@ void	handle_pipe(t_master *master, t_command *cmd)
 {
 	if (cmd->cmd_nb != 1)
 		if(dup2(master->fd[READ], STDIN_FILENO) == -1)
-			clean_free_pipe_read(master);
-	close(master->fd[READ]);
+			clean_free_pipe_read(master, 1);
+	if (close(master->fd[READ]) == -1)
+		clean_free(master, 1);
 	if(pipe(master->fd) == -1)
-		clean_free(master);
+		clean_free(master, 1);
 	return ;
 }

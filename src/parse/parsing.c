@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2022/12/02 14:22:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:00:21 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if (!check_quotes(line))
 	{
-		printf("minishell: syntax error\n"); //Error
+		print_error("minishell", NULL, "syntax error\n");
+		g_error = 258;
 		return (0);
 	}
 	while (line[i])
@@ -34,7 +35,6 @@ _Bool	parsing(char *line, t_master *master)
 		command_separation(master);
 		return (1);
 	}
-	printf("minishell: syntax error\n"); //Error
 	return (0);
 }
 
@@ -43,14 +43,15 @@ _Bool	parsing(char *line, t_master *master)
 */
 _Bool	is_delimeter(char c)
 {
-	if (is_space(c) || c == '|' || c == '<' || c == '>')	
+	if (is_space(c) || c == '|' || c == '<' || c == '>')
 		return (1);
-	return (0); 
+	return (0);
 }
 
 _Bool	is_space(char c)
 {
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ') //@arebelo check function isspace
+	if (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ')
 		return (1);
 	return (0);
 }
@@ -66,7 +67,7 @@ int	tokenize(char *line, t_master *master)
 
 	i = 0;
 	quotes = -1;
-	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0 ))
+	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0))
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
 			quotes = i;
@@ -103,50 +104,15 @@ t_token	*new_token(char *line, int size, t_master *master)
 
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	new->str = ft_substr(line, 0, size);
 	if (!new->str)
 	{
 		free(new);
-		clean_free_pipe_read(master);
+		clean_free_pipe_read(master, 1);
 	}
 	add_type(new);
 	env_update(new, master);
 	quotes_update(new, master);
 	return (new);
 }
-
-/**
- * Deletes tokens that have an empty str
-*/
-void	clean_tokens(t_master *master)
-{
-	t_token	*temp;
-
-	temp = master->token_list;
-	while(temp)
-	{
-		if (!temp->str || !temp->str[0])
-			delete_token(temp, master);
-		temp = temp->next;
-	}
-}
-
-/**
- * Checks the line for heredoc
-*/
-void	check_heredoc(t_master *master)
-{
-	t_token	*token;
-
-	token = master->token_list;
-	while(token)
-	{
-		if(token->type == HEREDOC)
-			handle_heredoc(token, token->str);
-		token = token->next;
-	}
-}
-
-// @mrollo: la funcion deberia al final dejar el token->str con el nombre del archivo oculto
-// @mrollo: no olvidar de hacer free(token->str) antes de darle un nuevo valor

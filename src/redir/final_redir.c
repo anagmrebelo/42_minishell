@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   final_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:58:11 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 10:27:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:17:38 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@
 */
 void	close_init_redirs(t_master *master)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	if (master->std_in != -1)
-		close(master->std_in);
+		i = close(master->std_in);
 	if (master->std_out != -1)
-		close(master->std_out);
+		j = close(master->std_out);
+	if (i == -1 || j == -1)
+	{
+		free_master(master);
+		exit(1);
+	}
 }

@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2022/11/30 17:44:46 by arebelo          ###   ########.fr        #
+#    Updated: 2023/01/11 15:36:34 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRC				= main.c\
 				builtins/env.c\
 				builtins/export.c\
 				builtins/unset.c\
+				errors/print_error.c\
 				utils/double_array.c\
 				utils/strlcat.c\
 				utils/max_len.c\
