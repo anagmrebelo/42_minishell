@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void    ft_env(t_env *env)
+int ft_env(t_env *env)
 {
     while (env != NULL)
     {
@@ -9,4 +9,5 @@ void    ft_env(t_env *env)
         ft_putendl_fd(env->value, 1);
         env = env->next;
     }
+    return (0);
 }
