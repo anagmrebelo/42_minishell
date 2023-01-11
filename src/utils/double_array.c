@@ -3,6 +3,7 @@
 /**
  * Frees a double pointer
 */
+//cambie tabs x espacios por codespaces en el if y while
 void	free_double_array(char **table)
 {
 	int		i;
@@ -10,7 +11,7 @@ void	free_double_array(char **table)
 	i = 0;
     if (!table)
         return ;
-	while(table[i])
+    while (table[i])
 	{
 		free(table[i]);
 		i++;

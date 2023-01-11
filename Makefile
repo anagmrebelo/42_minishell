@@ -37,6 +37,9 @@ LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
 
 INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
 
+COMFLAGS		= -I/Users/$(USER)/.brew/opt/readline/include
+LINKFLAGS		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+
 SRC				= main.c\
 				env/init_env.c\
 				env/sort_env.c\
@@ -62,6 +65,9 @@ SRC				= main.c\
 				builtins/echo.c\
 				builtins/pwd.c\
 				builtins/cd.c\
+				builtins/env.c\
+				builtins/export.c\
+				builtins/unset.c\
 				utils/double_array.c\
 				utils/strlcat.c\
 				utils/max_len.c\
@@ -91,8 +97,8 @@ MKDIR			= mkdir -p
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 				@$(MKDIR) -p $(dir $@)
-				@$(COMPILE) $(CFLAGS) -o $@ $<
-				@ECHO "Compiling... $^"
+				@$(COMPILE) $(CFLAGS) $(COMFLAGS) -o $@ $<
+				@echo "Compiling... $^"
 
 all:			make_libs $(NAME)
 
@@ -102,8 +108,8 @@ make_libs:
 -include $(DEP)
 
 $(NAME):	$(OBJ) $(LIBS)
-			@$(LINK) $(OBJ) $(LIBS) -o $(NAME) -lreadline
-			@ECHO "Created minishell (mandatory)"
+			@$(LINK) $(OBJ) $(LIBS) $(LINKFLAGS) -o $(NAME) -lreadline
+			@echo "Created minishell (mandatory)"
 
 -include $(DEP_BONUS)
 
@@ -115,7 +121,7 @@ clean:
 fclean:		clean
 			@$(RM) $(NAME) $(NAME_BONUS)
 			@make fclean -C $(LIBS_DIR)
-			@ECHO "Minishell cleaned"
+			@echo "Minishell cleaned"
 
 re:			fclean all
 
