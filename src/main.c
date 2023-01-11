@@ -31,7 +31,11 @@ int	main(int argc, char **argv, char **enviroment)
 			if (master->status)
 				break ;
 			if (master->line == 0)
+			{
+				free_master(master);
+				write(1, "\n", 1);
 				exit (1);
+			}
 			if (*master->line != '\0')
 			{
 				add_history(master->line); //asi parece que se soluciona
