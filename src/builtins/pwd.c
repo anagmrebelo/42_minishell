@@ -20,15 +20,9 @@ int ft_pwd(t_env *env)
 
     pwd = malloc(4097 * sizeof(char));
     if (!pwd)
-    {
-        printf("calloc error\n");
         return (1);
-    }
     if (getcwd(pwd, 4097) == NULL)
-    {
-        printf("error getcwd\n");
         return (1);
-    }
     else
     {
         ft_putendl_fd(pwd, 1);
