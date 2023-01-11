@@ -55,7 +55,7 @@ void    add_to_env(char *content, char *title, char *value, t_env *env)
 //     return (str);
 // }
 
-void    update_var(t_env *env, char *str)
+void    update_var(t_env *env, char *str, t_master *master)
 {
     char    *end;
     size_t  n;
@@ -69,7 +69,7 @@ void    update_var(t_env *env, char *str)
     {
         if (ft_strncmp(env->title, str, n) == 0)
         {
-            env->value = get_value(str);
+            env->value = get_value(str, master);
             break ;
         }
         env = env->next;
@@ -102,7 +102,7 @@ int var_title_check(char *str)
     return (1);
 }
 
-int ft_export(t_env *env, char **args)
+int ft_export(t_env *env, char **args, t_master *master)
 {
     int i;
     int ret;
@@ -121,9 +121,9 @@ int ft_export(t_env *env, char **args)
             if(var_title_check(args[i]))
             {
                 if (var_exist(env, args[i]))
-                    update_var(env, args[i]);
+                    update_var(env, args[i], master);
                 else
-                    add_to_env(args[i], get_title(args[i]), get_value(args[i]), env);
+                    add_to_env(args[i], get_title(args[i], master), get_value(args[i], master), env);
             }
             else
             {

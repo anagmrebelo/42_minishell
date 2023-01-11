@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 19:56:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 20:18:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 	
 }
 
-int	exec_builtin(char *command, t_command *cmd, t_env *env)
+int	exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master)
 {
     if (strcmp(command, "echo") == 0)
         return (ft_echo(cmd->args_char));
@@ -157,7 +157,7 @@ int	exec_builtin(char *command, t_command *cmd, t_env *env)
     else if (ft_strcmp(command, "pwd") == 0)
 		return (ft_pwd(env));
     else if (ft_strcmp(command, "export") == 0)
-		return (ft_export(env, cmd->args_char));
+		return (ft_export(env, cmd->args_char, master));
 	else if (ft_strcmp(command, "unset") == 0)
 		return (ft_unset(env, cmd->args_char));
     else if (ft_strcmp(command, "env") == 0)
@@ -195,7 +195,7 @@ int exec(t_master *master, t_command *cmd)
     if (master->numCommands == 1)
         exec_one(master, cmd);
 	else if (is_builtin(cmd->args_char[0]))
-    	exit(exec_builtin(cmd->args_char[0], cmd, master->env)); //@areview for leaks
+    	exit(exec_builtin(cmd->args_char[0], cmd, master->env, master)); //@areview for leaks
     else
         exec_bin(master, cmd);
     return (0);

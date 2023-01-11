@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/11 19:56:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 20:19:17 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_one(t_master *master, t_command *cmd)
 	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
 	if (is_builtin(cmd->args_char[0]))
-		g_error = exec_builtin(cmd->args_char[0], cmd, master->env); //@arebelo check leaks and reset dirs
+		g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master); //@arebelo check leaks and reset dirs
 	else
 		exec_bin_one(master, cmd);
 }

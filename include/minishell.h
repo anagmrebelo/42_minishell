@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 18:55:47 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 20:18:54 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ char    **token_to_array(t_token *token, t_master *master);
 void	exec_bin(t_master *master, t_command *cmd);
 int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
-int		exec_builtin(char *command, t_command *cmd, t_env *env);
+int		exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master);
 void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master);
 
 //BUILTINS
@@ -209,7 +209,7 @@ void    update_oldpwd(char *oldpwd, t_env *env);
 int     change_dir(char *arg, char *oldpwd, t_env *env);
 int     ft_env(t_env *env);
 int     ft_unset(t_env *env, char **args);
-int     ft_export(t_env *env, char **args);
+int     ft_export(t_env *env, char **args, t_master *master);
 void    print_export_error(char *str);
 
 //ERRORS
