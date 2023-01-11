@@ -33,7 +33,10 @@ char	*get_title(char *str)
 	char *title;
 
 	aux = ft_strchr(str, '=');
-	len = (aux - str) + 1;
+	if (!aux)
+		len = ft_strlen(str) + 1;
+	else
+		len = (aux - str) + 1;
 	title = ft_substr(str, 0, len - 1);
 	return (title);
 }
@@ -45,6 +48,8 @@ char	*get_value(char *str)
 	char *value;
 
 	aux = ft_strchr(str, '=');
+	if (!aux)
+		return (NULL);
 	len = (aux - str) + 1;
 	value = ft_substr(str, len, ft_strlen(str) - len);
 	return (value);

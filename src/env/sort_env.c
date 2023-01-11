@@ -44,15 +44,16 @@ char    **sort_env_array(char **sort_array, t_env *env, int len)
     i = 0;
     while (i < len)
     {
-        str = ft_strdup(env->title);
-        str = join_free(str, "=\"");
-        str = join_free(str, env->value);
-        str = join_free(str, "\"");
+        if (env->value)
+        {
+            str = ft_strdup(env->title);
+            str = join_free(str, "=\"");
+            str = join_free(str, env->value);
+            str = join_free(str, "\"");
+        }
+        else
+            str = ft_strdup(env->title);
         sort_array[i] = str;
-        //aux = join_free(str, "=\"");
-        // str = join_free(aux, env->value);
-        // aux = join_free(str, "\"");
-        // sort_array[i] = aux;
         env = env->next;
         i++;
     }
