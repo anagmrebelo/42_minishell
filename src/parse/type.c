@@ -54,13 +54,13 @@ _Bool	check_syntax(t_master *master)
 			{
 				if (!temp->next)
 				{
-					message = ft_strdup("syntax error near unexpected token \'newline\'\n");
+					message = ft_strdup("syntax error near unexpected token `newline\'\n");
 					if(!message)
 						clean_free_pipe_read(master, 1);
 				}
 				else
 					message = create_message(master, "syntax error near unexpected token \'", temp->next->str, "\'\n");
-				print_error("minishell", NULL, message);
+				print_error("bash", NULL, message);
 				g_error = 258;
 				free(message);
 				return (0);

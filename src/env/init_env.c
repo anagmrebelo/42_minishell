@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 18:52:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 18:56:19 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	add_back(t_env *env, t_env *new)
 	}
 }
 
-t_env	*new_env(char *content, char *title, char *value, t_master *master)
+t_env	*new_env(char *content, char *title, char *value)
 {
 	t_env *new;
 
@@ -109,7 +109,7 @@ int	init_env(t_master *master, char **enviroment)
 	i = 1;
 	while (enviroment && enviroment[i])
 	{
-		new = new_env(enviroment[i], get_title(enviroment[i], master), get_value(enviroment[i], master);
+		new = new_env(enviroment[i], get_title(enviroment[i], master), get_value(enviroment[i], master));
 		if (!new)
 			clean_free(master, 1);
 		add_back(env, new);

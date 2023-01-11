@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/05 11:00:21 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/11 19:56:32 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if (!check_quotes(line))
 	{
-		print_error("minishell", NULL, "syntax error\n");
+		print_error("bash", NULL, "syntax error\n");
 		g_error = 258;
 		return (0);
 	}

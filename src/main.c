@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 17:13:24 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 19:55:49 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,16 @@ int	main(int argc, char **argv, char **enviroment)
 		init_redirs(master);
 		while (!master->status)
 		{
-			master->line = readline(YELLOW"minishell: "RESET);
-			master->status = add_hist_exit_check(master);
-			if (master->status)
-				break ;
+			if (argv[1] && ft_strcmp(argv[1], "-c") == 0 && argv[2])
+			{
+				master->line = ft_strdup(argv[2]);
+				master->status = 1;
+			}
+			else
+				master->line = readline(YELLOW"bash: "RESET);
+			//master->status = add_hist_exit_check(master);
+			//if (master->status)
+			//	break ;
 			if (master->line == 0)
 			{
 				free_master(master);
