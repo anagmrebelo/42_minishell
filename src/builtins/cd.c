@@ -37,7 +37,7 @@ void    update_oldpwd(char *oldpwd, t_env *env)
     }
 }
 
-void    update_pwd(t_env *env)
+int    update_pwd(t_env *env)
 {
     char    *pwd;
 
@@ -58,6 +58,7 @@ void    update_pwd(t_env *env)
             env = env->next;
     }
     free (pwd);
+    return (0);
 }
 
 void    update_env(char *oldpwd, t_env *env)

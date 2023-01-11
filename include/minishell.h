@@ -203,7 +203,7 @@ int     ft_pwd(t_env *env);
 int     ft_cd(t_env *env, char **args);
 char    *get_env_value(char *title, t_env *env);
 void    update_env(char *oldpwd, t_env *env);
-void    update_pwd(t_env *env);
+int     update_pwd(t_env *env);
 void    update_oldpwd(char *oldpwd, t_env *env);
 int     change_dir(char *arg, char *oldpwd, t_env *env);
 int     ft_env(t_env *env);
