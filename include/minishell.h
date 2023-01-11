@@ -205,7 +205,7 @@ char    *get_env_value(char *title, t_env *env);
 void    update_env(char *oldpwd, t_env *env);
 void    update_pwd(t_env *env);
 void    update_oldpwd(char *oldpwd, t_env *env);
-void    change_dir(char *arg, char *oldpwd, t_env *env);
+int     change_dir(char *arg, char *oldpwd, t_env *env);
 int     ft_env(t_env *env);
 int     ft_unset(t_env *env, char **args);
 int     ft_export(t_env *env, char **args);

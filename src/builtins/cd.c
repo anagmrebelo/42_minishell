@@ -1,9 +1,12 @@
 #include "../../include/minishell.h"
 
-void change_dir(char *arg, char *oldpwd, t_env *env)
+int change_dir(char *arg, char *oldpwd, t_env *env)
 {
     if (chdir(arg) == 0)
+    {
         update_env(oldpwd, env);
+        return (0);
+    }
     else
     {
         ft_putstr_fd("cd: ", 1);
@@ -15,6 +18,7 @@ void change_dir(char *arg, char *oldpwd, t_env *env)
             ft_putendl_fd("Permission denied", 1);
         else
             ft_putendl_fd("Not a directory", 1);
+        return (1);
     }
 }
 
@@ -38,8 +42,10 @@ void    update_pwd(t_env *env)
     char    *pwd;
 
     pwd = malloc(4097 * sizeof(char));
+    if (!pwd)
+        return (1);
     if (getcwd(pwd, 4097) == NULL)
-        printf("error getcwd\n");
+        return (1);
     while (env != NULL)
     {
         if (ft_strcmp("PWD", env->title) == 0)
@@ -76,31 +82,29 @@ int ft_cd(t_env *env, char **args)
 {
     char    *home_path;
     char    *pwd;
+    int     i;
 
     home_path = get_env_value("HOME", env);
     pwd = malloc(4097 * sizeof(char));
+    if (!pwd)
+        return (1);
     if (getcwd(pwd, 4097) == NULL)
-        printf("error getcwd\n");
+        return (1);
     if (args[1] == NULL || ft_strcmp(args[1], "~") == 0 
         || ft_strcmp(args[1], "--") == 0)
-    {
-        if(chdir(home_path) != 0)
-            printf("error"); //gestionar error
-        else
-            update_env(pwd, env);
-    }
+        i = change_dir(home_path, pwd, env);
     else if (strcmp(args[1], "-") == 0)
     {
-        if(chdir(home_path) != 0)
-            printf("error"); //gestionar error
-        else
+        if (!change_dir(home_path, pwd, env))
         {
             ft_putendl_fd(home_path, 1);
-            update_env(pwd, env);
+            i = 0;
         }
+        else
+            i = 1;
     }
     else
-        change_dir(args[1], pwd, env);
+        i = change_dir(args[1], pwd, env);
     free (pwd);
-    return (0);
+    return (i);
 }
