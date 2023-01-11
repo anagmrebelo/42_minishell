@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_separation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/04 10:28:31 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/11 17:11:13 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	command_separation(t_master *master)
 			if (temp->type == INPUT && !validate_file(temp->str))
 			{
 				cmd->inv_file = 1;
-				temp = NULL;
+				temp = find_next_pipe(temp);
 				break ;
 			}
 			temp = temp->next;
@@ -56,6 +56,20 @@ void	command_separation(t_master *master)
 		i++;
 	}
 	return ;
+}
+
+/**
+ * Finds first token of the following pipe
+ * returns null if not existent
+*/
+t_token	*find_next_pipe(t_token *temp)
+{
+	while(temp && temp->type == PIPE)
+		temp = temp->next;
+	if (!temp || !temp->next)
+		return (NULL);
+	else
+		return (temp->next);
 }
 
 /**

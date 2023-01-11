@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 15:49:06 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 19:56:32 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*executable(char *cmd, t_master *master)
 
     if (access(cmd, F_OK) != 0)
     {
-		print_error("minishell", cmd, "No such file or directory\n");
+		print_error("bash", cmd, "No such file or directory\n");
 		clean_free(master, 2);
 	}
     ptr = opendir(cmd);
@@ -53,12 +53,12 @@ char	*executable(char *cmd, t_master *master)
 		if (ptr)
 			if (closedir(ptr) == -1)
                 clean_free(master, 1);
-        print_error("minishell", cmd, "is a directory\n");
+        print_error("bash", cmd, "is a directory\n");
 		clean_free(master, 21);
     }
     if (access(cmd, X_OK) == 0)
         return (cmd);
-    print_error("minishell", cmd, "Permission denied\n");
+    print_error("bash", cmd, "Permission denied\n");
     clean_free(master, 126);
 	return (NULL);
 }

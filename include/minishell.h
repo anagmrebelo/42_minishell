@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 15:42:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 18:55:47 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	wait_childs(t_master *master);
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
 t_env	*new_env(char *content, char *title, char *value);
-char    *get_title(char *str);
-char    *get_value(char *str);
+char    *get_title(char *str, t_master *master);
+char    *get_value(char *str, t_master *master);
 void	add_back(t_env *env, t_env *new);
 t_env	*last_env(t_env *env);
 void	print_env(t_env *env);
@@ -157,6 +157,7 @@ void	command_separation(t_master *master);
 int     count_commands(t_master *master);
 void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
+t_token	*find_next_pipe(t_token *temp);
 
 _Bool	is_delimeter(char c);
 _Bool	is_space(char c);
