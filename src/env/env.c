@@ -54,7 +54,12 @@ char    **env_to_array(t_env *env)
     while (i < len)
     {
         array_env[i] = ft_strdup(env->content);
-        env = env->next;
+        if (!array_env[i])
+		{
+			free_double_array(array_env);
+			return (NULL);
+		}
+		env = env->next;
         i++;
     }
     return (array_env);

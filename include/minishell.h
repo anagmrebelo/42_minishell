@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 17:11:37 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/11 18:52:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	wait_childs(t_master *master);
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
 t_env	*new_env(char *content, char *title, char *value);
-char    *get_title(char *str);
-char    *get_value(char *str);
+char    *get_title(char *str, t_master *master);
+char    *get_value(char *str, t_master *master);
 void	add_back(t_env *env, t_env *new);
 t_env	*last_env(t_env *env);
 void	print_env(t_env *env);
