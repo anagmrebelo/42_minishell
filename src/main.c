@@ -6,16 +6,49 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 19:55:49 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_launch_minishell(char *line, char **enviroment)
+{
+	t_master	*master;
+
+	master = ft_calloc(1, sizeof(t_master));
+	if (!master)
+		return (1);
+	init_env(master, enviroment);
+	init_redirs(master);
+	master->line = ft_strdup(line);
+	if (!master->line)
+		clean_free(master, 1);
+	add_hist_exit_check(master);
+	if (master->line == 0)
+	{
+		free_master(master);
+		exit (1);
+	}
+	if (*master->line != '\0')
+	{
+		add_history(master->line); //asi parece que se soluciona
+		minishell(master->line, master);
+	}
+	close_init_redirs(master);
+	free_master(master);
+	exit(g_error);
+}
+
 int	main(int argc, char **argv, char **enviroment)
 {
 	t_master	*master;
 
+	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
+  	{
+    	int exit_status = ft_launch_minishell(argv[2], enviroment);
+    	exit(exit_status);
+ 	}
 	if (argc >= 1 && argv)
 	{
 		master = ft_calloc(1, sizeof(t_master));
@@ -25,16 +58,10 @@ int	main(int argc, char **argv, char **enviroment)
 		init_redirs(master);
 		while (!master->status)
 		{
-			if (argv[1] && ft_strcmp(argv[1], "-c") == 0 && argv[2])
-			{
-				master->line = ft_strdup(argv[2]);
-				master->status = 1;
-			}
-			else
-				master->line = readline(YELLOW"bash: "RESET);
-			//master->status = add_hist_exit_check(master);
-			//if (master->status)
-			//	break ;
+			master->line = readline(YELLOW"minishell: "RESET);
+			master->status = add_hist_exit_check(master);
+			if (master->status)
+				break ;
 			if (master->line == 0)
 			{
 				free_master(master);
