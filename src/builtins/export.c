@@ -95,10 +95,50 @@ int var_exist(t_env *env, char *str)
     return (0);
 }
 
+int equal_check(char *str)
+{
+    int i;
+    int len;
+
+    i = 0;
+    len = ft_strlen(str);
+    while (i < len)
+    {
+        if (str[i] == '=')
+            i++;
+        else
+            return (0);
+    }
+    return (1);
+}
+
 int var_title_check(char *str)
 {
-    if (!ft_isalpha(str[0]) && str[0] != '_')
+    int i;
+    int len;
+    char    *aux;
+
+    aux = ft_strchr(str, '=');
+	if (!aux)
+		len = ft_strlen(str);
+	else
+		len = aux - str;
+    if (len == 0)
         return (0);
+    if (equal_check(str))
+        return (0);
+    i = 0;
+    //printf("len: %d\n", len);
+    while (i < len)
+    {
+        if (!ft_isalpha(str[i]) && str[i] != '_')
+        {
+            if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
+                return (1);
+            return (0);
+        }
+        i++;
+    }
     return (1);
 }
 
@@ -118,6 +158,7 @@ int ft_export(t_env *env, char **args, t_master *master)
         i = 1;
         while (args && args[i])
         {
+            //printf("args: %s\n", args[i]);
             if(var_title_check(args[i]))
             {
                 if (var_exist(env, args[i]))
