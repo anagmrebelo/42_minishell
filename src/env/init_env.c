@@ -100,6 +100,7 @@ int	init_env(t_master *master, char **enviroment)
 	t_env *env;
 	t_env *new;
 	int i;
+	int	shlvl;
 
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
@@ -115,6 +116,12 @@ int	init_env(t_master *master, char **enviroment)
 	while (enviroment && enviroment[i])
 	{
 		new = new_env(enviroment[i], get_title(enviroment[i], master), get_value(enviroment[i], master));
+		if (ft_strcmp(new->title, "SHLVL") == 0) //para actualizar shlvl a 2
+		{
+			shlvl = ft_atoi(new->value) + 1;
+			free (new->value);
+			new->value = ft_strdup(ft_itoa(shlvl));
+		}
 		if (!new)
 			clean_free(master, 1);
 		add_back(env, new);
