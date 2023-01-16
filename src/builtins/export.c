@@ -15,46 +15,6 @@ void    add_to_env(char *content, char *title, char *value, t_env *env)
     add_back(env, new);
 }
 
-// char    *get_var_value(char *str)
-// {
-//     char    *aux;
-//     int     len;
-//     char    *value;
-
-//     aux = ft_strchr(str, '=');
-//     if (!aux)
-//         return (NULL);
-//     len = (aux - str) + 1;
-//     value = ft_substr(str, len, ft_strlen(str) - len);
-//     return (value);
-// }
-
-// char    *get_var_title(char *str)
-// {
-//     int     i;
-//     int     len;
-//     char    *aux;
-//     char    *title;
-
-//     i = 0;
-//     while (str && str[i])
-//     {
-//         if (str[i] == '=')
-//         {
-//             aux = ft_strchr(str, '=');
-//             if (!aux)
-//                 len = ft_strlen(str);
-//             else
-//                 len = aux - str;
-//             title = ft_substr(str, 0, len);
-//             return (title);
-//         }
-//         else
-//             i++;
-//     }
-//     return (str);
-// }
-
 void    update_var(t_env *env, char *str, t_master *master)
 {
     char    *end;
@@ -128,7 +88,6 @@ int var_title_check(char *str)
     if (equal_check(str))
         return (0);
     i = 0;
-    //printf("len: %d\n", len);
     while (i < len)
     {
         if (!ft_isalpha(str[i]) && str[i] != '_')
@@ -158,7 +117,6 @@ int ft_export(t_env *env, char **args, t_master *master)
         i = 1;
         while (args && args[i])
         {
-            //printf("args: %s\n", args[i]);
             if(var_title_check(args[i]))
             {
                 if (var_exist(env, args[i]))
