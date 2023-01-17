@@ -26,7 +26,7 @@ void	clean_tokens(t_master *master)
 	temp = master->token_list;
 	while (temp)
 	{
-		if (!temp->str || !temp->str[0])
+		if ((!temp->str || !temp->str[0]) && !temp->no_del)
 			delete_token(temp, master);
 		temp = temp->next;
 	}

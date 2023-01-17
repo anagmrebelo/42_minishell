@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 19:27:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void	env_update(t_token *new, t_master *master)
 		if (new->str[c[I]] == '$' && new->str[c[I] + 1] && ok(new->str[c[I] + 1]))
 		{
 			line = aux1_env(new, master, line, c);
-			while (new->str[c[I]] && ok(new->str[c[I]]) && new->str[c[I]] != '$' && new->str[c[I]] != '?')
+			if (ft_isdigit(new->str[c[I]]))
 				c[I]++;
+			else
+				while (new->str[c[I]] && ok(new->str[c[I]]) && new->str[c[I]] != '$' && new->str[c[I]] != '?')
+					c[I]++;
 			if (c[J] == c[I])
 				line = aux2_env(new, master, line, c);
 			else

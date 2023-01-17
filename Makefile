@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/01/17 11:37:07 by arebelo          ###   ########.fr        #
+#    Updated: 2023/01/17 18:52:22 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC				= main.c\
 				parse/find_var.c\
 				parse/home_update.c\
 				parse/token_delete.c\
+				parse/delete_update.c\
 				parse/type.c\
 				parse/command_separation.c\
 				parse/free.c\

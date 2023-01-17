@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/17 14:35:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:22:22 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct  s_token
     char            *str;
     int             type;
 	int				fd;
+	_Bool			no_del;
     struct s_token  *next;
     struct s_token  *prev;
 } t_token;
@@ -130,6 +131,7 @@ char	*find_aux2(char *str, t_master *master);
 void	home_join(t_token *new, t_master *master, unsigned int i);
 void	home_update(t_token *new, t_master *master);
 _Bool	is_dots(char *cmd);
+void	del_update(t_token *new);
 _Bool	ok(char c);
 
 char	*quotes_clean(t_token *new, t_master *master);

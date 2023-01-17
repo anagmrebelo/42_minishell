@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 20:29:57 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,13 @@ int	tokenize(char *line, t_master *master)
 	int		i;
 	int		quotes;
 	t_token	*new;
+	char	*temp;
 
 	i = 0;
+	temp = line;
 	quotes = -1;
+	while (is_space(line[i]))
+		line++;
 	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0))
 	{
 		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
@@ -88,7 +92,7 @@ int	tokenize(char *line, t_master *master)
 		add_list(master, new);
 	while (line[i] && is_space(line[i]))
 		i++;
-	return (i);
+	return (line + i - temp);
 }
 
 /**
@@ -111,7 +115,9 @@ t_token	*new_token(char *line, int size, t_master *master)
 		free(new);
 		clean_free_pipe_read(master, 1);
 	}
+	//printf("TOKEN: <%s>\n", new->str);
 	add_type(new);
+	del_update(new);
 	env_update(new, master);
 	home_update(new, master);
 	quotes_update(new, master);

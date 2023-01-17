@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42barcelo>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 18:37:57 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/20 18:39:27 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:15:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_list_tokens(t_token *list)
 	i = 0;
 	while (list)
 	{
-		printf("%d: %s  -> type: %d\n", i, list->str, list->type);
+		printf("%d: <%s>  -> type: %d\n", i, list->str, list->type);
 		list = list->next;
 		i++;
 	}
