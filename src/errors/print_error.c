@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:03 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/05 10:55:11 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
-void	print_error(char *bash, char *builtin, char *message)
+void	print_error(char *minishell, char *builtin, char *message)
 {
-	ft_putstr_fd(bash, 2);
+	ft_putstr_fd(minishell, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(builtin, 2);
 	if (builtin)

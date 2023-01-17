@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/11 20:19:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 14:41:22 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	minishell_one(t_master *master)
 		clean_free(master, 1);
 	if (cmd->inv_file)
 	{
-		print_error("bash", last_token(cmd->inputs)->str, "No such file or directory\n");
+		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
 		g_error = 2;
 		return ;
 	}
@@ -82,6 +82,11 @@ void	reset_redirs(t_master *master)
 
 void	exec_aux_free(t_command *cmd, t_master *master)
 {
-	print_error("bash", cmd->args_char[0], "command not found\n");
+	if (ft_strlen(cmd->args_char[0]) == 1 && *(cmd->args_char[0]) == '.')
+	{
+		print_error("minishell", cmd->args_char[0], "filename argument required\n");
+		clean_free(master, 2);
+	}
+	print_error("minishell", cmd->args_char[0], "command not found\n");
 	clean_free(master, 127);
 }

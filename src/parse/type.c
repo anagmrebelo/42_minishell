@@ -46,6 +46,12 @@ _Bool	check_syntax(t_master *master)
 	char	*message;
 	
 	temp = master->token_list;
+	if (temp && temp->type == PIPE)
+	{
+		print_error("minishell", NULL, "syntax error near unexpected token `|\'\n");
+		g_error = 258;
+		return (0);
+	}
 	while(temp)
 	{
 		if(temp->type > 0)
@@ -59,8 +65,8 @@ _Bool	check_syntax(t_master *master)
 						clean_free_pipe_read(master, 1);
 				}
 				else
-					message = create_message(master, "syntax error near unexpected token \'", temp->next->str, "\'\n");
-				print_error("bash", NULL, message);
+					message = create_message(master, "syntax error near unexpected token `", temp->next->str, "\'\n");
+				print_error("minishell", NULL, message);
 				g_error = 258;
 				free(message);
 				return (0);

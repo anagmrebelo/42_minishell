@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 20:18:20 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 14:48:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*executable(char *cmd, t_master *master)
 
     if (access(cmd, F_OK) != 0)
     {
-		print_error("bash", cmd, "No such file or directory\n");
+		print_error("minishell", cmd, "No such file or directory\n");
 		clean_free(master, 2);
 	}
     ptr = opendir(cmd);
@@ -53,12 +53,12 @@ char	*executable(char *cmd, t_master *master)
 		if (ptr)
 			if (closedir(ptr) == -1)
                 clean_free(master, 1);
-        print_error("bash", cmd, "is a directory\n");
-		clean_free(master, 21);
+        print_error("minishell", cmd, "is a directory\n");
+		clean_free(master, 126);
     }
     if (access(cmd, X_OK) == 0)
         return (cmd);
-    print_error("bash", cmd, "Permission denied\n");
+    print_error("minishell", cmd, "Permission denied\n");
     clean_free(master, 126);
 	return (NULL);
 }
@@ -84,6 +84,15 @@ _Bool	is_path(char *cmd)
 }
 
 
+_Bool	is_dots(char *cmd)
+{
+	if (ft_strlen(cmd) == 1 && *cmd == '.')
+		return (1);
+	else if (ft_strlen(cmd) == 2 && cmd[0] == '.' && cmd[1] == '.')
+		return (1);
+	return (0);
+}
+
 
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
@@ -96,6 +105,8 @@ char    *get_command(char **path, char *cmd, t_master *master)
     i = 0;
 	if (!path || is_path(cmd))
 		return (executable(cmd, master));
+	if (is_dots(cmd))
+		return (NULL);
     while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
@@ -107,8 +118,8 @@ char    *get_command(char **path, char *cmd, t_master *master)
 			free(aux);
 			clean_free(master, 1);
 		}
-        if (access(path_cmd, 0) == 0)
-            return (path_cmd);
+        if (access(path_cmd, X_OK) == 0)
+			return (path_cmd);
         i++;
     }
 	return (NULL);

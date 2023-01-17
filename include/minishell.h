@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 20:18:54 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 14:35:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ char	*aux4_env(t_token *new, t_master *master, char *line, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
+void	home_join(t_token *new, t_master *master, unsigned int i);
+void	home_update(t_token *new, t_master *master);
+_Bool	is_dots(char *cmd);
 _Bool	ok(char c);
 
 char	*quotes_clean(t_token *new, t_master *master);
@@ -213,7 +216,7 @@ int     ft_export(t_env *env, char **args, t_master *master);
 void    print_export_error(char *str);
 
 //ERRORS
-void    print_error(char *bash, char *builtin, char *message);
+void    print_error(char *minishell, char *builtin, char *message);
 char	*create_message(t_master *master, char *message, char *token, char *msg);
 
 

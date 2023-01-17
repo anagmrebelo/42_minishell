@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/04 15:59:59 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * Analyses the str from token and substitutes $ for the environment variables, if there is a match
  * It only substitutes if after the $ there is an alphanumeric and it is not between simple quotes
- * If there is $$ it should print bash pid
+ * If there is $$ it should print minishell pid
 */
 void	env_update(t_token *new, t_master *master)
 {

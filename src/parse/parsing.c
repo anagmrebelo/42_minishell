@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/11 19:56:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ _Bool	parsing(char *line, t_master *master)
 	i = 0;
 	if (!check_quotes(line))
 	{
-		print_error("bash", NULL, "syntax error\n");
+		print_error("minishell", NULL, "syntax error\n");
 		g_error = 258;
 		return (0);
 	}
@@ -113,6 +113,7 @@ t_token	*new_token(char *line, int size, t_master *master)
 	}
 	add_type(new);
 	env_update(new, master);
+	home_update(new, master);
 	quotes_update(new, master);
 	return (new);
 }
