@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/17 14:48:10 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/17 21:35:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,8 @@ int exec(t_master *master, t_command *cmd)
 {
     if (master->numCommands == 1)
         exec_one(master, cmd);
+	else if (!cmd->args_char[0])
+		exit(0);
 	else if (is_builtin(cmd->args_char[0]))
     	exit(exec_builtin(cmd->args_char[0], cmd, master->env, master)); //@areview for leaks
     else
