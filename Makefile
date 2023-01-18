@@ -70,6 +70,7 @@ SRC				= main.c\
 				builtins/env.c\
 				builtins/export.c\
 				builtins/unset.c\
+				builtins/exit.c\
 				errors/print_error.c\
 				utils/double_array.c\
 				utils/strlcat.c\

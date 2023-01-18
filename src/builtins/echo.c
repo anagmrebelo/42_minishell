@@ -5,6 +5,28 @@ void    print_echo(char *str, int fd)
     ft_putstr_fd(str, fd);
 }
 
+int check_n(char *arg)
+{
+    int i;
+
+    i = 2;
+    if (arg[0] == '-' && arg[1] == 'n')
+    {
+        if (arg[2])
+        {
+            while (arg[i])
+            {
+                if (arg[i] == 'n' || arg[i] == '\0')
+                    i++;
+                else
+                    return (0);
+            }
+        }
+        return (1);
+    }
+    return (0);
+}
+
 int ft_echo(char **args)
 {
     int i;
@@ -17,10 +39,13 @@ int ft_echo(char **args)
         ft_putchar_fd('\n', STDOUT_FILENO);
         return (0);
     }
-    if (args[0][0] == '-' && args[0][1] == 'n' && args[0][2] == '\0')
+    if (check_n(args[0]))
     {
+        i = 0;
+        while (check_n(args[i]))
+            i++;
         flag = 1;
-        args = &args[1];
+        args = &args[i];
     }
     i = 0;
     while(args[i])
