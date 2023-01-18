@@ -77,7 +77,7 @@ int	main(int argc, char **argv, char **enviroment)
 		close_init_redirs(master);
 		free_master(master);
 	}
-	return (0);
+	return (g_error);
 }
 
 /**
@@ -87,8 +87,8 @@ int	main(int argc, char **argv, char **enviroment)
 */
 _Bool	add_hist_exit_check(t_master *master)
 {
-	if (master->line && ft_strcmp(master->line, "exit") == 0)
-		return (1);
+	// if (master->line && ft_strcmp(master->line, "exit") == 0)
+	// 	return (1);
 	if (isatty(STDIN_FILENO) == 0 && !master->line)
 		return (1);
 	return (0);

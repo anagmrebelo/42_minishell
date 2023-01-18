@@ -216,6 +216,7 @@ int     ft_env(t_env *env);
 int     ft_unset(t_env *env, char **args);
 int     ft_export(t_env *env, char **args, t_master *master);
 void    print_export_error(char *str);
+int     ft_exit(char **args, t_master *master);
 
 //ERRORS
 void    print_error(char *minishell, char *builtin, char *message);
