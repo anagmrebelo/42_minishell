@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/11 17:11:13 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/18 19:23:32 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * In case an invalid input is found no more tokens after that are stored
  * Commands are stored in the master structure as a linked list
 */
-void	command_separation(t_master *master)
+int	command_separation(t_master *master)
 {
 	t_token		*temp;
 	t_command	*cmd;
@@ -55,7 +55,12 @@ void	command_separation(t_master *master)
 			temp = temp->next;
 		i++;
 	}
-	return ;
+	if (!master->token_list)
+	{
+		g_error = 0;
+		return (0);
+	}
+	return (1);
 }
 
 /**

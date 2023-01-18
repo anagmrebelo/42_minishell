@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/17 19:27:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/18 18:43:34 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*aux1_env(t_token *new, t_master *master, char *line, int *c)
 char	*aux2_env(t_token *new, t_master *master, char *line, int *c)
 {
 	char	*temp;
-
 	temp = ft_substr(new->str, c[J], 1);
 	if (!temp)
 		clean_free_pipe_read(master, 1);

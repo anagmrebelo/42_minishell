@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/17 21:32:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/18 19:19:38 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ _Bool	parsing(char *line, t_master *master)
 		add_types_redir(master);
 		clean_tokens(master);
 		check_heredoc(master);	//@arebelo check memory leaks
-		command_separation(master);
-		return (1);
+		return (command_separation(master));
 	}
 	return (0);
 }
@@ -115,7 +114,6 @@ t_token	*new_token(char *line, int size, t_master *master)
 		free(new);
 		clean_free_pipe_read(master, 1);
 	}
-	//printf("TOKEN: <%s>\n", new->str);
 	add_type(new);
 	del_update(new);
 	env_update(new, master);

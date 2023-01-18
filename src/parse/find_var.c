@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/04 15:56:15 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/18 19:06:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,20 @@ char	*find_aux(char *str, t_master *master)
 	{
 		if (ft_strcmp(str, temp->title) == 0)
 		{
-			free(str);
-			a = ft_strdup(temp->value);
+			if (str)
+				free(str);
+			if (!temp->value)
+				a = ft_strdup("");
+			else
+				a = ft_strdup(temp->value);
 			if (!a)
 				clean_free_pipe_read(master, 1);
 			return (a);
 		}
 		temp = temp->next;
 	}
-	free(str);
+	if (str)
+		free(str);
 	return (NULL);
 }
 

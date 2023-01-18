@@ -1,36 +1,15 @@
 
-CACHARLE
-             echo foo\n
-	         echo           foo             \n
-	\t\t\t\t\t\techo\tfoo\n
-	\n
-	                                          \n
-											  \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n
-	            \t\t\t           \t\t\t       \n
-	
-
-	
-	'     echo' bonjour\n
-	'echo     ' bonjour\n
-	"     echo" bonjour\n
-	"echo     " bonjour\n
-	< | a\n
-	< ; a\n
-	| ; a\n
-	< a ; a\n
-	echo a ||| echo b\n
+CACHARLE	
 	cat < doesntexist\n (salida error)
-	> test\n
-	> file\n (salida error)
 
 ANA tester
 	/bin/ls   
 	cat | cat | ls
-	$variable_vacia
 	syntax error preprocess
-	unset $PATH and then $variable
-	export TES$?T=123
-	unset TES$?T
+	~
+	exit
+	./minishell
+
 
 
 CASOS QUE NO ENTIENDO

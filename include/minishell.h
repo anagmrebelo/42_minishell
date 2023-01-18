@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/17 20:22:22 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/18 19:20:01 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	free_commands(t_master *master);
 void	free_command(t_command *pipe);
 void	prep_next_line(t_master *master);
 
-void	command_separation(t_master *master);
+int		command_separation(t_master *master);
 int     count_commands(t_master *master);
 void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
