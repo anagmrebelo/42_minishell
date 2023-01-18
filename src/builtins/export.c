@@ -15,46 +15,6 @@ void    add_to_env(char *content, char *title, char *value, t_env *env)
     add_back(env, new);
 }
 
-// char    *get_var_value(char *str)
-// {
-//     char    *aux;
-//     int     len;
-//     char    *value;
-
-//     aux = ft_strchr(str, '=');
-//     if (!aux)
-//         return (NULL);
-//     len = (aux - str) + 1;
-//     value = ft_substr(str, len, ft_strlen(str) - len);
-//     return (value);
-// }
-
-// char    *get_var_title(char *str)
-// {
-//     int     i;
-//     int     len;
-//     char    *aux;
-//     char    *title;
-
-//     i = 0;
-//     while (str && str[i])
-//     {
-//         if (str[i] == '=')
-//         {
-//             aux = ft_strchr(str, '=');
-//             if (!aux)
-//                 len = ft_strlen(str);
-//             else
-//                 len = aux - str;
-//             title = ft_substr(str, 0, len);
-//             return (title);
-//         }
-//         else
-//             i++;
-//     }
-//     return (str);
-// }
-
 void    update_var(t_env *env, char *str, t_master *master)
 {
     char    *end;
@@ -95,10 +55,49 @@ int var_exist(t_env *env, char *str)
     return (0);
 }
 
+int equal_check(char *str)
+{
+    int i;
+    int len;
+
+    i = 0;
+    len = ft_strlen(str);
+    while (i < len)
+    {
+        if (str[i] == '=')
+            i++;
+        else
+            return (0);
+    }
+    return (1);
+}
+
 int var_title_check(char *str)
 {
-    if (!ft_isalpha(str[0]) && str[0] != '_')
+    int i;
+    int len;
+    char    *aux;
+
+    aux = ft_strchr(str, '=');
+	if (!aux)
+		len = ft_strlen(str);
+	else
+		len = aux - str;
+    if (len == 0)
         return (0);
+    if (equal_check(str))
+        return (0);
+    i = 0;
+    while (i < len)
+    {
+        if (!ft_isalpha(str[i]) && str[i] != '_')
+        {
+            if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
+                return (1);
+            return (0);
+        }
+        i++;
+    }
     return (1);
 }
 

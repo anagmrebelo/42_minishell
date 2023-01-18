@@ -9,15 +9,15 @@ int change_dir(char *arg, char *oldpwd, t_env *env)
     }
     else
     {
-        ft_putstr_fd("cd: ", 1);
-        ft_putstr_fd(arg, 1);
-        ft_putstr_fd(": ", 1);
+        ft_putstr_fd("minishell: cd: ", 2);
+        ft_putstr_fd(arg, 2);
+        ft_putstr_fd(": ", 2);
         if (access(arg, F_OK) == -1)
-            ft_putendl_fd("No such file or directory", 1);
+            ft_putendl_fd("No such file or directory", 2);
         else if (access(arg, R_OK) == -1)
-            ft_putendl_fd("Permission denied", 1);
+            ft_putendl_fd("Permission denied", 2);
         else
-            ft_putendl_fd("Not a directory", 1);
+            ft_putendl_fd("Not a directory", 2);
         return (1);
     }
 }
