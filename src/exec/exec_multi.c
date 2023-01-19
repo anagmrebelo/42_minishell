@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/17 21:35:58 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:24:14 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char    **find_path(t_master *master)
 */
 char	*executable(char *cmd, t_master *master)
 {
-	DIR	*ptr;
+	DIR		*ptr;
+	char	*ret;
 
     if (access(cmd, F_OK) != 0)
     {
@@ -57,7 +58,12 @@ char	*executable(char *cmd, t_master *master)
 		clean_free(master, 126);
     }
     if (access(cmd, X_OK) == 0)
-        return (cmd);
+	{
+		ret = ft_strdup(cmd);
+		if (!ret)
+			clean_free(master, 1);
+		return (ret);
+	}
     print_error("minishell", cmd, "Permission denied\n");
     clean_free(master, 126);
 	return (NULL);
@@ -203,7 +209,7 @@ int is_builtin(char *command)
 
 int exec(t_master *master, t_command *cmd)
 {
-  if (master->numCommands == 1)
+  if (master->num_commands == 1)
     exec_one(master, cmd);
 	else if (!cmd->args_char[0])
 		exit(0);

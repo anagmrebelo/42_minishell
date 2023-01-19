@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/17 21:34:23 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:13:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 	char	*command;
 	char	**env;
 	int		pid;
-	int		exit;
+	int		code;
 
 	pid = fork();
 	if (pid == -1)
@@ -71,10 +71,10 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 		execve(command, path, env);
 		free_fail_exec(command, path, env);
 	}
-	if (waitpid(pid, &exit, 0) == -1)
+	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
-	if (WIFEXITED(exit))
-		g_error = WEXITSTATUS(exit);
+	if (WIFEXITED(code))
+		g_error = WEXITSTATUS(code);
 }
 
 void	reset_redirs(t_master *master)

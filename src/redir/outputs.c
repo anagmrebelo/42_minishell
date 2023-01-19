@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/06 17:55:32 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/19 19:31:16 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	redir_outputs(t_command *cmd, t_master *master)
 	flag = O_WRONLY;
 	if (cmd->outputs)
 	{
-		if(master->numCommands != 1)
+		if(master->num_commands != 1)
 			if (close(master->fd[WRITE]) == -1)
 				clean_free(master, 1);
 		if(last_token(cmd->outputs)->type == APPEND)
@@ -73,7 +73,7 @@ void	redir_outputs(t_command *cmd, t_master *master)
 		else
 			clean_free(master, 1);
 	}
-	else if(cmd->cmd_nb != master->numCommands)
+	else if(cmd->cmd_nb != master->num_commands)
 	{
 		if (dup2(master->fd[WRITE], STDOUT_FILENO) == -1)
 		{

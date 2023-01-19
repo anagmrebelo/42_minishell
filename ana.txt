@@ -3,13 +3,8 @@ CACHARLE
 	cat < doesntexist\n (salida error)
 
 ANA tester
-	/bin/ls   
 	cat | cat | ls
 	syntax error preprocess
-	~
-	exit
-	./minishell
-
 
 
 CASOS QUE NO ENTIENDO

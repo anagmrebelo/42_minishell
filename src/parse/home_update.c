@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/17 14:31:47 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 19:30:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	home_join(t_token *new, t_master *master, unsigned int i)
 	char	*after;
 
 	home = getenv("HOME");
+	if (!home)
+		return ;
 	before = ft_substr(new->str, 0, i);
 	after = ft_substr(new->str, i + 1, ft_strlen(new->str) - i);
-	if (!before || !after || !home)
+	if (!before || !after)
 		clean_free(master, 1);
 	free(new->str);
 	new->str = join_free_s1(before, home);

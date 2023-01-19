@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/18 19:23:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 19:31:16 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	command_separation(t_master *master)
 
 	i = 1;
 	temp = master->token_list;
-	master->numCommands = count_commands(master);
+	master->num_commands = count_commands(master);
 	while (temp)
 	{
 		cmd = ft_calloc(1, sizeof(t_command));

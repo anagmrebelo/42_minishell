@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/18 13:20:56 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 19:31:16 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	wait_childs(t_master *master)
 	int	pid;
 	int	j;
 
-	i = master->numCommands;
+	i = master->num_commands;
 	if(i == 1)
 		return ;
 	while(i--)
@@ -128,7 +128,7 @@ void	minishell(char *line, t_master *master)
 	init_pipe(master);
 	if (parsing(line, master))
 	{
-		if (master->numCommands == 1)
+		if (master->num_commands == 1)
 			minishell_one(master);
 		else
 		{

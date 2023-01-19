@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/18 19:20:01 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:10:47 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_master
     char        *line;
     t_env	    *env;
     t_token	    *token_list;
-    int         numCommands;
+    int         num_commands;
     t_command	*commands_list;
     int         std_in;
     int         std_out;
