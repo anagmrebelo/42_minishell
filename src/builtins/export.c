@@ -72,6 +72,20 @@ int equal_check(char *str)
     return (1);
 }
 
+int first_check(char *str)
+{
+    if (str[0] == '-')
+    {
+        ft_putstr_fd("minishell: export: ", 2);
+        ft_putchar_fd(str[0], 2);
+        ft_putchar_fd(str[1], 2);
+        ft_putendl_fd(": invalid option", 2);
+        ft_putendl_fd("export: usage: export [-fn] [name[=value] ...] or export -p", 2);
+        return (1);
+    }
+    return (0);
+}
+
 int var_title_check(char *str)
 {
     int i;
@@ -135,6 +149,11 @@ int ft_export(t_env *env, char **args, t_master *master)
         i = 1;
         while (args && args[i])
         {
+            if (first_check(args[i]))
+            {
+                ret = 2;
+                break ;
+            }
             if(var_title_check(args[i]))
             {
                 if (var_exist(env, args[i]))
