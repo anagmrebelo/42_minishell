@@ -10,8 +10,15 @@ void    print_export_error(char *str)
 void    add_to_env(char *content, char *title, char *value, t_env *env)
 {
     t_env   *new;
+    char    *aux;
 
-    new = new_env(content, title, value);
+    if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
+    {
+        aux = join_free_s2("\\", value);
+        new = new_env(content, title, aux);
+    }
+    else
+        new = new_env(content, title, value);
     add_back(env, new);
 }
 
