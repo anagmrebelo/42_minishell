@@ -87,17 +87,35 @@ int var_title_check(char *str)
         return (0);
     if (equal_check(str))
         return (0);
-    i = 0;
-    while (i < len)
+    if (ft_isalpha(str[0]) || str[0] == '_')
     {
-        if (!ft_isalpha(str[i]) && str[i] != '_')
+        i = 1;
+        while (i < len)
         {
-            if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
-                return (1);
-            return (0);
+            if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
+            {
+                if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
+                    return (1);
+                return (0);
+            }
+            else
+                i++;
         }
-        i++;
     }
+    else
+        return (0);
+    // i = 0;
+    // while (i < len)
+    // {
+    //     if (!ft_isalpha(str[i]) && str[i] != '_')
+    //     {
+    //         if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
+    //             return (1);
+    //         return (0);
+    //     }
+    //     else
+    //         i++;
+    // }
     return (1);
 }
 
