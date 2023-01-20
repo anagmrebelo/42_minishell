@@ -46,12 +46,18 @@ char	*get_value(char *str, t_master *master)
 	char *aux;
 	int len;
 	char *value;
+	char	*tmp;
 
 	aux = ft_strchr(str, '=');
 	if (!aux)
 		return (NULL);
 	len = (aux - str) + 1;
 	value = ft_substr(str, len, ft_strlen(str) - len);
+	if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
+	{
+		tmp = join_free_s2("\\", value);
+		return (tmp);
+	}
 	if (!value)
 		clean_free(master, 1);
 	return (value);
