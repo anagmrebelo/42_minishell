@@ -46,7 +46,7 @@ int check_var(char *str)
     i = 0;
     while (i < len)
     {
-        if (!ft_isalpha(str[i]) && str[i] != '_')
+        if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
             return (0);
         i++;
     }
