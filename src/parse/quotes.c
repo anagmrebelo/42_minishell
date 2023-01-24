@@ -26,8 +26,6 @@ _Bool	check_quotes(char *line)
 		}	
 		i++;
 	}
-	if (!allow_update)
-		print_error("bash", NULL, "syntax error\n");
 	return(allow_update);
 }
 

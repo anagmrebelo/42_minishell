@@ -5,6 +5,8 @@ CACHARLE
 ANA tester
 	cat | cat | ls
 	syntax error preprocess
+	leaks
+	leaks of shell level
 
 
 CASOS QUE NO ENTIENDO

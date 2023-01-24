@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/19 19:31:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/24 11:59:36 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_launch_minishell(char *line, char **enviroment)
 	}
 	if (*master->line != '\0')
 	{
-		add_history(master->line); //asi parece que se soluciona
+		add_history(master->line);
 		minishell(master->line, master);
 	}
 	close_init_redirs(master);
@@ -65,14 +65,15 @@ int	main(int argc, char **argv, char **enviroment)
 			if (master->line == 0)
 			{
 				free_master(master);
-				//write(1, "\n", 1);
 				exit (1);
 			}
 			if (*master->line != '\0')
 			{
-				add_history(master->line); //asi parece que se soluciona
+				add_history(master->line);
 				minishell(master->line, master);
 			}
+			else
+				free_line(master);
 		}
 		close_init_redirs(master);
 		free_master(master);
