@@ -15,7 +15,7 @@ int first_u_check(char *str)
         ft_putchar_fd(str[0], 2);
         ft_putchar_fd(str[1], 2);
         ft_putendl_fd(": invalid option", 2);
-        ft_putendl_fd("unset: usage: unset [-f] [-v] [-n] [name ...]", 2);
+        ft_putendl_fd("unset: usage: unset [-f] [-v] [name ...]", 2);
         return (1);
     }
     return (0);
@@ -62,7 +62,7 @@ int    ft_unset(t_env *env, char **args)
     {
         if (first_u_check(args[i]))
         {
-            return (1);
+            return (2);
             break ;
         }
         if(check_var(args[i]))
