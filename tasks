@@ -1,0 +1,104 @@
+- shell level
+	leaks
+	echo $SHLVL\n
+	[EXPORTS SHLVL=' 2000000'] echo $SHLVL\n                                                                                                                              [FAIL]
+	[EXPORTS SHLVL=' -2000000'] echo $SHLVL\n                                                                                                                             [FAIL]
+	[EXPORTS SHLVL=' 2147483647'] echo $SHLVL\n                                                                                                                           [FAIL]
+	[EXPORTS SHLVL=' -2147483648'] echo $SHLVL\n
+	[EXPORTS SHLVL=' -2147483649'] echo $SHLVL\n
+	[EXPORTS SHLVL=' -3147483649'] echo $SHLVL\n
+	[EXPORTS SHLVL=' 9223372036854775808'] echo $SHLVL\n                                                                                                                  [FAIL]
+	[EXPORTS SHLVL=' 18446744073709551615'] echo $SHLVL\n                                                                                                                 [FAIL]
+	[EXPORTS SHLVL=' 18446744073709551616'] echo $SHLVL\n
+	[EXPORTS SHLVL=' +2000000'] echo $SHLVL\n                                                                                                                             [FAIL]
+	[EXPORTS SHLVL=' +2147483647'] echo $SHLVL\n
+	[EXPORTS SHLVL=' 0123456789'] echo $SHLVL\n                                                                                                                           [FAIL]
+	[EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
+	[EXPORTS SHLVL=' 0123456789'] echo $SHLVL\n                                                                                                                           [FAIL]
+	[EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
+	
+- env inicial
+	export | grep "OLDPWD"
+	export | grep "PWD"
+	env | grep "_="
+	env | grep "_="
+	env\n                                                                         [FAIL]
+	[SETUP export A=a] env\n                                                      [FAIL]
+	[SETUP export A=a B=b C=c] env\n                                              [FAIL]
+	[SETUP export A=a B=b C=c] env | cat -e\n                                     [FAIL]
+	Env\n                                                                         [FAIL]
+	enV\n                                                                         [FAIL]
+	[EXPORTS PATH='/bin:/usr/bin'] Env\n                                          [FAIL]
+	[EXPORTS PATH='/bin:/usr/bin'] enV\n
+	export\n                                                                      [FAIL]
+- heredoc
+- signals
+- exit
+	exit numeros > 255
+	exit 3 | exit 5 (no imprimir exit por pantalla)
+- unset
+	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
+	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]
+	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
+- cmd_path
+	[SETUP mkdir somedir] somedir/\n
+	[SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink/\n
+	[SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
+	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2] ./somelink2ls\n                                                [FAIL]
+	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3] ./somelink3ls\n                      [FAIL]
+	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3; ln -s somelink3 somelink4] ./some... [FAIL]
+	[SETUP echo > somefile && chmod 0777 somefile] ./somefile\n
+	[SETUP echo > somefile && chmod 1777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 2777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 3777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 4777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 5777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 6777 somefile] ./somefile\n                                                                                    [FAIL]
+	[SETUP echo > somefile && chmod 7777 somefile] ./somefile\n                                                                                   [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 001 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 002 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 003 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 004 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 005 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 006 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 007 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 010 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 020 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 030 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 040 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 050 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 060 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 070 ./path/a] [EXPORTS PATH='path'] a\n
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n
+	[EXPORTS PATH=''] whoami\n                                                                                                                                            [FAIL]
+	unset PATH; whoami\n
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n                                                                        [FAIL]
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n                                                                       [FAIL]
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n                                                                [FAIL]
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n                                                                   [FAIL]
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin'] somecmd\n                                                                   [FAIL]
+	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n                                                                  [FAIL]
+	[EXPORTS PATH=''] Whoami\n                                                                                                                                            [FAIL]
+	[EXPORTS PATH=''] wHoami\n                                                                                                                                            [FAIL]
+
+- salida de error
+	cat < doesnotexist\n
+	test("")
+    test("                                          ")
+- variable expansion
+	echo $_\n
+	[EXPORTS TEST='bonjour'] echo $TEST_\n
+
+- export spaces (NON PRIORITARY)
+	[EXPORTS PATH='        '] echo $PATH\n                                                                                                                                [FAIL]
+	[EXPORTS PATH='   :    '] echo $PATH\n                                                                                                                                [FAIL]
+	[EXPORTS PATH='     /bin      '] echo $PATH\n                                                                                                                         [FAIL]
+	[EXPORTS PATH='     /sbin      '] echo $PATH\n
+
+-interpolation
+	[EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A"$B"$C"A"$B"$C"\n                                                                                                       [FAIL]
+	[EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A'$B'$C'A'$B'$C'\n
+	[EXPORTS A='    '] echo [$A]\n
+	[EXPORTS A=' \  '] echo [$A]\n
+	[SETUP touch a b c] [EXPORTS LS='ls -l'] $LS\n
