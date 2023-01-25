@@ -41,6 +41,8 @@ int ft_echo(char **args)
     }
     if (check_n(args[0]))
     {
+        if (ft_strcmp(args[0], "-n") == 0 && !args[1])
+            return (0);
         i = 0;
         while (check_n(args[i]))
             i++;
