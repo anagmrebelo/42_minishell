@@ -41,8 +41,6 @@
 	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]
 	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
 - cmd_path
-	[SETUP mkdir somedir] somedir/\n
-	[SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink/\n
 	[SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
 	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2] ./somelink2ls\n                                                [FAIL]
 	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3] ./somelink3ls\n                      [FAIL]
@@ -81,14 +79,6 @@
 	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n                                                                  [FAIL]
 	[EXPORTS PATH=''] Whoami\n                                                                                                                                            [FAIL]
 	[EXPORTS PATH=''] wHoami\n                                                                                                                                            [FAIL]
-
-- salida de error
-	cat < doesnotexist\n
-	test("")
-    test("                                          ")
-- variable expansion
-	echo $_\n
-	[EXPORTS TEST='bonjour'] echo $TEST_\n
 
 - export spaces (NON PRIORITARY)
 	[EXPORTS PATH='        '] echo $PATH\n                                                                                                                                [FAIL]

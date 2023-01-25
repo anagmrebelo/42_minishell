@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/19 21:24:14 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:06:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ _Bool	is_path(char *cmd)
 
 	i = 0;
 	while (cmd[i] && cmd[i] != '/')
-	{
-		if (cmd[i] != '.')
-			return (0);
 		i++;
-	}
 	if (!cmd[i])
 		return (0);
 	return (1);

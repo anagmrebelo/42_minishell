@@ -1,0 +1,992 @@
+|> WITH env\n
+|---------------------------------------EXPECTED--------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+TERM=xterm-256color$
+_=/Users/arebelo/.cache/minishell_test/bin/env
+|---------------------------------------ACTUAL----------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+TERM=xterm-256color
+================================================================================
+
+|> WITH [SETUP export A=a] env\n
+|---------------------------------------EXPECTED--------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+TERM=xterm-256color$
+_=/Users/arebelo/.cache/minishell_test/bin/env
+|---------------------------------------ACTUAL----------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+TERM=xterm-256color
+================================================================================
+
+|> WITH [SETUP export A=a B=b C=c] env\n
+|---------------------------------------EXPECTED--------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+TERM=xterm-256color$
+_=/Users/arebelo/.cache/minishell_test/bin/env
+|---------------------------------------ACTUAL----------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+TERM=xterm-256color
+================================================================================
+
+|> WITH [SETUP export A=a B=b C=c] env | cat -e\n
+|---------------------------------------EXPECTED--------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$$
+SHLVL=1$$
+TERM=xterm-256color$$
+_=/Users/arebelo/.cache/minishell_test/bin/env$
+|---------------------------------------ACTUAL----------------------------------
+$
+PATH=/Users/arebelo/.cache/minishell_test/bin$$
+TERM=xterm-256color$
+================================================================================
+
+|> WITH Env\n
+|---------------------------------------EXPECTED--------------------------------
+TERM=xterm-256color$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+_=/Users/arebelo/.cache/minishell_test/bin/Env$
+|---------------------------------------ACTUAL----------------------------------
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+TERM=xterm-256color$
+================================================================================
+
+|> WITH enV\n
+|---------------------------------------EXPECTED--------------------------------
+TERM=xterm-256color$
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+_=/Users/arebelo/.cache/minishell_test/bin/enV$
+|---------------------------------------ACTUAL----------------------------------
+PATH=/Users/arebelo/.cache/minishell_test/bin$
+TERM=xterm-256color$
+================================================================================
+
+|> WITH [EXPORTS PATH='/bin:/usr/bin'] Env\n
+|---------------------------------------EXPECTED--------------------------------
+TERM=xterm-256color$
+PATH=/bin:/usr/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+_=/usr/bin/Env$
+|---------------------------------------ACTUAL----------------------------------
+PATH=/bin:/usr/bin$
+TERM=xterm-256color$
+================================================================================
+
+|> WITH [EXPORTS PATH='/bin:/usr/bin'] enV\n
+|---------------------------------------EXPECTED--------------------------------
+TERM=xterm-256color$
+PATH=/bin:/usr/bin$
+PWD=/Users/arebelo/.cache/minishell_test/sandbox$
+SHLVL=1$
+_=/usr/bin/enV$
+|---------------------------------------ACTUAL----------------------------------
+PATH=/bin:/usr/bin$
+TERM=xterm-256color$
+================================================================================
+
+|> WITH export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A=''] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A=""$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A=""$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='"'] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="\""$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="""$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='\'] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="\\"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="\\"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='$'] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="\$"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="\$"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='\t'] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="	"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="	"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='''] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="'"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="'"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='a'] export\n
+|---------------------------------------EXPECTED--------------------------------
+$
+declare -x A="a"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x PWD="/Users/arebelo/.cache/minishell_test/sandbox"$
+declare -x SHLVL="1"$
+declare -x TERM="xterm-256color"
+|---------------------------------------ACTUAL----------------------------------
+$
+declare -x A="a"$
+declare -x PATH="/Users/arebelo/.cache/minishell_test/bin"$
+declare -x TERM="xterm-256color"
+================================================================================
+
+|> WITH [EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf ' C\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+minishell: unset: ` asdf asdf asd f': not a valid identifier$
+minishell: unset: ` asdf ': not a valid identifier$
+minishell: unset: `': not a valid identifier$
+minishell: unset: `asdf ': not a valid identifier$
+|---------------------------------------ACTUAL----------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+================================================================================
+
+|> WITH [EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf ' C\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+minishell: unset: ` asdf asdf asd f': not a valid identifier$
+minishell: unset: ` asdf ': not a valid identifier$
+minishell: unset: `': not a valid identifier$
+minishell: unset: `asdf ': not a valid identifier$
+|---------------------------------------ACTUAL----------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+================================================================================
+
+|> WITH [EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf '\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+minishell: unset: ` asdf asdf asd f': not a valid identifier$
+minishell: unset: ` asdf ': not a valid identifier$
+minishell: unset: `': not a valid identifier$
+minishell: unset: `asdf ': not a valid identifier$
+|---------------------------------------ACTUAL----------------------------------
+minishell: unset: `asdf ': not a valid identifier$
+================================================================================
+
+|> WITH [SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
+|  STATUS: expected 127 actual 2
+================================================================================
+
+|> WITH [SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2] ./somelink2ls\n
+|  STATUS: expected 127 actual 2
+================================================================================
+
+|> WITH [SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3] ./somelink3ls\n
+|  STATUS: expected 127 actual 2
+================================================================================
+
+|> WITH [SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3; ln -s somelink3 somelink4] ./somelink4ls\n
+|  STATUS: expected 127 actual 2
+================================================================================
+
+|> WITH echo $_\n
+|---------------------------------------EXPECTED--------------------------------
+/bin/bash$
+|---------------------------------------ACTUAL----------------------------------
+$
+================================================================================
+
+|> WITH echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
+$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 2000000'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: warning: shell level (2000001) too high, resetting to 1$
+1$
+|---------------------------------------ACTUAL----------------------------------
+2000001$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' -2000000'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+-1999999$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 2147483647'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+-2147483648$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' -2147483648'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+-2147483647$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' -2147483649'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+1$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' -3147483649'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: warning: shell level (1147483648) too high, resetting to 1$
+1$
+|---------------------------------------ACTUAL----------------------------------
+1$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 9223372036854775808'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
+0$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 18446744073709551615'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
+0$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 18446744073709551616'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+1$
+|---------------------------------------ACTUAL----------------------------------
+0$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' +2000000'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: warning: shell level (2000001) too high, resetting to 1$
+1$
+|---------------------------------------ACTUAL----------------------------------
+2000001$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' +2147483647'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+-2147483648$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' 0123456789'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: warning: shell level (123456790) too high, resetting to 1$
+1$
+|---------------------------------------ACTUAL----------------------------------
+123456790$
+================================================================================
+
+|> WITH [EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
+|---------------------------------------EXPECTED--------------------------------
+0$
+|---------------------------------------ACTUAL----------------------------------
+-123456788$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 001 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 002 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 003 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 004 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 005 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 006 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 007 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 010 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 020 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 030 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 040 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 050 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 060 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 070 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 400 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 600 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 644 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 222 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 1000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 2000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 3000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 4000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 5000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 6000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 7000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 0000 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: command not found$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] A\n
+|  STATUS: expected 126 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: path/A: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: A: command not found$
+================================================================================
+
+|> WITH [EXPORTS PATH='        '] echo $PATH\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+        $
+================================================================================
+
+|> WITH [EXPORTS PATH='   :    '] echo $PATH\n
+|---------------------------------------EXPECTED--------------------------------
+:$
+|---------------------------------------ACTUAL----------------------------------
+   :    $
+================================================================================
+
+|> WITH [EXPORTS PATH='     /bin      '] echo $PATH\n
+|---------------------------------------EXPECTED--------------------------------
+/bin$
+|---------------------------------------ACTUAL----------------------------------
+     /bin      $
+================================================================================
+
+|> WITH [EXPORTS PATH='     /sbin      '] echo $PATH\n
+|---------------------------------------EXPECTED--------------------------------
+/sbin$
+|---------------------------------------ACTUAL----------------------------------
+     /sbin      $
+================================================================================
+
+|> WITH [EXPORTS PATH=''] whoami\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: No such file or directory$
+|---------------------------------------ACTUAL----------------------------------
+minishell: whoami: command not found$
+================================================================================
+
+|> WITH unset PATH; whoami\n
+|  STATUS: expected 127 actual 1
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: No such file or directory$
+|---------------------------------------ACTUAL----------------------------------
+minishell: unset: `PATH;': not a valid identifier$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin'] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somecmd: command not found$
+================================================================================
+
+|> WITH [EXPORTS PATH=''] Whoami\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: Whoami: No such file or directory$
+|---------------------------------------ACTUAL----------------------------------
+minishell: Whoami: command not found$
+================================================================================
+
+|> WITH [EXPORTS PATH=''] wHoami\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: wHoami: No such file or directory$
+|---------------------------------------ACTUAL----------------------------------
+minishell: wHoami: command not found$
+================================================================================
+
+|> WITH [EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A"$B"$C"A"$B"$C"\n
+|---------------------------------------EXPECTED--------------------------------
+foo  bar  baz A bar baz $
+|---------------------------------------ACTUAL----------------------------------
+foo  bar  baz A bar  baz $
+================================================================================
+
+|> WITH [EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A'$B'$C'A'$B'$C'\n
+|---------------------------------------EXPECTED--------------------------------
+foo $Bbaz A bar $C$
+|---------------------------------------ACTUAL----------------------------------
+foo $Bbaz A bar  $C$
+================================================================================
+
+|> WITH [EXPORTS A='    '] echo [$A]\n
+|---------------------------------------EXPECTED--------------------------------
+[ ]$
+|---------------------------------------ACTUAL----------------------------------
+[    ]$
+================================================================================
+
+|> WITH [EXPORTS A=' \  '] echo [$A]\n
+|---------------------------------------EXPECTED--------------------------------
+[ \ ]$
+|---------------------------------------ACTUAL----------------------------------
+[ \  ]$
+================================================================================
+
+|> WITH [EXPORTS A='bonjour     je     suis    splited'] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+bonjour     je     suis    splited$
+================================================================================
+
+|> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+   bonjour     je     suis    splited   $
+================================================================================
+
+|> WITH [EXPORTS A='bonjour     je     suis    splited'] echo [$A]\n
+|---------------------------------------EXPECTED--------------------------------
+[bonjour je suis splited]$
+|---------------------------------------ACTUAL----------------------------------
+[bonjour     je     suis    splited]$
+================================================================================
+
+|> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo [$A]\n
+|---------------------------------------EXPECTED--------------------------------
+[ bonjour je suis splited ]$
+|---------------------------------------ACTUAL----------------------------------
+[   bonjour     je     suis    splited   ]$
+================================================================================
+
+|> WITH [EXPORTS A='bonjour je suis splited'] echo \ $A\n
+|---------------------------------------EXPECTED--------------------------------
+ bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+\ bonjour je suis splited$
+================================================================================
+
+|> WITH [EXPORTS A='bonjour     je     suis    splited'] echo \ $A\n
+|---------------------------------------EXPECTED--------------------------------
+ bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+\ bonjour     je     suis    splited$
+================================================================================
+
+|> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo \ $A\n
+|---------------------------------------EXPECTED--------------------------------
+  bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+\    bonjour     je     suis    splited   $
+================================================================================
+
+|> WITH [EXPORTS A='bonjour je suis splited'] echo $A\ \n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited $
+|---------------------------------------ACTUAL----------------------------------
+bonjour je suis splited\$
+================================================================================
+
+|> WITH [EXPORTS A='bonjour     je     suis    splited'] echo $A\ \n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited $
+|---------------------------------------ACTUAL----------------------------------
+bonjour     je     suis    splited\$
+================================================================================
+
+|> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo $A\ \n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited  $
+|---------------------------------------ACTUAL----------------------------------
+   bonjour     je     suis    splited   \$
+================================================================================
+
+|> WITH [EXPORTS A='   bonjour     je     suis    splited   '] echo $A$A$A\n
+|---------------------------------------EXPECTED--------------------------------
+bonjour je suis splited bonjour je suis splited bonjour je suis splited$
+|---------------------------------------ACTUAL----------------------------------
+   bonjour     je     suis    splited      bonjour     je     suis    splited      bonjour     je     suis    splited   $
+================================================================================
+
+|> WITH [EXPORTS A=''Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. ''] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+'Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. '$
+|---------------------------------------ACTUAL----------------------------------
+Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. $
+================================================================================
+
+|> WITH [SETUP touch a b c] [EXPORTS LS='ls -l'] $LS\n
+|  STATUS: expected 0 actual 127
+|---------------------------------------EXPECTED--------------------------------
+total 0$
+-rw-r--r--  1 arebelo  2021_barcelona  0 Jan 25 19:08 a$
+-rw-r--r--  1 arebelo  2021_barcelona  0 Jan 25 19:08 b$
+-rw-r--r--  1 arebelo  2021_barcelona  0 Jan 25 19:08 c$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls -l: command not found$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+ $
+================================================================================
+
+|> WITH [EXPORTS A='  '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+  $
+================================================================================
+
+|> WITH [EXPORTS A='   '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+   $
+================================================================================
+
+|> WITH [EXPORTS A='    '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+    $
+================================================================================
+
+|> WITH [EXPORTS A='  a '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+|---------------------------------------ACTUAL----------------------------------
+  a $
+================================================================================
+
+|> WITH [EXPORTS A='                                '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+$
+|---------------------------------------ACTUAL----------------------------------
+                                $
+================================================================================
+
+|> WITH [EXPORTS A='                     a          '] echo $A\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+|---------------------------------------ACTUAL----------------------------------
+                     a          $
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo @ $A@\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo @$A @\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A='       '] echo @$A@\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@       @$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo '@' $A'@'\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo '@'$A '@'\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo "@" $A"@"\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A=' '] echo "@"$A "@"\n
+|---------------------------------------EXPECTED--------------------------------
+@ @$
+|---------------------------------------ACTUAL----------------------------------
+@  @$
+================================================================================
+
+|> WITH [EXPORTS A='fi le'] echo bonjour > $A\n
+|  STATUS: expected 1 actual 0
+|---------------------------------------EXPECTED--------------------------------
+minishell: $A: ambiguous redirect$
+|---------------------------------------ACTUAL----------------------------------
+|# FILE fi le
+|---------------------------------------EXPECTED--------------------------------
+FROM TEST: File not created
+|---------------------------------------ACTUAL----------------------------------
+bonjour$
+================================================================================
+
+|> WITH echo '\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `''$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
+|> WITH echo "\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
+|> WITH echo '''\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `''$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
+|> WITH echo """\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
+|> WITH echo '''''''''''''''''''''''''''''''''''''''''''\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `''$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
+|> WITH echo """""""""""""""""""""""""""""""""""""""""""\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unexpected EOF while looking for matching `"'$
+|---------------------------------------ACTUAL----------------------------------
+minishell: syntax error$
+================================================================================
+
