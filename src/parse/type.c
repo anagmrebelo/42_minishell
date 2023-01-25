@@ -62,7 +62,7 @@ _Bool	check_syntax(t_master *master)
 				{
 					message = ft_strdup("syntax error near unexpected token `newline\'\n");
 					if(!message)
-						clean_free_pipe_read(master, 1);
+						clean_free(master, 1);
 				}
 				else
 					message = create_message(master, "syntax error near unexpected token `", temp->next->str, "\'\n");

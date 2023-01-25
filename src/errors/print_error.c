@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:03 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:50:30 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char	*create_message(t_master *master, char *message, char *token, char *msg)
 
 	temp = ft_strjoin(message, token);
 	if (!temp)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	temp = join_free_s1(temp, msg);
 	if (!temp)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	return (temp);
 }

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/12 21:19:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 04:13:45 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@ void	init_redirs(t_master *master)
 }
 
 /**
- * Create pipe and exit if error
-*/
-void	init_pipe(t_master *master)
-{
-	if(pipe(master->fd) == -1)
-		clean_free(master, 1);
-	if (close(master->fd[WRITE]) == -1)
-		clean_free_pipe_read(master, 1);
-}
-
-/**
  * Creates and clears output files if necessary
  * If there is an invalid input file, next steps won't be processed
  * Sets STDOUT to either default, pipe or token from cmd->outputs
@@ -43,27 +32,11 @@ void	init_pipe(t_master *master)
 */
 void	handle_redirs(t_command *cmd, t_master *master)
 {	
-	if(close(master->fd[READ]) == -1)
-		clean_free(master, 1);
 	if(cmd->inv_file)
 	{
 		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
-		if(close(master->fd[WRITE]) == -1)
-			clean_free(master, 1);
 		clean_free(master, 2);
 	}
 	redir_outputs(cmd, master);
 	redir_inputs(cmd, master);
-}
-
-void	handle_pipe(t_master *master, t_command *cmd)
-{
-	if (cmd->cmd_nb != 1)
-		if(dup2(master->fd[READ], STDIN_FILENO) == -1)
-			clean_free_pipe_read(master, 1);
-	if (close(master->fd[READ]) == -1)
-		clean_free(master, 1);
-	if(pipe(master->fd) == -1)
-		clean_free(master, 1);
-	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/18 19:19:38 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:47:53 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ t_token	*new_token(char *line, int size, t_master *master)
 
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	new->str = ft_substr(line, 0, size);
 	if (!new->str)
 	{
 		free(new);
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	}
 	add_type(new);
 	del_update(new);

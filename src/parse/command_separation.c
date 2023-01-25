@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/19 19:31:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:47:32 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	command_separation(t_master *master)
 	{
 		cmd = ft_calloc(1, sizeof(t_command));
 		if (!cmd)
-			clean_free_pipe_read(master, 1);
+			clean_free(master, 1);
 		cmd->cmd_nb = i;
 		while (temp && temp->type != PIPE)
 		{
@@ -145,12 +145,12 @@ t_token	*copy_token(t_token *src, t_master *master)
 
 	res = ft_calloc(1, sizeof(t_token));
 	if (!res)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	res->str = ft_strdup(src->str);
 	if (!res->str)
 	{
 		free(res);
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	}
 	res->type = src->type;
 	res->next = NULL;
@@ -177,7 +177,7 @@ char    **token_to_array(t_token *token, t_master *master)
     }
     token_array = (char **)ft_calloc((len + 1), sizeof(char *));
     if (!token_array)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
     i = 0;
     while (i < len)
     {
@@ -185,7 +185,7 @@ char    **token_to_array(t_token *token, t_master *master)
 		if(!token_array[i])
 		{
 			free_double_array(token_array);
-			clean_free_pipe_read(master, 1);
+			clean_free(master, 1);
 		}
         token = token->next;
         i++;
