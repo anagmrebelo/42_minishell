@@ -41,18 +41,6 @@
 	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]
 	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
 - cmd_path
-	[SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
-	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2] ./somelink2ls\n                                                [FAIL]
-	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3] ./somelink3ls\n                      [FAIL]
-	[SETUP cp /bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3; ln -s somelink3 somelink4] ./some... [FAIL]
-	[SETUP echo > somefile && chmod 0777 somefile] ./somefile\n
-	[SETUP echo > somefile && chmod 1777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 2777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 3777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 4777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 5777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 6777 somefile] ./somefile\n                                                                                    [FAIL]
-	[SETUP echo > somefile && chmod 7777 somefile] ./somefile\n                                                                                   [FAIL]
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 001 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 002 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]

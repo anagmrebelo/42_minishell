@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/25 19:06:03 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:52:17 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*executable(char *cmd, t_master *master)
     if (access(cmd, F_OK) != 0)
     {
 		print_error("minishell", cmd, "No such file or directory\n");
-		clean_free(master, 2);
+		clean_free(master, 127);
 	}
     ptr = opendir(cmd);
 	if (errno != 20) 
@@ -105,7 +105,7 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-	if (!path || is_path(cmd))
+	if (!path || (!*path) || is_path(cmd)) //(@!*path && new function that checks if PATH is not null)
 		return (executable(cmd, master));
 	if (is_dots(cmd))
 		return (NULL);
@@ -128,7 +128,6 @@ char    *get_command(char **path, char *cmd, t_master *master)
 }
 
 //ejecuta los comandos en un child process
-
 void exec_bin(t_master *master, t_command *cmd)
 {
     char    **path;
