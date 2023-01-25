@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/24 20:31:33 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:39:38 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,8 @@ void	clean_free(t_master *master, int exit_code)
 	exit(exit_code);
 }
 
-void	clean_free_pipe_read(t_master *master, int exit_code)
-{
-	close(master->fd[READ]);
-	clean_free(master, exit_code);
-}
-
 void    prep_next_line(t_master *master)
 {
-	if (master->num_commands > 1 && close(master->fd[READ]) == -1)
-		clean_free(master, 1);
 	reset_redirs(master);
     free_token_list(master->token_list);
 	master->token_list = NULL;

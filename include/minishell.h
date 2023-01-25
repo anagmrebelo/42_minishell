@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/19 21:10:47 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:50:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ char	*create_message(t_master *master, char *message, char *token, char *msg);
 //FREE
 void    free_master(t_master *master);
 void    free_line(t_master *master);
-void	clean_free_pipe_read(t_master *master, int exit_code);
 void	clean_free(t_master *master, int exit_code);
 void	clean_free_no_exit(t_master *master);
 void	free_fail_exec(char *command, char **path, char **env);

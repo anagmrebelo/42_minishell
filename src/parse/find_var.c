@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/18 19:06:10 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 03:47:43 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*find_aux(char *str, t_master *master)
 		free(str);
 		test = ft_itoa(g_error);
 		if (!test)
-			clean_free_pipe_read(master, 1);
+			clean_free(master, 1);
 		return (test);
 	}
 	while (temp && str)
@@ -82,7 +82,7 @@ char	*find_aux(char *str, t_master *master)
 			else
 				a = ft_strdup(temp->value);
 			if (!a)
-				clean_free_pipe_read(master, 1);
+				clean_free(master, 1);
 			return (a);
 		}
 		temp = temp->next;
@@ -96,6 +96,6 @@ char	*find_aux2(char *str, t_master *master)
 {
 	str = join_free_s2("$", str);
 	if (!str)
-		clean_free_pipe_read(master, 1);
+		clean_free(master, 1);
 	return (str);
 }
