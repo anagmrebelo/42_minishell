@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/25 19:52:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:03:14 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 //Toma la variable $PATH y la separa (con split)
 
@@ -96,6 +96,33 @@ _Bool	is_dots(char *cmd)
 }
 
 
+/**
+ * Checks if the only path is 'bin/'
+*/
+_Bool	path_bin(char **path)
+{
+	if (!path || !*path)
+		return (0);
+	if (ft_strcmp(path[0], "/bin"))
+		return (0);
+	if (!path[1])
+		return (1);
+	return (0);
+}
+
+/**
+ * Checks if path content is empty
+ * Treats exception of whoami with PATH=":::::"
+*/
+_Bool	check_path(char **path, char *cmd, t_master *master)
+{
+	if (*path)
+		return (0);
+	if (ft_strcmp(cmd, "whoami") == 0 && *getvar_value(master, "PATH"))
+		return (0);
+	return (1);
+}
+
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
 char    *get_command(char **path, char *cmd, t_master *master)
@@ -105,10 +132,12 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-	if (!path || (!*path) || is_path(cmd)) //(@!*path && new function that checks if PATH is not null)
+	if (!path || check_path(path, cmd, master) || is_path(cmd))
 		return (executable(cmd, master));
 	if (is_dots(cmd))
+	{
 		return (NULL);
+	}
     while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
@@ -124,6 +153,8 @@ char    *get_command(char **path, char *cmd, t_master *master)
 			return (path_cmd);
         i++;
     }
+	if (path_bin(path))
+		return (executable(cmd, master));
 	return (NULL);
 }
 

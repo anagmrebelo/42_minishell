@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:04:07 by mrollo            #+#    #+#             */
-/*   Updated: 2022/10/19 15:42:18 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/01/26 11:14:30 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <minishell.h>
 
 void	sort(char **sort_array, int len)

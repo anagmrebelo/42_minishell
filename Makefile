@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
+#    By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/01/17 18:52:22 by arebelo          ###   ########.fr        #
+#    Updated: 2023/01/26 11:21:08 by anarebelo        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC				= main.c\
 				env/sort_env.c\
 				env/env.c \
 				env/free_env.c\
+				env/return_var.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\

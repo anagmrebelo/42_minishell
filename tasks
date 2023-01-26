@@ -56,17 +56,7 @@
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 050 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 060 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
 	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 070 ./path/a] [EXPORTS PATH='path'] a\n
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n
-	[EXPORTS PATH=''] whoami\n                                                                                                                                            [FAIL]
-	unset PATH; whoami\n
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n                                                                        [FAIL]
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n                                                                       [FAIL]
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n                                                                [FAIL]
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n                                                                   [FAIL]
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin'] somecmd\n                                                                   [FAIL]
-	[SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n                                                                  [FAIL]
-	[EXPORTS PATH=''] Whoami\n                                                                                                                                            [FAIL]
-	[EXPORTS PATH=''] wHoami\n                                                                                                                                            [FAIL]
+	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n                                                                  
 
 - export spaces (NON PRIORITARY)
 	[EXPORTS PATH='        '] echo $PATH\n                                                                                                                                [FAIL]
@@ -74,7 +64,7 @@
 	[EXPORTS PATH='     /bin      '] echo $PATH\n                                                                                                                         [FAIL]
 	[EXPORTS PATH='     /sbin      '] echo $PATH\n
 
--interpolation
+-interpolation (NON PRIORITARY)
 	[EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A"$B"$C"A"$B"$C"\n                                                                                                       [FAIL]
 	[EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A'$B'$C'A'$B'$C'\n
 	[EXPORTS A='    '] echo [$A]\n
