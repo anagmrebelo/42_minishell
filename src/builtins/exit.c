@@ -67,6 +67,12 @@ int aux_exit(char **args, t_master *master)
 
 int ft_exit(char **args, t_master *master)
 {
+    int n;
+    if (master->num_commands > 1)
+    {
+        n = ft_atoi(args[1]);
+        return (n);
+    }
     if (!args[1])
     {
         ft_putendl_fd("exit", 2);
