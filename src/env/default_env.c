@@ -50,7 +50,6 @@ int    default_env(t_master *master)
         return (1);
     if (getcwd(pwd, 4097) == NULL)
         return (1);
-    //env->content = ft_strdup("PWD");
     env->title = ft_strdup("PWD");
     env->value = ft_strdup(pwd);
     create_shlvl(env);

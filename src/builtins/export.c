@@ -118,18 +118,6 @@ int var_title_check(char *str)
     }
     else
         return (0);
-    // i = 0;
-    // while (i < len)
-    // {
-    //     if (!ft_isalpha(str[i]) && str[i] != '_')
-    //     {
-    //         if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
-    //             return (1);
-    //         return (0);
-    //     }
-    //     else
-    //         i++;
-    // }
     return (1);
 }
 
