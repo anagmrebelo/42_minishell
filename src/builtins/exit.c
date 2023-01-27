@@ -61,8 +61,10 @@ int aux_exit(char **args, t_master *master)
         n = ft_atoi(args[1]);
         ft_putendl_fd("exit", 2);
         master->status = 1;
+        if (n < 0)
+		    n *= -255;
     }
-    return (n);
+    return (n % 256);
 }
 
 int ft_exit(char **args, t_master *master)

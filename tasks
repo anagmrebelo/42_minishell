@@ -34,7 +34,7 @@
 - heredoc
 - signals
 - exit
-	exit numeros > 255
+	# exit numeros > 255
 	# exit 3 | exit 5 (no imprimir exit por pantalla)
 - unset
 	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
