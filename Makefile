@@ -45,6 +45,7 @@ SRC				= main.c\
 				env/sort_env.c\
 				env/env.c \
 				env/free_env.c\
+				env/default_env.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\

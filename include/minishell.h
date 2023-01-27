@@ -113,6 +113,7 @@ void    free_array(char **array);
 void	sort(char **sort_array, int len);
 char    **sort_env_array(char **sort_array, t_env *env, int len);
 void    print_sort_env(t_env *env);
+int     default_env(t_master *master);
 
 
 //PARSING
