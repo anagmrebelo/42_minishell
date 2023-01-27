@@ -39,24 +39,7 @@
 - unset
 	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
 	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]
-	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
-- cmd_path
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 001 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 002 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 003 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 004 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 005 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 006 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 007 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 010 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 020 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 030 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 040 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 050 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 060 ./path/a] [EXPORTS PATH='path'] a\n                                                                      [FAIL]
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 070 ./path/a] [EXPORTS PATH='path'] a\n
-	[SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n                                                                  
+	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]                                                           
 
 - export spaces (NON PRIORITARY)
 	[EXPORTS PATH='        '] echo $PATH\n                                                                                                                                [FAIL]

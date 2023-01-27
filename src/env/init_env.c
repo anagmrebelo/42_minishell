@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/11 18:56:19 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/26 22:51:34 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_env(t_env *env)
 	temp = env;
     while (temp != NULL)
     {
-		ft_putendl_fd(temp->content, 1);
+		printf("%s=%s\n", temp->title, temp->value);
 		temp = temp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/26 12:42:46 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/26 17:32:41 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	sort(char **sort_array, int len);
 char    **sort_env_array(char **sort_array, t_env *env, int len);
 void    print_sort_env(t_env *env);
 char    *getvar_value(t_master *master, char *title);
+char	*getvar_value_env(char **env, char *title);
 
 
 //PARSING

@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/26 13:03:14 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/26 17:12:05 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,18 @@ char    *get_command(char **path, char *cmd, t_master *master)
 			free(aux);
 			clean_free(master, 1);
 		}
-        if (access(path_cmd, X_OK) == 0)
-			return (path_cmd);
+        if (access(path_cmd, F_OK) == 0)
+		{
+			if (access(path_cmd, X_OK) == 0)
+				return (path_cmd);
+			print_error("minishell", path_cmd, "Permission denied\n");
+			free(path_cmd);
+			if (cmd)
+				free(cmd);
+			if (path)
+				free_double_array(path);
+			clean_free(master, 126);
+		}
         i++;
     }
 	if (path_bin(path))
@@ -185,7 +195,7 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 		free(command);
 	if (path)
 		free_double_array(path);
-	if(env)
+	if (env)
 		free_double_array(env);
 	clean_free(master, 1);
 	
