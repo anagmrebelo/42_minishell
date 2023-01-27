@@ -42,9 +42,32 @@ int env_len(t_env *env)
 
 char    **env_to_array(t_env *env)
 {
+    // char    **array_env;
+    // int len;
+    // int i;
+
+    // len = env_len(env);
+    // array_env = (char **)ft_calloc((len + 1), sizeof(char *));
+    // if (!array_env)
+    //     return (NULL);
+    // i = 0;
+    // while (i < len)
+    // {
+    //     array_env = double_array(len, env);
+    //     array_env[i] = ft_strdup(env->content);
+    //     if (!array_env[i])
+	// 	{
+	// 		free_double_array(array_env);
+	// 		return (NULL);
+	// 	}
+	// 	env = env->next;
+    //     i++;
+    // }
+    // return (array_env);
     char    **array_env;
-    int len;
+    char    *str;
     int i;
+    int len;
 
     len = env_len(env);
     array_env = (char **)ft_calloc((len + 1), sizeof(char *));
@@ -53,14 +76,22 @@ char    **env_to_array(t_env *env)
     i = 0;
     while (i < len)
     {
-        array_env[i] = ft_strdup(env->content);
+        if (env->value)
+        {
+            str = ft_strdup(env->title);
+            str = join_free(str, "=");
+            str = join_free(str, env->value);
+        }
+        else
+            str = ft_strdup(env->title);
+        array_env[i] = str;
         if (!array_env[i])
-		{
-			free_double_array(array_env);
+        {
+            free_double_array(array_env);
 			return (NULL);
-		}
-		env = env->next;
+        }
         i++;
+        env = env->next;
     }
     return (array_env);
 }

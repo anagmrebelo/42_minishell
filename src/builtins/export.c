@@ -7,11 +7,11 @@ void    print_export_error(char *str)
     ft_putendl_fd("': not a valid identifier", 2);
 }
 
-void    add_to_env(char *content, char *title, char *value, t_env *env)
+void    add_to_env(char *title, char *value, t_env *env)
 {
     t_env   *new;
 
-    new = new_env(content, title, value);
+    new = new_env(title, value);
     add_back(env, new);
 }
 
@@ -159,7 +159,7 @@ int ft_export(t_env *env, char **args, t_master *master)
                 if (var_exist(env, args[i]))
                     update_var(env, args[i], master);
                 else
-                    add_to_env(args[i], get_title(args[i], master), get_value(args[i], master), env);
+                    add_to_env(get_title(args[i], master), get_value(args[i], master), env);
             }
             else
             {
