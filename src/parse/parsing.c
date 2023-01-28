@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 12:37:37 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 14:08:54 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ _Bool	parsing(char *line, t_master *master)
 		g_error = 258;
 		return (0);
 	}
-	env_update_TO(master->line, master);
+	env_update(master->line, master);
 	while (master->line[i])
 		i += tokenize(&master->line[i], master);
 	if (check_syntax(master))
@@ -118,7 +118,6 @@ t_token	*new_token(char *line, int size, t_master *master)
 	}
 	add_type(new);
 	del_update(new);
-	//env_update(new, master);
 	home_update(new, master);
 	quotes_update(new, master);
 	return (new);

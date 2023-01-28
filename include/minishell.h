@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/28 12:23:10 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 14:08:06 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,11 @@ _Bool	parsing(char * line, t_master *master);
 int		tokenize(char *line, t_master *master);
 t_token *new_token(char *line, int size, t_master *master);
 
-void	env_update(t_token *new, t_master *master);
-char	*aux1_env(t_token *new, t_master *master, char *line, int *c);
-char	*aux2_env(t_token *new, t_master *master, char *line, int *c);
-char	*aux3_env(t_token *new, t_master *master, char *line, int *c);
-char	*aux4_env(t_token *new, t_master *master, char *line, int *c);
+void	env_update(char *read, t_master *master);
+char	*aux1_env(char *read, t_master *master, char *line, int *c);
+char	*aux2_env(char *read, t_master *master, char *line, int *c);
+char	*aux3_env(char *read, t_master *master, char *line, int *c);
+char	*aux4_env(char *read, t_master *master, char *line, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
@@ -136,12 +136,6 @@ void	home_update(t_token *new, t_master *master);
 _Bool	is_dots(char *cmd);
 void	del_update(t_token *new);
 _Bool	ok(char c);
-
-void	env_update_TO(char *read, t_master *master);
-char	*aux1_env_TO(char *read, t_master *master, char *line, int *c);
-char	*aux2_env_TO(char *read, t_master *master, char *line, int *c);
-char	*aux3_env_TO(char *read, t_master *master, char *line, int *c);
-char	*aux4_env_TO(char *read, t_master *master, char *line, int *c);
 
 
 char	*quotes_clean(t_token *new, t_master *master);
