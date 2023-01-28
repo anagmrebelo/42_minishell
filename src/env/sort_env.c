@@ -40,7 +40,6 @@ char    **sort_env_array(char **sort_array, t_env *env, int len)
 {
     int i;
     char *str;
-    //char *aux;
 
     i = 0;
     while (i < len)

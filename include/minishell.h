@@ -50,7 +50,6 @@ int     g_error;
 
 typedef struct s_env
 {
-	char *content;
 	char *title;
 	char *value;
 	struct s_env *next;
@@ -99,7 +98,7 @@ void	wait_childs(t_master *master);
 
 //ENVIROMENT
 int		init_env(t_master *master, char **enviroment);
-t_env	*new_env(char *content, char *title, char *value);
+t_env	*new_env(char *title, char *value);
 char    *get_title(char *str, t_master *master);
 char    *get_value(char *str, t_master *master);
 void	add_back(t_env *env, t_env *new);

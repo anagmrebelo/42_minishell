@@ -4,15 +4,8 @@ void    free_env(t_env *item)
 {
     if (item)
     {
-        //if(item->content)
-            free(item->content);
-        //iterm->content = NULL;
-         //if(item->title)
-            free(item->title);
-        //iterm->title = NULL;
-        //if(item->value)
-            free(item->value);
-        //iterm->value = NULL;
+        free(item->title);
+        free(item->value);
         free(item);
     } 
 }

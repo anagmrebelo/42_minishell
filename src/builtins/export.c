@@ -7,11 +7,11 @@ void    print_export_error(char *str)
     ft_putendl_fd("': not a valid identifier", 2);
 }
 
-void    add_to_env(char *content, char *title, char *value, t_env *env)
+void    add_to_env(char *title, char *value, t_env *env)
 {
     t_env   *new;
 
-    new = new_env(content, title, value);
+    new = new_env(title, value);
     add_back(env, new);
 }
 
@@ -22,7 +22,7 @@ void    update_var(t_env *env, char *str, t_master *master)
 
     end = ft_strchr(str, '=');
     if (!end)
-        n = ft_strlen(str);
+        return ;
     else
         n = end - str;
     while (env != NULL)
@@ -118,18 +118,6 @@ int var_title_check(char *str)
     }
     else
         return (0);
-    // i = 0;
-    // while (i < len)
-    // {
-    //     if (!ft_isalpha(str[i]) && str[i] != '_')
-    //     {
-    //         if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
-    //             return (1);
-    //         return (0);
-    //     }
-    //     else
-    //         i++;
-    // }
     return (1);
 }
 
@@ -159,7 +147,7 @@ int ft_export(t_env *env, char **args, t_master *master)
                 if (var_exist(env, args[i]))
                     update_var(env, args[i], master);
                 else
-                    add_to_env(args[i], get_title(args[i], master), get_value(args[i], master), env);
+                    add_to_env(get_title(args[i], master), get_value(args[i], master), env);
             }
             else
             {
