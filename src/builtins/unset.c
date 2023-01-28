@@ -25,6 +25,8 @@ void    unset_var(t_env *env, char *str)
 {
     t_env   *next;
 
+    if (ft_strcmp(str, "_") == 0)
+        return ;
     while (env != NULL)
     {
         if (env->next != NULL && (ft_strcmp(env->next->title, str) == 0))
