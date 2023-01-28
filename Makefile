@@ -77,7 +77,8 @@ SRC				= main.c\
 				utils/double_array.c\
 				utils/strlcat.c\
 				utils/max_len.c\
-				utils/join_free.c
+				utils/join_free.c\
+				signal.c\
 				
 
 OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))

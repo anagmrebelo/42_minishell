@@ -251,4 +251,7 @@ void    print_list_tokens(t_token *list);
 void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
+//signal
+void    init_signal(int i);
+
 #endif

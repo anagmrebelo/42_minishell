@@ -254,6 +254,10 @@ int exec(t_master *master, t_command *cmd)
 	else if (is_builtin(cmd->args_char[0]))
     exit(exec_builtin(cmd->args_char[0], cmd, master->env, master)); //@areview for leaks
   else
+  {
+	init_signal(0);
     exec_bin(master, cmd);
+	init_signal(1);
+  }
   return (0);
 }

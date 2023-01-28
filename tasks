@@ -32,6 +32,8 @@
 	# [EXPORTS PATH='/bin:/usr/bin'] enV\n
 	# export\n                                                                      [FAIL]
 - heredoc
+	seg fault ctrl-d en el medio del heredoc
+
 - signals
 - exit
 	# exit numeros > 255
