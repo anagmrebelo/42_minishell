@@ -217,6 +217,7 @@ int     change_dir(char *arg, char *oldpwd, t_env *env);
 int     ft_env(t_env *env);
 int     ft_unset(t_env *env, char **args);
 int     ft_export(t_env *env, char **args, t_master *master);
+void    add_to_env(char *title, char *value, t_env *env);
 void    print_export_error(char *str);
 int     ft_exit(char **args, t_master *master);
 

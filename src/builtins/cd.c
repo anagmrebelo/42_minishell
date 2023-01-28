@@ -24,17 +24,21 @@ int change_dir(char *arg, char *oldpwd, t_env *env)
 
 void    update_oldpwd(char *oldpwd, t_env *env)
 {
+    t_env   *aux;
+
+    aux = env;
     while (env != NULL)
     {
         if (ft_strcmp("OLDPWD", env->title) == 0)
         {
             free (env->value);
             env->value = ft_strdup(oldpwd);
-            break ;
+            return ;
         }
         else
             env = env->next;
     }
+    add_to_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd), aux);
 }
 
 int    update_pwd(t_env *env)
