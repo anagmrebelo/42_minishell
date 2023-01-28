@@ -56,8 +56,10 @@ int check_var(char *str)
 int    ft_unset(t_env *env, char **args)
 {
     int i;
+    int rtrn;
 
     i = 1;
+    rtrn = 0;
     while (args[i])
     {
         if (first_u_check(args[i]))
@@ -70,9 +72,9 @@ int    ft_unset(t_env *env, char **args)
         else
         {
             print_unset_error(args[i]);
-            return (1);
+            rtrn = 1;
         }
         i++;
     }
-    return (0);
+    return (rtrn);
 }
