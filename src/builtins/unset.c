@@ -43,6 +43,8 @@ int check_var(char *str)
     int i;
 
     len = ft_strlen(str);
+    if (len == 0)
+        return (0);
     i = 0;
     while (i < len)
     {
