@@ -50,7 +50,6 @@ int     g_error;
 
 typedef struct s_env
 {
-	//char *content;
 	char *title;
 	char *value;
 	struct s_env *next;
