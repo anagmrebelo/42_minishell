@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 03:35:23 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/26 23:00:19 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	minishell_one(t_master *master)
 	if (cmd->inv_file)
 	{
 		print_error("minishell", last_token(cmd->inputs)->str, "No such file or directory\n");
-		g_error = 2;
+		g_error = 1;
 		return ;
 	}
 	redir_outputs(cmd, master);
@@ -34,7 +34,7 @@ void	exec_one(t_master *master, t_command *cmd)
 {
 	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
-	if (!cmd->args_char[0])
+	if (!cmd->args_char[0] || !*cmd->args_char[0])
 	{
 		g_error = 0;
 		return ;

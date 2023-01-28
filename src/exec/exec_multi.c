@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/19 21:24:14 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/28 10:27:11 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 //Toma la variable $PATH y la separa (con split)
 
@@ -46,7 +46,7 @@ char	*executable(char *cmd, t_master *master)
     if (access(cmd, F_OK) != 0)
     {
 		print_error("minishell", cmd, "No such file or directory\n");
-		clean_free(master, 2);
+		clean_free(master, 127);
 	}
     ptr = opendir(cmd);
 	if (errno != 20) 
@@ -79,11 +79,7 @@ _Bool	is_path(char *cmd)
 
 	i = 0;
 	while (cmd[i] && cmd[i] != '/')
-	{
-		if (cmd[i] != '.')
-			return (0);
 		i++;
-	}
 	if (!cmd[i])
 		return (0);
 	return (1);
@@ -100,6 +96,35 @@ _Bool	is_dots(char *cmd)
 }
 
 
+/**
+ * Checks if the only path is 'bin/'
+*/
+_Bool	path_bin(char **path)
+{
+	if (!path || !*path)
+		return (0);
+	if (ft_strcmp(path[0], "/bin"))
+		return (0);
+	if (!path[1])
+		return (1);
+	return (0);
+}
+
+/**
+ * Checks if path content is empty
+ * Treats exception of whoami with PATH=":::::"
+*/
+_Bool	check_path(char **path, char *cmd, t_master *master)
+{
+	(void) master;
+	(void) cmd;	
+	if (*path)
+		return (0);
+	if (access(cmd, F_OK) != 0 && *getvar_value(master, "PATH"))
+		return (0);
+	return (1);
+}
+
 //Prueba en cada direccion de path si encuentra el comando necesario
 //y lo devuelve en formato "/bin/ls"
 char    *get_command(char **path, char *cmd, t_master *master)
@@ -109,10 +134,12 @@ char    *get_command(char **path, char *cmd, t_master *master)
     char    *path_cmd;
 
     i = 0;
-	if (!path || is_path(cmd))
+	if (!path || check_path(path, cmd, master) || is_path(cmd))
 		return (executable(cmd, master));
 	if (is_dots(cmd))
+	{
 		return (NULL);
+	}
     while (path[i])
     {
         aux = ft_strjoin(path[i], "/");
@@ -124,15 +151,26 @@ char    *get_command(char **path, char *cmd, t_master *master)
 			free(aux);
 			clean_free(master, 1);
 		}
-        if (access(path_cmd, X_OK) == 0)
-			return (path_cmd);
+        if (access(path_cmd, F_OK) == 0)
+		{
+			if (access(path_cmd, X_OK) == 0)
+				return (path_cmd);
+			print_error("minishell", path_cmd, "Permission denied\n");
+			free(path_cmd);
+			if (cmd)
+				free(cmd);
+			if (path)
+				free_double_array(path);
+			clean_free(master, 126);
+		}
         i++;
     }
+	if (path_bin(path))
+		return (executable(cmd, master));
 	return (NULL);
 }
 
 //ejecuta los comandos en un child process
-
 void exec_bin(t_master *master, t_command *cmd)
 {
     char    **path;
@@ -159,7 +197,7 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 		free(command);
 	if (path)
 		free_double_array(path);
-	if(env)
+	if (env)
 		free_double_array(env);
 	clean_free(master, 1);
 	

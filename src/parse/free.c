@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 03:39:38 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:09:02 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	free_fail_exec(char *command, char **path, char **env)
 		free(command);
 	free_double_array(path);
 	free_double_array(env);
-	exit(1);
+	exit(0);
 }
 
 /**

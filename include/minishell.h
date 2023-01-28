@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/25 03:50:03 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/28 10:30:00 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void    free_array(char **array);
 void	sort(char **sort_array, int len);
 char    **sort_env_array(char **sort_array, t_env *env, int len);
 void    print_sort_env(t_env *env);
+char    *getvar_value(t_master *master, char *title);
+char	*getvar_value_env(char **env, char *title);
 int     default_env(t_master *master);
 
 
