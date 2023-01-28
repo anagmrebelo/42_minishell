@@ -100,6 +100,20 @@ t_env	*new_env(char *title, char *value)
 	return (new);
 }
 
+void	exist_shlvl(t_env *env)
+{
+	t_env	*aux;
+
+	aux = env;
+	while (aux != NULL)
+	{
+		if (ft_strcmp(aux->title, "SHLVL") == 0)
+			return ;
+		aux = aux->next;
+	}
+	add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), env);
+}
+
 int	init_env(t_master *master, char **enviroment)
 {
 	t_env *env;
@@ -132,5 +146,6 @@ int	init_env(t_master *master, char **enviroment)
 		add_back(env, new);
 		i++;
 	}
+	exist_shlvl(env);
 	return (0);
 }
