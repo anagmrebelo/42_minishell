@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 17:49:29 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/28 14:08:54 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ _Bool	parsing(char *line, t_master *master)
 {
 	int	i;
 
+	(void) line;
 	i = 0;
-	if (!check_quotes(line))
+	if (!check_quotes(master->line))
 	{
 		print_error("minishell", NULL, "syntax error\n");
 		g_error = 258;
 		return (0);
 	}
-	while (line[i])
-		i += tokenize(&line[i], master);
+	env_update(master->line, master);
+	while (master->line[i])
+		i += tokenize(&master->line[i], master);
 	if (check_syntax(master))
 	{
 		add_types_redir(master);
@@ -116,7 +118,6 @@ t_token	*new_token(char *line, int size, t_master *master)
 	}
 	add_type(new);
 	del_update(new);
-	env_update(new, master);
 	home_update(new, master);
 	quotes_update(new, master);
 	return (new);
