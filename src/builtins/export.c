@@ -121,6 +121,17 @@ int var_title_check(char *str)
     return (1);
 }
 
+int exist_oldpwd(t_env *env)
+{
+    while (env != NULL)
+    {
+        if (ft_strcmp(env->title, "OLDPWD") == 0)
+            return (1);
+        env = env->next;
+    }
+    return (0);
+}
+
 int ft_export(t_env *env, char **args, t_master *master)
 {
     int i;
@@ -129,6 +140,8 @@ int ft_export(t_env *env, char **args, t_master *master)
     ret = 0;
     if (!args[1])
     {
+        if (!exist_oldpwd(env))
+            add_to_env(ft_strdup("OLDPWD"), NULL, env);
         print_sort_env(env);
         return (0);
     }
