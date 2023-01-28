@@ -145,5 +145,18 @@ int	init_env(t_master *master, char **enviroment)
 	}
 	if (!find_in_env(env, "SHLVL"))
 		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), env);
+	if (find_in_env(env, "_"))
+	{
+		while (env != NULL)
+		{
+			if (ft_strcmp(env->title, "_") == 0)
+			{
+				free (env->value);
+				env->value = ft_strdup("/bin/bash");
+				break ;
+			}
+			env = env->next;
+		}
+	}
 	return (0);
 }
