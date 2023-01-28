@@ -54,7 +54,10 @@ int	main(int argc, char **argv, char **enviroment)
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
-		init_env(master, enviroment);
+		if (!*enviroment)
+			default_env(master);
+		else
+			init_env(master, enviroment);
 		init_redirs(master);
 		while (!master->status)
 		{

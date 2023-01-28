@@ -18,24 +18,24 @@
 	[EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
 	
 - env inicial
-	export | grep "OLDPWD"
-	export | grep "PWD"
-	env | grep "_="
-	env | grep "_="
-	env\n                                                                         [FAIL]
-	[SETUP export A=a] env\n                                                      [FAIL]
-	[SETUP export A=a B=b C=c] env\n                                              [FAIL]
-	[SETUP export A=a B=b C=c] env | cat -e\n                                     [FAIL]
-	Env\n                                                                         [FAIL]
-	enV\n                                                                         [FAIL]
-	[EXPORTS PATH='/bin:/usr/bin'] Env\n                                          [FAIL]
-	[EXPORTS PATH='/bin:/usr/bin'] enV\n
-	export\n                                                                      [FAIL]
+	# export | grep "OLDPWD"
+	# export | grep "PWD"
+	# env | grep "_="
+	# env | grep "_="
+	# env\n                                                                         [FAIL]
+	# [SETUP export A=a] env\n                                                      [FAIL]
+	# [SETUP export A=a B=b C=c] env\n                                              [FAIL]
+	# [SETUP export A=a B=b C=c] env | cat -e\n                                     [FAIL]
+	# Env\n                                                                         [FAIL]
+	# enV\n                                                                         [FAIL]
+	# [EXPORTS PATH='/bin:/usr/bin'] Env\n                                          [FAIL]
+	# [EXPORTS PATH='/bin:/usr/bin'] enV\n
+	# export\n                                                                      [FAIL]
 - heredoc
 - signals
 - exit
 	exit numeros > 255
-	exit 3 | exit 5 (no imprimir exit por pantalla)
+	# exit 3 | exit 5 (no imprimir exit por pantalla)
 - unset
 	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
 	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]

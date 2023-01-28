@@ -6,7 +6,7 @@
 #    By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/01/26 11:21:08 by anarebelo        ###   ########.fr        #
+#    Updated: 2023/01/28 10:30:10 by anarebelo        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC				= main.c\
 				env/env.c \
 				env/free_env.c\
 				env/return_var.c\
+				env/default_env.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\
