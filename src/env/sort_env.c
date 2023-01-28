@@ -36,11 +36,24 @@ void	sort(char **sort_array, int len)
 	}
 }
 
+int exist_oldpwd(t_env *env)
+{
+    while (env != NULL)
+    {
+        if (ft_strcmp(env->title, "OLDPWD") == 0)
+            return (1);
+        env = env->next;
+    }
+    return (0);
+}
+
 char    **sort_env_array(char **sort_array, t_env *env, int len)
 {
     int i;
     char *str;
+    t_env   *aux;
 
+    aux = env;
     i = 0;
     while (i < len)
     {
@@ -57,9 +70,15 @@ char    **sort_env_array(char **sort_array, t_env *env, int len)
         env = env->next;
         i++;
     }
+    if (!exist_oldpwd(aux))
+    {
+        sort_array[i] = ft_strdup("OLDPWD");
+        len = len + 1;
+    }
     sort(sort_array, len);
     return (sort_array);
 }
+
 
 void    print_sort_env(t_env *env)
 {
@@ -68,7 +87,10 @@ void    print_sort_env(t_env *env)
     char    **sort_array;
 
     len = env_len(env);
-    sort_array = ft_calloc((len + 1), sizeof(char *));
+    if (!exist_oldpwd(env))
+        sort_array = ft_calloc((len + 2), sizeof(char *));
+    else
+        sort_array = ft_calloc((len + 1), sizeof(char *));
     sort_env_array(sort_array, env, len);
     i = 0;
     while (sort_array && sort_array[i])
