@@ -19,7 +19,7 @@ void    create_usr_bin(t_env *env)
     char    *value;
 
     title = ft_strdup("_");
-    value = ft_strdup("usr/bin/env");
+    value = ft_strdup("/usr/bin/env");
     new = new_env(title, value);
     add_back(env, new);
 }
@@ -53,7 +53,7 @@ int    default_env(t_master *master)
     env->title = ft_strdup("PWD");
     env->value = ft_strdup(pwd);
     create_shlvl(env);
-    create_usr_bin(env);
     create_path(env);
+    create_usr_bin(env);
     return (0);
 }
