@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/28 10:30:00 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 12:23:10 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,13 @@ void	home_update(t_token *new, t_master *master);
 _Bool	is_dots(char *cmd);
 void	del_update(t_token *new);
 _Bool	ok(char c);
+
+void	env_update_TO(char *read, t_master *master);
+char	*aux1_env_TO(char *read, t_master *master, char *line, int *c);
+char	*aux2_env_TO(char *read, t_master *master, char *line, int *c);
+char	*aux3_env_TO(char *read, t_master *master, char *line, int *c);
+char	*aux4_env_TO(char *read, t_master *master, char *line, int *c);
+
 
 char	*quotes_clean(t_token *new, t_master *master);
 void	quotes_update(t_token *new, t_master *master);

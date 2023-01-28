@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 03:48:39 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/28 12:38:38 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,106 @@ char	*aux4_env(t_token *new, t_master *master, char *line, int *c)
 	char	*temp;
 
 	temp = ft_substr(new->str, c[J], c[I] - c[J]);
+	if (!temp)
+		clean_free(master, 1);
+	line = join_double_free(line, temp);
+	if (!line)
+	{
+		free(temp);
+		clean_free(master, 1);
+	}
+	return (line);
+}
+
+void	env_update_TO(char *read, t_master *master)
+{
+	int		c[2];
+	char	*line;
+
+	if (ft_strrchr(read, '$') == NULL)
+		return ;
+	c[I] = -1;
+	c[J] = 0;
+	line = NULL;
+	while (read[++c[I]])
+	{
+		if (read[c[I]] == '$' && read[c[I] + 1] && ok(read[c[I] + 1]))
+		{
+			line = aux1_env_TO(read, master, line, c);
+			if (ft_isdigit(read[c[I]]))
+				c[I]++;
+			else
+				while (read[c[I]] && ok(read[c[I]]) && read[c[I]] != '$' && read[c[I]] != '?')
+					c[I]++;
+			if (c[J] == c[I])
+				line = aux2_env_TO(read, master, line, c);
+			else
+				line = aux3_env_TO(read, master, line, c);
+		}
+	}
+	if (c[J] != c[I])
+		line = aux4_env_TO(read, master, line, c);
+	if (master->line)
+		free(master->line);
+	master->line = line;
+}
+
+char	*aux1_env_TO(char *read, t_master *master, char *line, int *c)
+{
+	char	*temp;
+
+	temp = ft_substr(read, c[J], c[I] - c[J]);
+	if (!temp)
+		clean_free(master, 1);
+	line = join_double_free(line, temp);
+	if (!line)
+	{
+		free(temp);
+		clean_free(master, 1);
+	}	
+	c[J] = ++c[I];
+	return (line);
+}
+
+char	*aux2_env_TO(char *read, t_master *master, char *line, int *c)
+{
+	char	*temp;
+
+	temp = ft_substr(read, c[J], 1);
+	if (!temp)
+		clean_free(master, 1);
+	line = join_double_free(line, find_var(temp, master, c[J], read));
+	if (!line)
+	{
+		free(temp);
+		clean_free(master, 1);
+	}
+	c[J] = c[I] + 1;
+	return (line);
+}
+
+char	*aux3_env_TO(char *read, t_master *master, char *line, int *c)
+{
+	char	*temp;
+
+	temp = ft_substr(read, c[J], c[I] - c[J]);
+	if (!temp)
+		clean_free(master, 1);
+	line = join_double_free(line, find_var(temp, master, c[J], read));
+	if (!line)
+	{
+		free(temp);
+		clean_free(master, 1);
+	}
+	c[J] = c[I]--;
+	return (line);
+}
+
+char	*aux4_env_TO(char *read, t_master *master, char *line, int *c)
+{
+	char	*temp;
+
+	temp = ft_substr(read, c[J], c[I] - c[J]);
 	if (!temp)
 		clean_free(master, 1);
 	line = join_double_free(line, temp);
