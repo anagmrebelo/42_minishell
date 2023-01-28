@@ -115,6 +115,7 @@ void    print_sort_env(t_env *env);
 char    *getvar_value(t_master *master, char *title);
 char	*getvar_value_env(char **env, char *title);
 int     default_env(t_master *master);
+int     find_in_env(t_env *env, char *str);
 
 
 //PARSING
