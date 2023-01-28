@@ -22,7 +22,7 @@ void    update_var(t_env *env, char *str, t_master *master)
 
     end = ft_strchr(str, '=');
     if (!end)
-        n = ft_strlen(str);
+        return ;
     else
         n = end - str;
     while (env != NULL)
