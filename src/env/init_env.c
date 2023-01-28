@@ -122,7 +122,10 @@ int	init_env(t_master *master, char **enviroment)
 		{
 			shlvl = ft_atoi(new->value) + 1;
 			free (new->value);
-			new->value = ft_itoa(shlvl);
+			if (shlvl < 0)
+				new->value = ft_strdup("0");
+			else
+				new->value = ft_itoa(shlvl);
 		}
 		if (!new)
 			clean_free(master, 1);
