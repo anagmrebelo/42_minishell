@@ -53,3 +53,6 @@
 	[EXPORTS A='    '] echo [$A]\n
 	[EXPORTS A=' \  '] echo [$A]\n
 	[SETUP touch a b c] [EXPORTS LS='ls -l'] $LS\n
+
+- redirections
+	ls | > redirect

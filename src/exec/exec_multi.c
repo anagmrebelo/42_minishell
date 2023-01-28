@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/26 17:12:05 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 10:27:11 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,11 @@ _Bool	path_bin(char **path)
 */
 _Bool	check_path(char **path, char *cmd, t_master *master)
 {
+	(void) master;
+	(void) cmd;	
 	if (*path)
 		return (0);
-	if (ft_strcmp(cmd, "whoami") == 0 && *getvar_value(master, "PATH"))
+	if (access(cmd, F_OK) != 0 && *getvar_value(master, "PATH"))
 		return (0);
 	return (1);
 }
