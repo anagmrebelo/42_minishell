@@ -10,3 +10,8 @@
 
 - echo
 	echo -n -n (segfault)
+
+- review with mica for leaks and clean exit
+	-env
+	-heredoc
+	-builtins
