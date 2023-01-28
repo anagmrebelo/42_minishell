@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/28 14:08:06 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 22:32:13 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ void	exec_aux_free(t_command *cmd, t_master *master);
 
 
 //HEREDOC pasarlo a parsing
-void     handle_heredoc(t_token *token, char *limit);
+void     handle_heredoc(t_token *token, char *limit, t_master *master);
+char	*heredoc_update(char *read, t_master *master);
+char	*find_here(char *str, t_master *master, int pos, char *full_line);
 
 
 //REDIRECTIONS

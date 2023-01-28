@@ -14,6 +14,7 @@ void	free_double_array(char **table)
     while (table[i])
 	{
 		free(table[i]);
+		table[i] = NULL;
 		i++;
 	}
 	free(table);

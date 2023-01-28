@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+         #
+#    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/01/28 10:30:10 by anarebelo        ###   ########.fr        #
+#    Updated: 2023/01/28 22:34:00 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ SRC				= main.c\
 				exec/exec_one.c\
 				exec/exec_multi.c\
 				heredoc/heredoc.c\
+				heredoc/variables_heredoc.c\
+				heredoc/find_var_heredoc.c\
 				builtins/echo.c\
 				builtins/pwd.c\
 				builtins/cd.c\

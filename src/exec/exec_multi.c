@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/28 10:27:11 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/28 22:05:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,15 @@ char    *get_command(char **path, char *cmd, t_master *master)
     {
         aux = ft_strjoin(path[i], "/");
 		if(!aux)
+		{
+			free_double_array(path);
 			clean_free(master, 1);
+		}
         path_cmd = join_free(aux, cmd);
 		if(!path_cmd)
 		{
 			free(aux);
+			free_double_array(path);
 			clean_free(master, 1);
 		}
         if (access(path_cmd, F_OK) == 0)
@@ -157,8 +161,6 @@ char    *get_command(char **path, char *cmd, t_master *master)
 				return (path_cmd);
 			print_error("minishell", path_cmd, "Permission denied\n");
 			free(path_cmd);
-			if (cmd)
-				free(cmd);
 			if (path)
 				free_double_array(path);
 			clean_free(master, 126);

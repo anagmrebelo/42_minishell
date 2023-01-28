@@ -1,45 +1,12 @@
-- shell level
-	leaks
-	echo $SHLVL\n
-	[EXPORTS SHLVL=' 2000000'] echo $SHLVL\n                                                                                                                              [FAIL]
-	[EXPORTS SHLVL=' -2000000'] echo $SHLVL\n                                                                                                                             [FAIL]
-	[EXPORTS SHLVL=' 2147483647'] echo $SHLVL\n                                                                                                                           [FAIL]
-	[EXPORTS SHLVL=' -2147483648'] echo $SHLVL\n
-	[EXPORTS SHLVL=' -2147483649'] echo $SHLVL\n
-	[EXPORTS SHLVL=' -3147483649'] echo $SHLVL\n
-	[EXPORTS SHLVL=' 9223372036854775808'] echo $SHLVL\n                                                                                                                  [FAIL]
-	[EXPORTS SHLVL=' 18446744073709551615'] echo $SHLVL\n                                                                                                                 [FAIL]
-	[EXPORTS SHLVL=' 18446744073709551616'] echo $SHLVL\n
-	[EXPORTS SHLVL=' +2000000'] echo $SHLVL\n                                                                                                                             [FAIL]
-	[EXPORTS SHLVL=' +2147483647'] echo $SHLVL\n
-	[EXPORTS SHLVL=' 0123456789'] echo $SHLVL\n                                                                                                                           [FAIL]
-	[EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
-	[EXPORTS SHLVL=' 0123456789'] echo $SHLVL\n                                                                                                                           [FAIL]
-	[EXPORTS SHLVL=' -0123456789'] echo $SHLVL\n
-	
 - env inicial
-	# export | grep "OLDPWD"
-	# export | grep "PWD"
-	# env | grep "_="
-	# env | grep "_="
-	# env\n                                                                         [FAIL]
-	# [SETUP export A=a] env\n                                                      [FAIL]
-	# [SETUP export A=a B=b C=c] env\n                                              [FAIL]
-	# [SETUP export A=a B=b C=c] env | cat -e\n                                     [FAIL]
-	# Env\n                                                                         [FAIL]
-	# enV\n                                                                         [FAIL]
-	# [EXPORTS PATH='/bin:/usr/bin'] Env\n                                          [FAIL]
-	# [EXPORTS PATH='/bin:/usr/bin'] enV\n
-	# export\n                                                                      [FAIL]
-- heredoc
-- signals
-- exit
-	# exit numeros > 255
-	# exit 3 | exit 5 (no imprimir exit por pantalla)
-- unset
-	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]
-	[EXPORTS A='a' B='b' C='c'] unset 'asdf ' B ' asdf asdf asd f' ' asdf ' ''... [FAIL]
-	[EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' ... [FAIL]                                                           
+	 env | grep "_="
+
+- signals @mrollo
+
+- error redirection  @arebelo
 
 - spaces
-	EXPORTS A=''Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. ''] echo $A\n
+	EXPORTS A=''Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. ''] echo $A\n 
+
+- echo
+	echo -n -n (segfault)
