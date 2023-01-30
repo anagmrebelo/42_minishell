@@ -54,7 +54,6 @@ int	main(int argc, char **argv, char **enviroment)
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
-		init_signal(1);
 		if (!*enviroment)
 			default_env(master);
 		else
@@ -62,6 +61,7 @@ int	main(int argc, char **argv, char **enviroment)
 		init_redirs(master);
 		while (!master->status)
 		{
+			init_signal(1);
 			master->line = readline(YELLOW"minishell: "RESET);
 			master->status = add_hist_exit_check(master);
 			if (master->status)
@@ -159,6 +159,7 @@ void	minishell(char *line, t_master *master)
 {
 	t_command	*cmd;
 
+	init_signal(0);
 	if (parsing(line, master))
 	{
 		if (master->num_commands == 1)

@@ -24,6 +24,7 @@
 # include <../libft/libft.h>
 # include <sys/types.h> //para portatil en codespaces
 # include <sys/wait.h> //para portatil en codespaces
+# include <signal.h>
 
 # define ARG 0
 # define OUTPUT 1

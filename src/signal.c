@@ -12,23 +12,41 @@
 
 #include "minishell.h"
 
-void    handle_sigint(int signal)
+void    handle_signal(int signal)
 {
-    (void)signal;
-    rl_replace_line("", 0);
-    write(1, "\n", 1);
-    rl_on_new_line();
-    rl_redisplay();
-    g_error = 1;
+    if (signal == SIGINT)
+    {
+        rl_replace_line("", 0);
+        write(1, "\n", 1);
+        rl_on_new_line();
+        rl_redisplay();
+        g_error = 1;
+    }
+    else if (signal == SIGQUIT)
+    {
+        rl_on_new_line();
+        rl_redisplay();
+        g_error = 1;
+    }
 }
 
-void    handle_sigquit(int signal)
-{
-    (void)signal;
-    rl_on_new_line();
-    rl_redisplay();
-    g_error = 1;
-}
+// void    handle_sigint(int signal)
+// {
+//     (void)signal;
+//     rl_replace_line("", 0);
+//     write(1, "\n", 1);
+//     rl_on_new_line();
+//     rl_redisplay();
+//     g_error = 1;
+// }
+
+// void    handle_sigquit(int signal)
+// {
+//     (void)signal;
+//     rl_on_new_line();
+//     rl_redisplay();
+//     g_error = 1;
+// }
 
 void    handle_sig_exec(int signal)
 {
@@ -46,14 +64,21 @@ void    handle_sig_exec(int signal)
 
 void    init_signal(int i)
 {
+    struct sigaction    sa;
+
+    sa.sa_flags = SA_RESTART;
     if (i)
     {
-        signal(SIGINT, handle_sigint);
-        signal(SIGQUIT, handle_sigquit);
+        sa.sa_handler = &handle_signal;
+        //signal(SIGINT, handle_sigint);
+        //signal(SIGQUIT, handle_sigquit);
     }
     else
     {
-        signal(SIGQUIT, handle_sig_exec);
-        signal(SIGINT, handle_sig_exec);
+        sa.sa_handler = &handle_sig_exec;
+        //signal(SIGQUIT, handle_sig_exec);
+        //signal(SIGINT, handle_sig_exec);
     }
+    sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGQUIT, &sa, NULL);
 }
