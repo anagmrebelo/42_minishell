@@ -9,6 +9,8 @@ int check_n(char *arg)
 {
     int i;
 
+    if (!arg)
+        return (0);
     i = 2;
     if (arg[0] == '-' && arg[1] == 'n')
     {
