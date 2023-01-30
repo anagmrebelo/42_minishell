@@ -24,6 +24,7 @@
 # include <../libft/libft.h>
 # include <sys/types.h> //para portatil en codespaces
 # include <sys/wait.h> //para portatil en codespaces
+# include <signal.h>
 
 # define ARG 0
 # define OUTPUT 1
@@ -252,5 +253,8 @@ char			*join_free_s2(char *s1, char *s2);
 void    print_list_tokens(t_token *list);
 void	print_commands(t_master *master);
 size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
+
+//signal
+void    init_signal(int i);
 
 #endif

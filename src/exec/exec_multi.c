@@ -224,7 +224,7 @@ int	exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master)
 	return (0);
 	
 }
-// cambio todos los tab de los if x 4 espacios , para codespaces
+
 int is_builtin(char *command)
 {
   if (strcmp(command, "echo") == 0)
@@ -249,13 +249,13 @@ int is_builtin(char *command)
 
 int exec(t_master *master, t_command *cmd)
 {
-  if (master->num_commands == 1)
-    exec_one(master, cmd);
+	if (master->num_commands == 1)
+    	exec_one(master, cmd);
 	else if (!cmd->args_char[0])
 		exit(0);
 	else if (is_builtin(cmd->args_char[0]))
     exit(exec_builtin(cmd->args_char[0], cmd, master->env, master)); //@areview for leaks
-  else
-    exec_bin(master, cmd);
-  return (0);
+	else
+    	exec_bin(master, cmd);
+  	return (0);
 }
