@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/28 22:32:13 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/30 23:19:47 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,15 @@ typedef struct s_master
 }   t_master;
 
 //MAIN
-_Bool	add_hist_exit_check(t_master *master);
-void	minishell(char *line, t_master *master);
+void	readline_loop(t_master *master);
+_Bool	isatty_check(t_master *master);
+
+//PIPES
+void	minishell(t_master *master);
 void	wait_childs(t_master *master);
 
 //ENVIROMENT
+void	begin_env(char **environment, t_master *master);
 int		init_env(t_master *master, char **enviroment);
 t_env	*new_env(char *title, char *value);
 char    *get_title(char *str, t_master *master);
@@ -119,16 +123,19 @@ int     default_env(t_master *master);
 int     find_in_env(t_env *env, char *str);
 
 
+
 //PARSING
-_Bool	parsing(char * line, t_master *master);
+_Bool	parsing(t_master *master);
 int		tokenize(char *line, t_master *master);
+int		aux_tokenize(char *line, int i);
 t_token *new_token(char *line, int size, t_master *master);
 
-void	env_update(char *read, t_master *master);
+char	*env_update(char *read, t_master *master, char *line);
 char	*aux1_env(char *read, t_master *master, char *line, int *c);
 char	*aux2_env(char *read, t_master *master, char *line, int *c);
 char	*aux3_env(char *read, t_master *master, char *line, int *c);
 char	*aux4_env(char *read, t_master *master, char *line, int *c);
+_Bool	aux5_env(char *read, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
@@ -144,6 +151,7 @@ void	quotes_update(t_token *new, t_master *master);
 _Bool	check_quotes(char *line);
 _Bool	check_syntax(t_master *master);
 _Bool	check_exceptions(t_token *fst_ty, t_token *scnd_ty);
+_Bool	syntax_verifications(t_token *temp, t_master *master);
 
 void	add_type(t_token *new);
 void	add_types_redir(t_master *master);
@@ -154,6 +162,7 @@ void    add_list(t_master *list, t_token *item);
 t_token *last_token(t_token *token);
 t_token *first_token(t_token *token);
 t_token	*copy_token(t_token *src, t_master *master);
+int		list_len(t_token *token);
 
 void    free_token(t_token *item);
 void    free_token_list(t_token *ls);
@@ -208,6 +217,8 @@ int     exec(t_master *master, t_command *cmd);
 int     is_builtin(char *command);
 int		exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master);
 void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master);
+void	minishell_multi(t_master * master);
+
 
 //BUILTINS
 int     ft_echo(char **args);
@@ -252,7 +263,6 @@ char			*join_free_s2(char *s1, char *s2);
 //Aux to delete before submitting
 void    print_list_tokens(t_token *list);
 void	print_commands(t_master *master);
-size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize);
 
 //signal
 void    init_signal(int i);

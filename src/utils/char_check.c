@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   char_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 17:16:18 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/30 22:46:43 by arebelo          ###   ########.fr       */
+/*   Created: 2023/01/30 20:17:47 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 22:48:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+/**
+ * Returns true if space, tab, pipe or redirs
+*/
+_Bool	is_delimeter(char c)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	length;
+	if (is_space(c) || c == '|' || c == '<' || c == '>')
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	j = ft_strlen(dst);
-	length = ft_strlen(dst) + ft_strlen(src);
-	while (src[i] && j < dstsize - 1)
-	{
-		dst[j] = src[i];
-		i++;
-		j++;
-	}
-	dst[j] = '\0';
-	return (length);
+_Bool	is_space(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
 }

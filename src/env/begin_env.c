@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlcat.c                                          :+:      :+:    :+:   */
+/*   begin_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 14:18:34 by arebelo           #+#    #+#             */
-/*   Updated: 2022/11/29 14:18:58 by arebelo          ###   ########.fr       */
+/*   Created: 2023/01/30 19:52:56 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 19:56:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-size_t	ft_strlcat1(char *dst, const char *src, size_t dstsize)
+/**
+ * Creates an environment with the default variables, in the case of minishell being initiated with no env
+ *	Transforms the char** into t_env* list stored in master 
+*/
+void	begin_env(char **environment, t_master *master)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	length;
-
-	i = 0;
-	j = ft_strlen(dst);
-	length = ft_strlen(dst) + ft_strlen(src);
-	while (src[i] && j < dstsize - 1)
-	{
-		dst[j] = src[i];
-		i++;
-		j++;
-	}
-	dst[j] = '\0';
-	return (length);
+	if (!*environment)
+		default_env(master);
+	else
+		init_env(master, environment);
 }

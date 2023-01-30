@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 18:40:10 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 21:03:09 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/30 23:19:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,49 @@ t_token	*first_token(t_token *token)
 	return (token);
 }
 
+
 /**
-* Frees memory of a specific token
+ * Converts token list into a char**
 */
-void	free_token(t_token *item)
+char	**token_to_array(t_token *token, t_master *master)
 {
-	if (item)
+	char	**token_array;
+	t_token	*aux;
+	int		len;
+	int		i;
+
+	aux = token;
+	len = list_len(token);
+	token_array = (char **)ft_calloc((len + 1), sizeof(char *));
+	if (!token_array)
+		clean_free(master, 1);
+	i = 0;
+	while (i < len)
 	{
-		free(item->str);
-		item->str = NULL;
-		free(item);
+		token_array[i] = ft_strdup(token->str);
+		if (!token_array[i])
+		{
+			free_double_array(token_array);
+			clean_free(master, 1);
+		}
+		token = token->next;
+		i++;
 	}
+	return (token_array);
 }
 
 /**
- * Frees the entire list of tokens
+ * Returns the number of char* from a char**
 */
-void	free_token_list(t_token *ls)
+int	list_len(t_token *token)
 {
-	t_token	*list;
-	t_token	*temp;
+	int		len;
 
-	list = ls;
-	while (list)
+	len = 0;
+	while (token != NULL)
 	{
-		temp = list->next;
-		free_token(list);
-		list = temp;
+		len++;
+		token = token->next;
 	}
+	return (len);
 }

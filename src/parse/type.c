@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   type.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 22:49:49 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 23:25:59 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /**
@@ -33,7 +45,7 @@ _Bool	check_exceptions(t_token *fst, t_token *scnd)
 	if (fst->type < 5 && scnd->type)
 		return (1);
 	if (fst->type == 5 && scnd->type == 5)
-		return (1);	
+		return (1);
 	return (0);
 }
 
@@ -43,40 +55,24 @@ _Bool	check_exceptions(t_token *fst, t_token *scnd)
 _Bool	check_syntax(t_master *master)
 {
 	t_token	*temp;
-	char	*message;
-	
+
 	temp = master->token_list;
 	if (temp && temp->type == PIPE)
 	{
-		print_error("minishell", NULL, "syntax error near unexpected token `|\'\n");
+		print_error("minishell", NULL,
+			"syntax error near unexpected token `|\'\n");
 		g_error = 258;
 		return (0);
 	}
-	while(temp)
+	while (temp)
 	{
-		if(temp->type > 0)
-		{
-			if (!temp->next || check_exceptions(temp, temp->next))
-			{
-				if (!temp->next)
-				{
-					message = ft_strdup("syntax error near unexpected token `newline\'\n");
-					if(!message)
-						clean_free(master, 1);
-				}
-				else
-					message = create_message(master, "syntax error near unexpected token `", temp->next->str, "\'\n");
-				print_error("minishell", NULL, message);
-				g_error = 258;
-				free(message);
+		if (temp->type > 0)
+			if (!syntax_verifications(temp, master))
 				return (0);
-			}
-		}
 		temp = temp->next;
 	}
 	return (1);
 }
-
 
 /**
  * Update the tokens giving the ones after redirection the propper type
@@ -87,15 +83,38 @@ void	add_types_redir(t_master *master)
 	t_token	*temp;
 
 	temp = master->token_list;
-	while(temp)
+	while (temp)
 	{
-		if(temp->type > 0 && temp->type < 5)
+		if (temp->type > 0 && temp->type < 5)
 		{
-				temp->next->type = temp->type;
-				free(temp->str);
-				temp->str = NULL;
-				temp = temp->next;
+			temp->next->type = temp->type;
+			free(temp->str);
+			temp->str = NULL;
+			temp = temp->next;
 		}
 		temp = temp->next;
 	}
+}
+
+_Bool	syntax_verifications(t_token *temp, t_master *master)
+{
+	char	*message;
+
+	if (!(!temp->next || check_exceptions(temp, temp->next)))
+		return (1);
+	if (!temp->next)
+	{
+		message = ft_strdup("syntax error near unexpected token `newline\'\n");
+		if (!message)
+			clean_free(master, 1);
+	}
+	else
+	{
+		message = create_message(master,
+				"syntax error near unexpected token `", temp->next->str, "\'\n");
+	}
+	print_error("minishell", NULL, message);
+	g_error = 258;
+	free(message);
+	return (0);
 }

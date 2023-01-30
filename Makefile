@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/01/28 22:34:00 by arebelo          ###   ########.fr        #
+#    Updated: 2023/01/30 23:25:13 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,18 +47,21 @@ SRC				= main.c\
 				env/free_env.c\
 				env/return_var.c\
 				env/default_env.c\
+				env/begin_env.c\
+				pipe/pipe_stru.c\
 				parse/parsing.c\
 				parse/token.c\
 				parse/quotes.c\
 				parse/variables_env.c\
+				parse/variables_env_aux.c\
 				parse/find_var.c\
 				parse/home_update.c\
 				parse/token_delete.c\
+				parse/copy_token.c\
 				parse/delete_update.c\
 				parse/type.c\
 				parse/command_separation.c\
 				parse/free.c\
-				parse/aux_func.c\
 				redir/initial_redir.c\
 				redir/final_redir.c\
 				redir/outputs.c\
@@ -77,9 +80,9 @@ SRC				= main.c\
 				builtins/exit.c\
 				errors/print_error.c\
 				utils/double_array.c\
-				utils/strlcat.c\
 				utils/max_len.c\
 				utils/join_free.c\
+				utils/char_check.c\
 				signal.c\
 				
 

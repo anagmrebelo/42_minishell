@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 14:08:54 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/30 22:41:12 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 /**
  * Transforms char * line from readline into tokens
 */
-_Bool	parsing(char *line, t_master *master)
+_Bool	parsing(t_master *master)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	(void) line;
 	i = 0;
 	if (!check_quotes(master->line))
 	{
@@ -26,34 +26,19 @@ _Bool	parsing(char *line, t_master *master)
 		g_error = 258;
 		return (0);
 	}
-	env_update(master->line, master);
+	tmp = env_update(master->line, master, NULL);
+	if (tmp != master->line)
+		free_line(master);
+	master->line = tmp;
 	while (master->line[i])
 		i += tokenize(&master->line[i], master);
 	if (check_syntax(master))
 	{
 		add_types_redir(master);
 		clean_tokens(master);
-		check_heredoc(master);	//@arebelo check memory leaks
+		check_heredoc(master);
 		return (command_separation(master));
 	}
-	return (0);
-}
-
-/**
- * Returns true if space, tab, pipe or redirs
-*/
-_Bool	is_delimeter(char c)
-{
-	if (is_space(c) || c == '|' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
-
-_Bool	is_space(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r' || c == ' ')
-		return (1);
 	return (0);
 }
 
@@ -72,19 +57,11 @@ int	tokenize(char *line, t_master *master)
 	quotes = -1;
 	while (is_space(line[i]))
 		line++;
-	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0))
-	{
-		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
-			quotes = i;
-		else if (quotes >= 0 && line[i] == line[quotes])
-			quotes = -1;
-		i++;
-	}
+	i = aux_tokenize(line, i);
 	if (i == 0)
 	{
-		if (line[i] == '<' && line[i + 1] && line[i + 1] == '<')
-			i++;
-		else if (line[i] == '>' && line[i + 1] && line[i + 1] == '>')
+		if ((line[i] == '<' && line[i + 1] && line[i + 1] == '<')
+			|| (line[i] == '>' && line[i + 1] && line[i + 1] == '>'))
 			i++;
 		i++;
 	}
@@ -94,6 +71,22 @@ int	tokenize(char *line, t_master *master)
 	while (line[i] && is_space(line[i]))
 		i++;
 	return (line + i - temp);
+}
+
+int	aux_tokenize(char *line, int i)
+{
+	int		quotes;
+
+	quotes = -1;
+	while (line[i] && (!is_delimeter(line[i]) || quotes >= 0))
+	{
+		if (quotes < 0 && (line[i] == '\'' || line[i] == '\"'))
+			quotes = i;
+		else if (quotes >= 0 && line[i] == line[quotes])
+			quotes = -1;
+		i++;
+	}
+	return (i);
 }
 
 /**

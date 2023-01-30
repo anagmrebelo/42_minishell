@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 14:08:37 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/30 22:41:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,14 @@
  * It only substitutes if after the $ there is an alphanumeric and it is not between simple quotes
  * If there is $$ it should print minishell pid
 */
-void	env_update(char *read, t_master *master)
+char	*env_update(char *read, t_master *master, char *line)
 {
 	int		c[2];
-	char	*line;
 
 	if (ft_strrchr(read, '$') == NULL)
-		return ;
+		return (master->line);
 	c[I] = -1;
 	c[J] = 0;
-	line = NULL;
 	while (read[++c[I]])
 	{
 		if (read[c[I]] == '$' && read[c[I] + 1] && ok(read[c[I] + 1]))
@@ -35,7 +33,7 @@ void	env_update(char *read, t_master *master)
 			if (ft_isdigit(read[c[I]]))
 				c[I]++;
 			else
-				while (read[c[I]] && ok(read[c[I]]) && read[c[I]] != '$' && read[c[I]] != '?')
+				while (aux5_env(read, c))
 					c[I]++;
 			if (c[J] == c[I])
 				line = aux2_env(read, master, line, c);
@@ -45,9 +43,7 @@ void	env_update(char *read, t_master *master)
 	}
 	if (c[J] != c[I])
 		line = aux4_env(read, master, line, c);
-	if (master->line)
-		free(master->line);
-	master->line = line;
+	return (line);
 }
 
 char	*aux1_env(char *read, t_master *master, char *line, int *c)

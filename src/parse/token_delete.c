@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_delete.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 23:05:15 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 23:15:05 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /**
  * Function that deletes token from list and updates next and prev
 */
-void    delete_token(t_token *token, t_master *master)
+void	delete_token(t_token *token, t_master *master)
 {
-    if(token->prev)
-        token->prev->next = token->next;
-    else
-        master->token_list = token->next;
-    if(token->next)
-        token->next->prev = token->prev;
-    if(token->str)
-        free(token->str);   //CAN BE PROBLEMATIC; MAKE SURE IF IT WAS EMPTIED WE CHANGED TO NULL;
-    free(token);
+	if (token->prev)
+		token->prev->next = token->next;
+	else
+		master->token_list = token->next;
+	if (token->next)
+		token->next->prev = token->prev;
+	if (token->str)
+		free(token->str);
+	free(token);
 }
 
 /**
@@ -31,3 +43,34 @@ void	clean_tokens(t_master *master)
 		temp = temp->next;
 	}
 }
+
+/**
+* Frees memory of a specific token
+*/
+void	free_token(t_token *item)
+{
+	if (item)
+	{
+		free(item->str);
+		item->str = NULL;
+		free(item);
+	}
+}
+
+/**
+ * Frees the entire list of tokens
+*/
+void	free_token_list(t_token *ls)
+{
+	t_token	*list;
+	t_token	*temp;
+
+	list = ls;
+	while (list)
+	{
+		temp = list->next;
+		free_token(list);
+		list = temp;
+	}
+}
+

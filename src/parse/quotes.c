@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 22:41:32 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 22:49:10 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 /**
  * Function that checks if all quotes are closed
@@ -12,9 +24,9 @@ _Bool	check_quotes(char *line)
 	allow_update = 1;
 	i = 0;
 	j = -1;
-	while(line[i])
+	while (line[i])
 	{
-		if(j < 0 && (line[i] == '\'' || line[i] == '\"' ))
+		if (j < 0 && (line[i] == '\'' || line[i] == '\"' ))
 		{
 			j = i;
 			allow_update = 0;
@@ -26,7 +38,7 @@ _Bool	check_quotes(char *line)
 		}	
 		i++;
 	}
-	return(allow_update);
+	return (allow_update);
 }
 
 /**
@@ -42,18 +54,18 @@ char	*quotes_clean(t_token *new, t_master *master)
 	clean = ft_calloc((ft_strlen(new->str) + 1), sizeof(char));
 	if (!clean)
 		clean_free(master, 1);
-	while(new->str[i])
+	while (new->str[i])
 	{
 		j = i;
-		while(new->str[i] && new->str[i] != '\'' && new->str[i] != '\"')
+		while (new->str[i] && new->str[i] != '\'' && new->str[i] != '\"')
 			i++;
-		ft_strlcat1(clean, &new->str[j], ft_strlen(clean) + i - j + 1);
-		if(!new->str[i])
+		ft_strlcat(clean, &new->str[j], ft_strlen(clean) + i - j + 1);
+		if (!new->str[i])
 			return (clean);
 		j = i++;
-		while(new->str[i] && new->str[i] != new->str[j])
+		while (new->str[i] && new->str[i] != new->str[j])
 			i++;
-		ft_strlcat1(clean, &new->str[j+1], ft_strlen(clean) + i++ - j);
+		ft_strlcat(clean, &new->str[j + 1], ft_strlen(clean) + i++ - j);
 	}
 	return (clean);
 }
@@ -64,13 +76,13 @@ char	*quotes_clean(t_token *new, t_master *master)
 void	quotes_update(t_token *new, t_master *master)
 {
 	char	*temp;
-	
+
 	temp = new->str;
 	new->str = quotes_clean(new, master);
 	free(temp);
 	temp = new->str;
 	new->str = ft_strdup(new->str);
 	free(temp);
-	if(!new->str)
+	if (!new->str)
 		clean_free(master, 1);
 }

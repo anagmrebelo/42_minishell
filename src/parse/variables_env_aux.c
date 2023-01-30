@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   variables_env_aux.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 17:16:18 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/30 22:46:43 by arebelo          ###   ########.fr       */
+/*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/30 22:40:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+_Bool	aux5_env(char *read, int *c)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	length;
-
-	i = 0;
-	j = ft_strlen(dst);
-	length = ft_strlen(dst) + ft_strlen(src);
-	while (src[i] && j < dstsize - 1)
-	{
-		dst[j] = src[i];
-		i++;
-		j++;
-	}
-	dst[j] = '\0';
-	return (length);
+	return ((read[c[I]] && ok(read[c[I]])
+			&& read[c[I]] != '$' && read[c[I]] != '?'));
 }

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 21:57:42 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/30 23:25:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	command_separation(t_master *master)
 */
 t_token	*find_next_pipe(t_token *temp)
 {
-	while(temp && temp->type == PIPE)
+	while (temp && temp->type == PIPE)
 		temp = temp->next;
 	if (!temp || !temp->next)
 		return (NULL);
@@ -121,74 +121,3 @@ void	insert_in_list(t_command *member, t_master *master)
 		master->commands_list = member;
 }
 
-/**
- * Adds the token to the end of **list
-*/
-void	add_to_command(t_token *member, t_token **list, t_master *master)
-{
-	t_token	*end;
-
-	end = last_token(*list);
-	if (end)
-		end->next = copy_token(member, master);
-	else
-		*list = copy_token(member, master);
-}
-
-/**
- * Creates a deep copy of a given token
- * Returns the pointer to the created token
-*/
-t_token	*copy_token(t_token *src, t_master *master)
-{
-	t_token	*res;
-
-	res = ft_calloc(1, sizeof(t_token));
-	if (!res)
-		clean_free(master, 1);
-	res->str = ft_strdup(src->str);
-	if (!res->str)
-	{
-		free(res);
-		clean_free(master, 1);
-	}
-	res->type = src->type;
-	res->next = NULL;
-	res->prev = NULL;
-	return (res);
-}
-
-/**
- * convierte token list en un doble array
-*/
-char    **token_to_array(t_token *token, t_master *master)
-{
-    char    **token_array;
-    t_token *aux;
-    int len;
-    int i;
-
-    aux = token;
-    len = 0;
-    while (aux != NULL)
-    {
-        len++;
-        aux = aux->next;
-    }
-    token_array = (char **)ft_calloc((len + 1), sizeof(char *));
-    if (!token_array)
-		clean_free(master, 1);
-    i = 0;
-    while (i < len)
-    {
-        token_array[i] = ft_strdup(token->str);
-		if(!token_array[i])
-		{
-			free_double_array(token_array);
-			clean_free(master, 1);
-		}
-        token = token->next;
-        i++;
-    }
-    return (token_array);
-}
