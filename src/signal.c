@@ -19,6 +19,7 @@ void    handle_sigint(int signal)
     write(1, "\n", 1);
     rl_on_new_line();
     rl_redisplay();
+    g_error = 1;
 }
 
 void    handle_sigquit(int signal)
@@ -26,6 +27,7 @@ void    handle_sigquit(int signal)
     (void)signal;
     rl_on_new_line();
     rl_redisplay();
+    g_error = 1;
 }
 
 void    handle_sig_exec(int signal)
@@ -33,9 +35,13 @@ void    handle_sig_exec(int signal)
     if (signal == SIGQUIT)
     {
         write(1, "Quit: 3\n", 8);
+        g_error = 131;
     }
     else if (signal == SIGINT)
-        return ;
+    {
+        write(1, "\n", 1);
+        g_error = 130;
+    }
 }
 
 void    init_signal(int i)

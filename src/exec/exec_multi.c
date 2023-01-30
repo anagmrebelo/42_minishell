@@ -247,17 +247,15 @@ int is_builtin(char *command)
 
 int exec(t_master *master, t_command *cmd)
 {
-  if (master->num_commands == 1)
-    exec_one(master, cmd);
+	init_signal(0);
+	if (master->num_commands == 1)
+    	exec_one(master, cmd);
 	else if (!cmd->args_char[0])
 		exit(0);
 	else if (is_builtin(cmd->args_char[0]))
     exit(exec_builtin(cmd->args_char[0], cmd, master->env, master)); //@areview for leaks
-  else
-  {
-	init_signal(0);
-    exec_bin(master, cmd);
+	else
+    	exec_bin(master, cmd);
 	init_signal(1);
-  }
   return (0);
 }
