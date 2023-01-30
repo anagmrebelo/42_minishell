@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 23:25:46 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/30 23:29:31 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	command_separation(t_master *master)
 	}
 	return (1);
 }
+
+
 
 /**
  * Finds first token of the following pipe
