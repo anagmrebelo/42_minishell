@@ -1,4 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join_free.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/31 18:08:39 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 char	*join_free(char *s1, char *s2)
 {
@@ -41,7 +53,8 @@ size_t	ft_strlen_null(const char *str)
 }
 
 /**
- * Function equivalent to ft_strnjoin however it frees both strings passed as arguments
+ * Function equivalent to ft_strnjoin however it frees both 
+ * strings passed as arguments
 */
 char	*join_double_free(char *s1, char *s2)
 {
@@ -65,7 +78,7 @@ char	*join_double_free(char *s1, char *s2)
 		return (new);
 	}
 	while (s2[++j])
-		new[i + j] = s2[j];		
+		new[i + j] = s2[j];
 	free(s1);
 	if (s2)
 		free(s2);

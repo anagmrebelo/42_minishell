@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 22:41:12 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:41:40 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ _Bool	parsing(t_master *master)
 }
 
 /**
- * Function that creates token and sets i to last char or last space before starting new word
+ * Function that creates token and sets i to last char or last space before
+ * starting new word
 */
 int	tokenize(char *line, t_master *master)
 {

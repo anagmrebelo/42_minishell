@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:41:32 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 22:49:10 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:42:29 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*quotes_clean(t_token *new, t_master *master)
 }
 
 /**
- * Function that frees initial str of token with quotes and also elimiates excessive memory in char* from quotes_clean
+ * Function that frees initial str of token with quotes and also eliminates
+ * excessive memory in char* from quotes_clean
 */
 void	quotes_update(t_token *new, t_master *master)
 {

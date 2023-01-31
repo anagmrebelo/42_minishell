@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 03:21:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:01:53 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 /**
  * Function that makes the STDIN be the last input of the command
- * In the case of no redirections the STDIN was set before to PIPE or default STDIN
+ * In the case of no redirections the STDIN was set before to PIPE
+ * or default STDIN
 */
 void	redir_inputs(t_command *cmd, t_master *master)
 {
-	if(cmd->inputs)
+	int	temp;
+
+	if (cmd->inputs)
 	{
-		last_token(cmd->inputs)->fd = open(last_token(cmd->inputs)->str, O_RDONLY);
+		temp = open((last_token(cmd->inputs))->str, O_RDONLY);
+		(last_token(cmd->inputs))->fd = temp;
 		if (last_token(cmd->inputs)->fd == -1)
 			clean_free(master, 1);
 		if (dup2(last_token(cmd->inputs)->fd, STDIN_FILENO) == -1)

@@ -6,15 +6,17 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 22:41:03 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:15:57 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * Analyses the str from token and substitutes $ for the environment variables, if there is a match
- * It only substitutes if after the $ there is an alphanumeric and it is not between simple quotes
+ * If there is a match,
+ * analyses the str from token and substitutes $ for the environment variables,
+ * It only substitutes if after the $ there is an alphanumeric 
+ * and it is not between simple quotes
  * If there is $$ it should print minishell pid
 */
 char	*env_update(char *read, t_master *master, char *line)

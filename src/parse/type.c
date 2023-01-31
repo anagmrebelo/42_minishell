@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:49:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 23:25:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:41:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /**
  * When creating the token assign type;
- * files will be assigned as ARG and in function add_types_redir will be updated to the correct type
+ * files will be assigned as ARG and in function add_types_redir will be 
+ * updated to the correct type
 */
 void	add_type(t_token *new)
 {
@@ -76,7 +77,8 @@ _Bool	check_syntax(t_master *master)
 
 /**
  * Update the tokens giving the ones after redirection the propper type
- * Tokens with the character (e.g. '>') will be empied and in function clean tokens will be later deleted
+ * Tokens with the character (e.g. '>') will be empied and in function 
+ * clean tokens will be later deleted
 */
 void	add_types_redir(t_master *master)
 {

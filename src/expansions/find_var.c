@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/25 18:34:23 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:15:07 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ _Bool	ok(char c)
 }
 
 /**
- * Determines if $VAR is allowed to be substituted (if between simple quotes it shouldn't); 
- * If it is (allow_update == 1) and searches for variables named *str on the environment and returns its value; returns NULL if it does not find a match
+ * Determines if $VAR is allowed to be substituted
+ * (if between simple quotes it shouldn't); 
+ * If it is (allow_update == 1) and searches for variables named *str 
+ * on the environment and returns its value;
+ * returns NULL if it does not find a match
  * returns $VAR if the substitution is not allowed
 */
 char	*find_var(char *str, t_master *master, int pos, char *full_line)

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:51:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/17 19:12:13 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:07:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	del_update(t_token *new)
 		return ;
 	while (new->str[i])
 	{
-		if (new->str[i] == new->str[i + 1] && (new->str[i] == '\'' || new->str[i] == '\"'))
+		if (new->str[i] == new->str[i + 1]
+			&& (new->str[i] == '\'' || new->str[i] == '\"'))
 			i += 2;
 		else
 			return ;
 	}
-	new->no_del = 1; 
+	new->no_del = 1;
 }

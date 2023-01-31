@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 18:40:10 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 23:19:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:11:35 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_token	*first_token(t_token *token)
 		token = token->prev;
 	return (token);
 }
-
 
 /**
  * Converts token list into a char**

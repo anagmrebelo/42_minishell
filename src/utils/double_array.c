@@ -1,17 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   double_array.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 18:11:03 by arebelo           #+#    #+#             */
+/*   Updated: 2023/01/31 18:12:39 by arebelo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /**
  * Frees a double pointer
 */
-//cambie tabs x espacios por codespaces en el if y while
 void	free_double_array(char **table)
 {
 	int		i;
 
 	i = 0;
-    if (!table)
-        return ;
-    while (table[i])
+	if (!table)
+		return ;
+	while (table[i])
 	{
 		free(table[i]);
 		table[i] = NULL;
@@ -23,23 +34,23 @@ void	free_double_array(char **table)
 /**
  * Creates a deep copy of a given char**
 */
-char	**copy_double_array(char ** src)
+char	**copy_double_array(char **src)
 {
 	size_t	i;
-	char 	**cpy;
+	char	**cpy;
 
 	i = 0;
 	cpy = NULL;
-	while(src && src[i])
+	while (src && src[i])
 		i++;
 	cpy = ft_calloc(i + 1, sizeof(char *));
 	if (!cpy)
 		return (NULL);
 	i = 0;
-	while(src[i])
+	while (src[i])
 	{
 		cpy[i] = ft_strdup(src[i]);
-		if(!cpy[i])
+		if (!cpy[i])
 		{
 			free_double_array(cpy);
 			return (NULL);

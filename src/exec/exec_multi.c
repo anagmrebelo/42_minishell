@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/30 20:15:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:09:15 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ char    *get_command(char **path, char *cmd, t_master *master)
 			free_double_array(path);
 			clean_free(master, 1);
 		}
-        path_cmd = join_free(aux, cmd);
+        path_cmd = join_free_s1(aux, cmd);
 		if(!path_cmd)
 		{
 			free(aux);
