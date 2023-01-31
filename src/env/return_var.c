@@ -17,15 +17,3 @@ char	*getvar_value(t_master *master, char *title)
     }
 	return (NULL);
 }
-
-char	*getvar_value_env(char **env, char *title)
-{
-	(void) title;
-	int	i = 0;
-    while(env[i])
-    {
-		printf("WE ARE TESTING <%s>\n", env[i]);
-		i++;
-	}
-	return (NULL);
-}

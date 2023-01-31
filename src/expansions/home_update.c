@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   home_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:08:34 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 23:54:40 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	home_join(t_token *new, t_master *master, unsigned int i)
 	char	*before;
 	char	*after;
 
-	home = getenv("HOME");
+	home = getvar_value(master, "HOME");
+	if (!home)
+		home = getenv("HOME");
 	if (!home)
 		return ;
 	before = ft_substr(new->str, 0, i);
