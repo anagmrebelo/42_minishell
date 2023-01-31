@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_separation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:41:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 23:21:34 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	command_separation(t_master *master)
 {
 	t_token		*temp;
 	t_command	*cmd;
+	int			cmd_nb;
 
 	cmd = NULL;
+	cmd_nb = 1;
 	temp = master->token_list;
 	master->num_commands = count_commands(master);
 	while (temp)
@@ -32,7 +34,8 @@ int	command_separation(t_master *master)
 		cmd = ft_calloc(1, sizeof(t_command));
 		if (!cmd)
 			clean_free(master, 1);
-		temp = adding_sort(temp, cmd, master);
+		temp = adding_sort(temp, cmd, master, cmd_nb);
+		cmd_nb++;
 	}
 	if (!master->token_list)
 	{
@@ -42,12 +45,9 @@ int	command_separation(t_master *master)
 	return (1);
 }
 
-t_token	*adding_sort(t_token *temp, t_command *cmd, t_master *master)
+t_token	*adding_sort(t_token *temp, t_command *cmd, t_master *master, int cmd_nb)
 {
-	int	i;
-
-	i = 1;
-	cmd->cmd_nb = i++;
+	cmd->cmd_nb = cmd_nb;
 	while (temp && temp->type != PIPE)
 	{
 		if (temp->type == ARG)

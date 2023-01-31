@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/31 18:33:25 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 23:22:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ _Bool	parsing(t_master *master);
 int		tokenize(char *line, t_master *master);
 int		aux_tokenize(char *line, int i);
 t_token	*new_token(char *line, int size, t_master *master);
-
 char	*env_update(char *read, t_master *master, char *line);
 char	*aux1_env(char *read, t_master *master, char *line, int *c);
 char	*aux2_env(char *read, t_master *master, char *line, int *c);
@@ -164,19 +163,44 @@ void	free_commands(t_master *master);
 void	free_command(t_command *pipe);
 void	prep_next_line(t_master *master);
 int		command_separation(t_master *master);
-t_token	*adding_sort(t_token *temp, t_command *cmd, t_master *master);
+t_token	*adding_sort(t_token *temp, t_command *cmd,
+			t_master *master, int cmd_nb);
 int		count_commands(t_master *master);
 void	add_to_command(t_token *member, t_token **list, t_master *master);
 void	insert_in_list(t_command *member, t_master *master);
 t_token	*find_next_pipe(t_token *temp);
 _Bool	is_delimeter(char c);
 _Bool	is_space(char c);
+char	*create_str(char *str, t_env *temp, t_master *master);
 
 //EXEC ONE COMMAND
 void	minishell_one(t_master *master);
 void	exec_one(t_master *master, t_command *cmd);
 void	exec_bin_one(t_master *master, t_command *cmd);
 void	exec_aux_free(t_command *cmd, t_master *master);
+
+//EXECUTE MULTI
+void	child(t_master *master, t_command *cmd);
+void	parent(t_master *master);
+void	minishell_multi(t_master *master);
+
+void	exec_bin(t_master *master, t_command *cmd);
+int		exec(t_master *master, t_command *cmd);
+int		is_builtin(char *command);
+int		exec_builtin(char *command, t_command *cmd,
+			t_env *env, t_master *master);
+void	exec_aux_bin_free(char *command, char**path, char **env,
+			t_master *master);
+
+//EXEC UTILS
+char	**find_path(t_master *master);
+char	*get_command(char **path, char *cmd, t_master *master);
+char	**token_to_array(t_token *token, t_master *master);
+_Bool	check_path(char **path, char *cmd, t_master *master);
+char	*executable(char *cmd, t_master *master);
+_Bool	is_path(char *cmd);
+_Bool	path_bin(char **path);
+void	free_path_master(char *aux, char **path, t_master *master, int exit_code);
 
 //HEREDOC pasarlo a parsing
 void	handle_heredoc(t_token *token, char *limit, t_master *master);
@@ -194,19 +218,6 @@ void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
 _Bool	validate_file(char *path);
 void	reset_redirs(t_master *master);
-
-//EXECUTE
-char	**find_path(t_master *master);
-char	*get_command(char **path, char *cmd, t_master *master);
-char	**token_to_array(t_token *token, t_master *master);
-void	exec_bin(t_master *master, t_command *cmd);
-int		exec(t_master *master, t_command *cmd);
-int		is_builtin(char *command);
-int		exec_builtin(char *command, t_command *cmd,
-			t_env *env, t_master *master);
-void	exec_aux_bin_free(char *command, char**path, char **env,
-			t_master *master);
-void	minishell_multi(t_master *master);
 
 //BUILTINS
 int		ft_echo(char **args);
@@ -229,6 +240,8 @@ int		ft_exit(char **args, t_master *master);
 void	print_error(char *minishell, char *builtin, char *message);
 char	*create_message(t_master *master, char *message,
 			char *token, char *msg);
+void	no_file_dir(t_master *master, char *cmd);
+void	perm_denied(t_master *master, char *cmd);
 
 //FREE
 void	free_master(t_master *master);
@@ -245,6 +258,7 @@ char	**copy_double_array(char **src);
 char	*join_double_free(char *s1, char *s2);
 char	*join_free_s1(char *s1, char *s2);
 char	*join_free_s2(char *s1, char *s2);
+_Bool	is_dots(char *cmd);
 
 //signal
 void	init_signal(int i);

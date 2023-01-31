@@ -9,9 +9,3 @@
 	-heredoc
 	-builtins
 	-join_free
-
-
-
-
-src/expansions/find_var.c: Error!
-Error: TOO_MANY_LINES       (line:  96, col:   1):	Function has more than 25 lines

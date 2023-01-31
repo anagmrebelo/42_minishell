@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 18:15:07 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:25:57 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 char	*find_aux(char *str, t_master *master)
 {
 	t_env	*temp;
-	char	*a;
 	char	*test;
 
 	temp = master->env;
@@ -77,22 +76,30 @@ char	*find_aux(char *str, t_master *master)
 	while (temp && str)
 	{
 		if (ft_strcmp(str, temp->title) == 0)
-		{
-			if (str)
-				free(str);
-			if (!temp->value)
-				a = ft_strdup("");
-			else
-				a = ft_strdup(temp->value);
-			if (!a)
-				clean_free(master, 1);
-			return (a);
-		}
+			return (create_str(str, temp, master));
 		temp = temp->next;
 	}
 	if (str)
 		free(str);
 	return (NULL);
+}
+
+/**
+ * Creates a malloc char* with value of matched env variable
+*/
+char	*create_str(char *str, t_env *temp, t_master *master)
+{
+	char	*a;
+	
+	if (str)
+		free(str);
+	if (!temp->value)
+		a = ft_strdup("");
+	else
+		a = ft_strdup(temp->value);
+	if (!a)
+		clean_free(master, 1);
+	return (a);
 }
 
 char	*find_aux2(char *str, t_master *master)

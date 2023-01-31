@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:41:40 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:24:51 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ _Bool	parsing(t_master *master)
 int	tokenize(char *line, t_master *master)
 {
 	int		i;
-	int		quotes;
 	t_token	*new;
 	char	*temp;
 
 	i = 0;
 	temp = line;
-	quotes = -1;
 	while (is_space(line[i]))
 		line++;
 	i = aux_tokenize(line, i);

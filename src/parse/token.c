@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 18:40:10 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:11:35 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:25:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ t_token	*first_token(t_token *token)
 char	**token_to_array(t_token *token, t_master *master)
 {
 	char	**token_array;
-	t_token	*aux;
 	int		len;
 	int		i;
 
-	aux = token;
 	len = list_len(token);
 	token_array = (char **)ft_calloc((len + 1), sizeof(char *));
 	if (!token_array)

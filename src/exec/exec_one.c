@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/26 23:00:19 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/31 23:34:51 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,13 @@ void	exec_one(t_master *master, t_command *cmd)
 		return ;
 	}
 	if (is_builtin(cmd->args_char[0]))
-		g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master); //@arebelo check leaks and reset dirs
+		g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master);
 	else
 		exec_bin_one(master, cmd);
 }
 
 void	exec_bin_one(t_master *master, t_command *cmd)
 {
-	char	**path;
-	char	*command;
-	char	**env;
 	int		pid;
 	int		code;
 
@@ -57,41 +54,9 @@ void	exec_bin_one(t_master *master, t_command *cmd)
 	if (pid == -1)
 		clean_free(master, 1);
 	if (pid == 0)
-	{
-		path = find_path(master);
-		command = get_command(path, cmd->args_char[0], master);
-		free_double_array(path);
-		if(!command)
-			exec_aux_free(cmd, master);
-		path = copy_double_array(cmd->args_char);
-		env = env_to_array(master->env);
-		if (!path || !env)
-			exec_aux_bin_free(command, path, env, master);
-		clean_free_no_exit(master);
-		execve(command, path, env);
-		free_fail_exec(command, path, env);
-	}
+		exec_bin(master, cmd);
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
 	if (WIFEXITED(code))
 		g_error = WEXITSTATUS(code);
-}
-
-void	reset_redirs(t_master *master)
-{
-	if(dup2(master->std_in, STDIN_FILENO) == -1)
-		clean_free(master, 1);
-	if(dup2(master->std_out, STDOUT_FILENO) == -1)
-		clean_free(master, 1);
-}
-
-void	exec_aux_free(t_command *cmd, t_master *master)
-{
-	if (ft_strlen(cmd->args_char[0]) == 1 && *(cmd->args_char[0]) == '.')
-	{
-		print_error("minishell", cmd->args_char[0], "filename argument required\n");
-		clean_free(master, 2);
-	}
-	print_error("minishell", cmd->args_char[0], "command not found\n");
-	clean_free(master, 127);
 }

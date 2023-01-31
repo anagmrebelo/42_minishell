@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:17:47 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 22:48:46 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/01/31 21:59:01 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ _Bool	is_space(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\v'
 		|| c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
+}
+
+/**
+ * Checks if cmd is . or ..
+*/
+_Bool	is_dots(char *cmd)
+{
+	if (ft_strlen(cmd) == 1 && *cmd == '.')
+		return (1);
+	else if (ft_strlen(cmd) == 2 && cmd[0] == '.' && cmd[1] == '.')
 		return (1);
 	return (0);
 }
