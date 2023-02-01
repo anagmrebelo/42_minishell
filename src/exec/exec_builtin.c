@@ -17,7 +17,7 @@ int	exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master)
 	if (strcmp(command, "echo") == 0)
 		return (ft_echo(cmd->args_char));
 	else if (ft_strcmp(command, "cd") == 0)
-		return (ft_cd(env, cmd->args_char));
+		return (ft_cd(env, cmd->args_char, master));
 	else if (ft_strcmp(command, "pwd") == 0)
 		return (ft_pwd(env));
 	else if (ft_strcmp(command, "export") == 0)

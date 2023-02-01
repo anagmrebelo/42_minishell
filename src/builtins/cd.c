@@ -15,7 +15,6 @@ int	change_dir(char *arg, char *oldpwd, t_env *env)
 {
 	if (chdir(arg) == 0)
 	{
-		printf("arg: %s\n", arg);
 		update_env(oldpwd, env);
 		return (0);
 	}
@@ -95,7 +94,7 @@ char	*get_env_value(char *title, t_env *env)
 	return (NULL);
 }
 
-int	ft_cd(t_env *env, char **args)
+int	ft_cd(t_env *env, char **args, t_master *master)
 {
 	char	*home_path;
 	char	*pwd;
@@ -104,7 +103,10 @@ int	ft_cd(t_env *env, char **args)
 	home_path = get_env_value("HOME", env);
 	pwd = malloc(4097 * sizeof(char));
 	if (!pwd)
+	{
+		clean_free(master, 1);
 		return (1);
+	}
 	if (getcwd(pwd, 4097) == NULL)
 		return (1);
 	if (args[1] == NULL || ft_strcmp(args[1], "~") == 0
