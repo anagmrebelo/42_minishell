@@ -57,8 +57,10 @@ char	*find_aux2_here(char *str, t_master *master)
 }
 
 /**
- * Determines if $VAR is allowed to be substituted (if between simple quotes it shouldn't); 
- * If it is (allow_update == 1) and searches for variables named *str on the environment and returns its value; returns NULL if it does not find a match
+ * Determines if $VAR is allowed to be substituted 
+ (if between simple quotes it shouldn't); 
+ * If it is (allow_update == 1) and searches for variables named *str on 
+ the environment and returns its value; returns NULL if it does not find a match
  * returns $VAR if the substitution is not allowed
 */
 char	*find_here(char *str, t_master *master, int pos, char *full_line)

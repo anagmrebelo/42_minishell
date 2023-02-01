@@ -13,7 +13,8 @@
 #include "../../include/minishell.h"
 
 /**
- * Creates an environment with the default variables, in the case of minishell being initiated with no env
+ * Creates an environment with the default variables, 
+ in the case of minishell being initiated with no env
  *	Transforms the char** into t_env* list stored in master 
 */
 void	begin_env(char **environment, t_master *master)

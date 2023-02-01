@@ -9,7 +9,6 @@
 /*   Updated: 2023/01/28 22:31:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 char	*aux1_here(char *read, t_master *master, char *line, int *c)
@@ -79,10 +78,11 @@ char	*aux4_here(char *read, t_master *master, char *line, int *c)
 	return (line);
 }
 
-
 /**
- * Analyses the str from token and substitutes $ for the environment variables, if there is a match
- * It only substitutes if after the $ there is an alphanumeric and it is not between simple quotes
+ * Analyses the str from token and substitutes $ for the 
+ environment variables, if there is a match
+ * It only substitutes if after the $ there is an alphanumeric 
+ and it is not between simple quotes
  * If there is $$ it should print minishell pid
 */
 char	*heredoc_update(char *read, t_master *master)
@@ -103,7 +103,8 @@ char	*heredoc_update(char *read, t_master *master)
 			if (ft_isdigit(read[c[I]]))
 				c[I]++;
 			else
-				while (read[c[I]] && ok(read[c[I]]) && read[c[I]] != '$' && read[c[I]] != '?')
+				while (read[c[I]] && ok(read[c[I]])
+					&& read[c[I]] != '$' && read[c[I]] != '?')
 					c[I]++;
 			if (c[J] == c[I])
 				line = aux2_here(read, master, line, c);
