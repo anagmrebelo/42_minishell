@@ -28,25 +28,6 @@ void    update_var(t_env *env, char *title, char *str, t_master *master)
     }
 }
 
-// int var_exist(t_env *env, char *str)
-// {
-//     char    *end;
-//     size_t  n;
-
-//     end = ft_strchr(str, '=');
-//     if (!end)
-//         n = ft_strlen(str);
-//     else
-//         n = end - str;
-//     while (env != NULL)
-//     {
-//         if (ft_strncmp(env->title, str, n) == 0)
-//             return (1);
-//         env = env->next;
-//     }
-//     return (0);
-// }
-
 int equal_check(char *str)
 {
     int i;
@@ -100,7 +81,7 @@ int var_title_check(char *str)
         {
             if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
             {
-                if ((i == (len - 1)) && str[i] == '+') //soluciona un error pero el nombre de la var no esta ok!
+                if ((i == (len - 1)) && str[i] == '+')
                     return (1);
                 return (0);
             }
@@ -132,7 +113,6 @@ int ft_export(t_env *env, char **args, t_master *master)
         i = 1;
         while (args && args[i])
         {
-            printf("args[%d]: %s\n", i, args[i]);
             if (first_check(args[i]))
             {
                 ret = 2;
@@ -140,20 +120,14 @@ int ft_export(t_env *env, char **args, t_master *master)
             }
             if(var_title_check(args[i]))
             {
-                printf("1\n");
                 title = get_title(args[i], master);
-                //if (var_exist(env, args[i]))
                 if (find_in_env(env, title))
                 {
-                    printf("2\n");
                     update_var(env, title, args[i], master);
                     free (title);
                 }
                 else
-                {
-                    printf("3\n");
                     add_to_env(title, get_value(args[i], master), env);
-                }
             }
             else
             {
