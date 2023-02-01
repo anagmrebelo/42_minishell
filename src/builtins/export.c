@@ -15,19 +15,11 @@ void    add_to_env(char *title, char *value, t_env *env)
     add_back(env, new);
 }
 
-void    update_var(t_env *env, char *str, t_master *master)
+void    update_var(t_env *env, char *title, char *str, t_master *master)
 {
-    char    *end;
-    size_t  n;
-
-    end = ft_strchr(str, '=');
-    if (!end)
-        return ;
-    else
-        n = end - str;
     while (env != NULL)
     {
-        if (ft_strncmp(env->title, str, n) == 0)
+        if (ft_strcmp(title, env->title) == 0)
         {
             env->value = get_value(str, master);
             break ;
@@ -36,24 +28,24 @@ void    update_var(t_env *env, char *str, t_master *master)
     }
 }
 
-int var_exist(t_env *env, char *str)
-{
-    char    *end;
-    size_t  n;
+// int var_exist(t_env *env, char *str)
+// {
+//     char    *end;
+//     size_t  n;
 
-    end = ft_strchr(str, '=');
-    if (!end)
-        n = ft_strlen(str);
-    else
-        n = end - str;
-    while (env != NULL)
-    {
-        if (ft_strncmp(env->title, str, n) == 0)
-            return (1);
-        env = env->next;
-    }
-    return (0);
-}
+//     end = ft_strchr(str, '=');
+//     if (!end)
+//         n = ft_strlen(str);
+//     else
+//         n = end - str;
+//     while (env != NULL)
+//     {
+//         if (ft_strncmp(env->title, str, n) == 0)
+//             return (1);
+//         env = env->next;
+//     }
+//     return (0);
+// }
 
 int equal_check(char *str)
 {
@@ -125,6 +117,7 @@ int ft_export(t_env *env, char **args, t_master *master)
 {
     int i;
     int ret;
+    char    *title;
 
     ret = 0;
     if (!args[1])
@@ -139,6 +132,7 @@ int ft_export(t_env *env, char **args, t_master *master)
         i = 1;
         while (args && args[i])
         {
+            printf("args[%d]: %s\n", i, args[i]);
             if (first_check(args[i]))
             {
                 ret = 2;
@@ -146,10 +140,20 @@ int ft_export(t_env *env, char **args, t_master *master)
             }
             if(var_title_check(args[i]))
             {
-                if (var_exist(env, args[i]))
-                    update_var(env, args[i], master);
+                printf("1\n");
+                title = get_title(args[i], master);
+                //if (var_exist(env, args[i]))
+                if (find_in_env(env, title))
+                {
+                    printf("2\n");
+                    update_var(env, title, args[i], master);
+                    free (title);
+                }
                 else
-                    add_to_env(get_title(args[i], master), get_value(args[i], master), env);
+                {
+                    printf("3\n");
+                    add_to_env(title, get_value(args[i], master), env);
+                }
             }
             else
             {
