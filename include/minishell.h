@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 19:07:11 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 00:00:55 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_command
 	t_token				*inputs;
 	_Bool				inv_file;
 	_Bool				inv_perm;
+	_Bool				not_dir;
 	t_token				*failed;
 	t_token				*outputs;
 	char				**args_char;
@@ -220,7 +221,7 @@ void	handle_pipe(t_master *master, t_command *cmd);
 void	handle_outputs(t_command *cmd, t_master *master);
 void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
-_Bool	validate_input(t_token *temp, t_command *cmd);
+_Bool	validate_input(t_token *temp, t_command *cmd, t_master *master);
 _Bool	validate_output(char *str, t_command *cmd, t_master *master);
 char	*file_new_path(char *str, t_master *master);
 void	reset_redirs(t_master *master);
@@ -248,6 +249,7 @@ char	*create_message(t_master *master, char *message,
 			char *token, char *msg);
 void	no_file_dir(t_master *master, char *cmd, int exit_code);
 void	perm_denied(t_master *master, char *cmd, int exit_code);
+void	not_dir(t_master *master, char *cmd, int exit_code);
 
 //FREE
 void	free_master(t_master *master);

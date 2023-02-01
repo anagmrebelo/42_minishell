@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:24:46 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/31 23:55:19 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/01/31 23:56:14 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void    handle_signal(int signal)
 {
     if (signal == SIGINT)
     {
-        rl_replace_line("", 0);
+        //rl_replace_line("", 0);
         write(1, "\n", 1);
         rl_on_new_line();
         rl_redisplay();

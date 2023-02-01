@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_separation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 19:01:38 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 00:01:08 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_token	*adding_sort(t_token *temp, t_command *cmd,
 			add_to_command(temp, &cmd->outputs, master);
 		else if (temp->type == HEREDOC || temp->type == INPUT)
 			add_to_command(temp, &cmd->inputs, master);
-		if ((temp->type == INPUT && !validate_input(temp, cmd))
+		if ((temp->type == INPUT && !validate_input(temp, cmd, master))
 			|| ((temp->type == OUTPUT || temp->type == APPEND)
 				&& !validate_output(temp->str, cmd, master)))
 		{
