@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_multi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/31 22:26:15 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:52:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	minishell_multi(t_master * master)
+void	minishell_multi(t_master *master)
 {
 	t_command	*cmd;
-	
+
 	cmd = master->commands_list;
 	while (cmd)
 	{

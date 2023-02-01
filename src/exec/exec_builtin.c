@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:03:23 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/31 22:52:44 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:44:33 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master)
 		return (ft_env(env));
 	else if (ft_strcmp(command, "exit") == 0)
 		return (ft_exit(cmd->args_char, master));
-	return (0);	
+	return (0);
 }
 
-int is_builtin(char *command)
+int	is_builtin(char *command)
 {
 	if (strcmp(command, "echo") == 0)
 		return (1);

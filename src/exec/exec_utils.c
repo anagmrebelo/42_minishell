@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:51:35 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/31 23:28:19 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:51:44 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 /**
  * Looks for variable path and transforms its paths into char**
 */
-char    **find_path(t_master *master)
+char	**find_path(t_master *master)
 {
-    char **path;
-    t_env *tmp;
+	char	**path;
+	t_env	*tmp;
 
-    path = NULL;
-    tmp = master->env;
-    while (tmp != NULL)
-    {
-        if (ft_strcmp(tmp->title, "PATH") == 0)
-        {
-            path = ft_split(tmp->value, ':');
-			if(!path)
+	path = NULL;
+	tmp = master->env;
+	while (tmp != NULL)
+	{
+		if (ft_strcmp(tmp->title, "PATH") == 0)
+		{
+			path = ft_split(tmp->value, ':');
+			if (!path)
 				clean_free(master, 1);
-            break;
-        }
-        tmp = tmp->next;
-    }
-    return (path);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	return (path);
 }
 
 /**
@@ -79,7 +79,8 @@ _Bool	check_path(char **path, char *cmd, t_master *master)
 }
 
 /**
- * Checks if it can't find the file, if it is a directory and if it has the correct permissions to execute
+ * Checks if it can't find the file, if it is a directory
+ * and if it has the correct permissions to execute
 */
 char	*executable(char *cmd, t_master *master)
 {
@@ -88,18 +89,18 @@ char	*executable(char *cmd, t_master *master)
 
 	if (is_dots(cmd))
 		return (NULL);
-    if (access(cmd, F_OK) != 0)
+	if (access(cmd, F_OK) != 0)
 		no_file_dir(master, cmd);
-    ptr = opendir(cmd);
-	if (errno != 20) 
-    {
+	ptr = opendir(cmd);
+	if (errno != 20)
+	{
 		if (ptr)
 			if (closedir(ptr) == -1)
-                clean_free(master, 1);
-        print_error("minishell", cmd, "is a directory\n");
+				clean_free(master, 1);
+		print_error("minishell", cmd, "is a directory\n");
 		clean_free(master, 126);
-    }
-    if (access(cmd, X_OK) == 0)
+	}
+	if (access(cmd, X_OK) == 0)
 	{
 		ret = ft_strdup(cmd);
 		if (!ret)

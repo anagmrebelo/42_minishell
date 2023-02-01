@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 22:25:57 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:43:17 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*find_aux(char *str, t_master *master)
 char	*create_str(char *str, t_env *temp, t_master *master)
 {
 	char	*a;
-	
+
 	if (str)
 		free(str);
 	if (!temp->value)

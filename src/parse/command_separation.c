@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_separation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 23:21:34 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:43:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	command_separation(t_master *master)
 	return (1);
 }
 
-t_token	*adding_sort(t_token *temp, t_command *cmd, t_master *master, int cmd_nb)
+t_token	*adding_sort(t_token *temp, t_command *cmd,
+	t_master *master, int cmd_nb)
 {
 	cmd->cmd_nb = cmd_nb;
 	while (temp && temp->type != PIPE)

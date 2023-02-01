@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:09:00 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/31 23:35:38 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:52:27 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exec(t_master *master, t_command *cmd)
 }
 
 //ejecuta los comandos en un child process
-void exec_bin(t_master *master, t_command *cmd)
+void	exec_bin(t_master *master, t_command *cmd)
 {
 	char	**path;
 	char	*command;
@@ -46,7 +46,8 @@ void exec_bin(t_master *master, t_command *cmd)
 	free_fail_exec(command, path, env);
 }
 
-void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
+void	exec_aux_bin_free(char *command, char**path,
+	char **env, t_master *master)
 {
 	if (command)
 		free(command);
@@ -55,14 +56,14 @@ void	exec_aux_bin_free(char *command, char**path, char **env, t_master *master)
 	if (env)
 		free_double_array(env);
 	clean_free(master, 1);
-	
 }
 
 void	exec_aux_free(t_command *cmd, t_master *master)
 {
 	if (ft_strlen(cmd->args_char[0]) == 1 && *(cmd->args_char[0]) == '.')
 	{
-		print_error("minishell", cmd->args_char[0], "filename argument required\n");
+		print_error("minishell", cmd->args_char[0],
+			"filename argument required\n");
 		clean_free(master, 2);
 	}
 	print_error("minishell", cmd->args_char[0], "command not found\n");
