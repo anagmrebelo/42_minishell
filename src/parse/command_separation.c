@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:48:07 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 11:43:03 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/01 19:01:38 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ t_token	*adding_sort(t_token *temp, t_command *cmd,
 			add_to_command(temp, &cmd->outputs, master);
 		else if (temp->type == HEREDOC || temp->type == INPUT)
 			add_to_command(temp, &cmd->inputs, master);
-		if (temp->type == INPUT && !validate_file(temp->str))
+		if ((temp->type == INPUT && !validate_input(temp, cmd))
+			|| ((temp->type == OUTPUT || temp->type == APPEND)
+				&& !validate_output(temp->str, cmd, master)))
 		{
-			cmd->inv_file = 1;
 			temp = find_next_pipe(temp);
 			break ;
 		}

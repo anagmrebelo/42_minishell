@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:51:35 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/01 11:51:44 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/01 16:59:07 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*executable(char *cmd, t_master *master)
 	if (is_dots(cmd))
 		return (NULL);
 	if (access(cmd, F_OK) != 0)
-		no_file_dir(master, cmd);
+		no_file_dir(master, cmd, 127);
 	ptr = opendir(cmd);
 	if (errno != 20)
 	{
@@ -107,6 +107,6 @@ char	*executable(char *cmd, t_master *master)
 			clean_free(master, 1);
 		return (ret);
 	}
-	perm_denied(master, cmd);
+	perm_denied(master, cmd, 126);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 18:08:39 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:17:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ char	*join_free_s1(char *s1, char *s2)
 	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1),
 			sizeof(char));
 	if (!new)
+	{
+		free(s1);
 		return (0);
+	}
 	i = -1;
 	while (s1[++i])
 		new[i] = s1[i];
@@ -129,7 +132,10 @@ char	*join_free_s2(char *s1, char *s2)
 	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1),
 			sizeof(char));
 	if (!new)
+	{
+		free(s2);
 		return (0);
+	}
 	i = -1;
 	while (s1[++i])
 		new[i] = s1[i];

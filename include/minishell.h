@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/31 23:22:26 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 19:07:11 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_command
 	t_token				*args;
 	t_token				*inputs;
 	_Bool				inv_file;
+	_Bool				inv_perm;
+	t_token				*failed;
 	t_token				*outputs;
 	char				**args_char;
 	struct s_command	*next;
@@ -138,6 +140,8 @@ char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
 void	home_join(t_token *new, t_master *master, unsigned int i);
 void	home_update(t_token *new, t_master *master);
+_Bool	is_valid_path(char *str, t_master *master);
+void	users_join(t_token *new, t_master *master, unsigned int i);
 _Bool	is_dots(char *cmd);
 void	del_update(t_token *new);
 _Bool	ok(char c);
@@ -216,7 +220,9 @@ void	handle_pipe(t_master *master, t_command *cmd);
 void	handle_outputs(t_command *cmd, t_master *master);
 void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
-_Bool	validate_file(char *path);
+_Bool	validate_input(t_token *temp, t_command *cmd);
+_Bool	validate_output(char *str, t_command *cmd, t_master *master);
+char	*file_new_path(char *str, t_master *master);
 void	reset_redirs(t_master *master);
 
 //BUILTINS
@@ -240,8 +246,8 @@ int		ft_exit(char **args, t_master *master);
 void	print_error(char *minishell, char *builtin, char *message);
 char	*create_message(t_master *master, char *message,
 			char *token, char *msg);
-void	no_file_dir(t_master *master, char *cmd);
-void	perm_denied(t_master *master, char *cmd);
+void	no_file_dir(t_master *master, char *cmd, int exit_code);
+void	perm_denied(t_master *master, char *cmd, int exit_code);
 
 //FREE
 void	free_master(t_master *master);
