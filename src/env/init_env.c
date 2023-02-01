@@ -6,19 +6,18 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/26 22:51:34 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/01 16:47:16 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 void	print_env(t_env *env)
 {
-	t_env *temp;
+	t_env	*temp;
 
 	temp = env;
-    while (temp != NULL)
-    {
+	while (temp != NULL)
+	{
 		ft_putstr_fd(temp->title, 1);
 		ft_putstr_fd("=", 1);
 		ft_putendl_fd(temp->value, 1);
@@ -28,9 +27,9 @@ void	print_env(t_env *env)
 
 char	*get_title(char *str, t_master *master)
 {
-	char *aux;
-	int len;
-	char *title;
+	char	*aux;
+	int		len;
+	char	*title;
 
 	aux = ft_strchr(str, '=');
 	if (!aux)
@@ -45,9 +44,9 @@ char	*get_title(char *str, t_master *master)
 
 char	*get_value(char *str, t_master *master)
 {
-	char *aux;
-	int len;
-	char *value;
+	char	*aux;
+	int		len;
+	char	*value;
 	char	*tmp;
 
 	aux = ft_strchr(str, '=');
@@ -76,7 +75,7 @@ t_env	*last_env(t_env *env)
 
 void	add_back(t_env *env, t_env *new)
 {
-	t_env *end;
+	t_env	*end;
 
 	if (!new)
 		env = new;
@@ -89,7 +88,7 @@ void	add_back(t_env *env, t_env *new)
 
 t_env	*new_env(char *title, char *value)
 {
-	t_env *new;
+	t_env	*new;
 
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
@@ -100,23 +99,23 @@ t_env	*new_env(char *title, char *value)
 	return (new);
 }
 
-int find_in_env(t_env *env, char *str)
+int	find_in_env(t_env *env, char *str)
 {
-    while (env != NULL)
-    {
-        if (ft_strcmp(env->title, str) == 0)
-            return (1);
-        env = env->next;
-    }
-    return (0);
+	while (env != NULL)
+	{
+		if (ft_strcmp(env->title, str) == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
 }
 
 int	init_env(t_master *master, char **enviroment)
 {
-	t_env *env;
-	t_env *new;
-	int i;
-	int	shlvl;
+	t_env	*env;
+	t_env	*new;
+	int		i;
+	int		shlvl;
 
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
@@ -128,8 +127,9 @@ int	init_env(t_master *master, char **enviroment)
 	i = 1;
 	while (enviroment && enviroment[i])
 	{
-		new = new_env(get_title(enviroment[i], master), get_value(enviroment[i], master));
-		if (ft_strcmp(new->title, "SHLVL") == 0) //para actualizar shlvl a 2
+		new = new_env(get_title(enviroment[i], master),
+				get_value(enviroment[i], master));
+		if (ft_strcmp(new->title, "SHLVL") == 0)
 		{
 			shlvl = ft_atoi(new->value) + 1;
 			free (new->value);
