@@ -131,11 +131,29 @@ int	init_env(t_master *master, char **enviroment)
 		if (ft_strcmp(new->title, "SHLVL") == 0)
 		{
 			shlvl = ft_atoi(new->value) + 1;
+			if (!shlvl)
+			{
+				//free(shlvl);
+				free_env(new);
+				//free_env_lst(env);
+				clean_free(master, 1);
+			}
 			free (new->value);
 			if (shlvl < 0)
+			{
 				new->value = ft_strdup("0");
+				if (!new->value)
+				{
+					//free(shlvl);
+					free_env(new);
+					//free_env_lst(env);
+					clean_free(master, 1);
+				}
+			}
 			else
+			{
 				new->value = ft_itoa(shlvl);
+			}
 		}
 		if (!new)
 			clean_free(master, 1);
