@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/02 11:35:22 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:40:42 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,19 @@ char	*join_double_free(char *s1, char *s2)
 	int		i;
 	int		j;
 	char	*new;
+	int		mal;
 
+	mal = 0;
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
-	new = (char *)ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1),
-			sizeof(char));
+	new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (!new)
-		return (0);
+		return (free_aux_join(s1, s2, NULL));
 	i = -1;
 	while (s1[++i])
 		new[i] = s1[i];
 	j = -1;
-	if (!s2)
-	{
-		free(s1);
-		return (new);
-	}
-	while (s2[++j])
+	while (s2 && s2[++j])
 		new[i + j] = s2[j];
 	free(s1);
 	if (s2)
@@ -113,7 +109,7 @@ char	*join_free_s2(char *s1, char *s2)
 	if (!s1 && mal++ == 0)
 		s1 = ft_calloc(1, sizeof(char));
 	new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
-	if ((!new && (s1 && !mal)) || s1)
+	if ((!new && (s1 && !mal)) || !s1)
 		return (free_aux_join(s2, NULL, NULL));
 	else if (!new && (s1 && mal))
 		return (free_aux_join(s2, s1, NULL));
