@@ -18,12 +18,28 @@ void	print_export_error(char *str)
 	ft_putendl_fd("': not a valid identifier", 2);
 }
 
-void	add_to_env(char *title, char *value, t_env *env)
+void	add_to_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
-	new = new_env(title, value);
-	add_back(env, new);
+	if (!title)
+	{
+		free (value);
+		clean_free(master, 1);
+	}
+	if (!value)
+	{
+		free (title);
+		clean_free(master, 1);
+	}
+	new = new_env(title, value, master);
+	if (!new)
+	{
+		free (title);
+		free (value);
+		clean_free(master, 1);
+	}
+	add_back(master->env, new);
 }
 
 void	update_var(t_env *env, char *title, char *str, t_master *master)
@@ -32,7 +48,7 @@ void	update_var(t_env *env, char *title, char *str, t_master *master)
 	{
 		if (ft_strcmp(title, env->title) == 0)
 		{
-		env->value = get_value(str, master);
+			env->value = get_value(str, master);
 			break ;
 		}
 		env = env->next;
@@ -116,7 +132,7 @@ int	ft_export(t_env *env, char **args, t_master *master)
 	if (!args[1])
 	{
 		if (!find_in_env(env, "OLDPWD"))
-			add_to_env(ft_strdup("OLDPWD"), NULL, env);
+			add_to_env(ft_strdup("OLDPWD"), NULL, master);
 		print_sort_env(env);
 		return (0);
 	}

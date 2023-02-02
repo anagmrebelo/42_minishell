@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	create_shlvl(t_env *env)
+void	create_shlvl(t_master *master)
 {
 	t_env	*new;
 	char	*title;
@@ -20,11 +20,11 @@ void	create_shlvl(t_env *env)
 
 	title = ft_strdup("SHLVL");
 	value = ft_strdup("1");
-	new = new_env(title, value);
-	add_back(env, new);
+	new = new_env(title, value, master);
+	add_back(master->env, new);
 }
 
-void	create_usr_bin(t_env *env)
+void	create_usr_bin(t_master *master)
 {
 	t_env	*new;
 	char	*title;
@@ -32,11 +32,11 @@ void	create_usr_bin(t_env *env)
 
 	title = ft_strdup("_");
 	value = ft_strdup("/usr/bin/env");
-	new = new_env(title, value);
-	add_back(env, new);
+	new = new_env(title, value, master);
+	add_back(master->env, new);
 }
 
-void	create_path(t_env *env)
+void	create_path(t_master *master)
 {
 	t_env	*new;
 	char	*title;
@@ -44,8 +44,8 @@ void	create_path(t_env *env)
 
 	title = ft_strdup("PATH");
 	value = ft_strdup("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
-	new = new_env(title, value);
-	add_back(env, new);
+	new = new_env(title, value, master);
+	add_back(master->env, new);
 }
 
 int	default_env(t_master *master)
@@ -64,8 +64,8 @@ int	default_env(t_master *master)
 		return (1);
 	env->title = ft_strdup("PWD");
 	env->value = ft_strdup(pwd);
-	create_shlvl(env);
-	create_path(env);
-	create_usr_bin(env);
+	create_shlvl(master);
+	create_path(master);
+	create_usr_bin(master);
 	return (0);
 }

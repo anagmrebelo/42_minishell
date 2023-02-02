@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int	change_dir(char *arg, char *oldpwd, t_env *env)
+int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 {
 	if (chdir(arg) == 0)
 	{
-		update_env(oldpwd, env);
+		update_env(oldpwd, env, master);
 		return (0);
 	}
 	else
@@ -33,40 +33,90 @@ int	change_dir(char *arg, char *oldpwd, t_env *env)
 	}
 }
 
-void	update_oldpwd(char *oldpwd, t_env *env)
+void	update_env_var(t_env *env, char *title, char *value, t_master *master)
 {
-	t_env	*aux;
-
-	aux = env;
 	while (env != NULL)
 	{
-		if (ft_strcmp("OLDPWD", env->title) == 0)
+		if (ft_strcmp(env->title, title) == 0)
 		{
 			free (env->value);
-			env->value = ft_strdup(oldpwd);
+			env->value = ft_strdup(value);
+			if (!env->value)
+				clean_free(master, 1);
 			return ;
 		}
-		else
-			env = env->next;
+		env = env->next;
 	}
-	add_to_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd), aux);
 }
 
-int	update_pwd(t_env *env)
+void	update_oldpwd(char *oldpwd, t_env *env, t_master *master)
+{
+	t_env	*aux;
+	char	*value;
+
+	aux = env;
+	if (find_in_env(aux, "PWD"))
+	{
+		value = get_env_value("PWD", env);
+		if (find_in_env(aux, "OLDPWD"))
+			update_env_var(env, "OLDPWD", value, master);
+		else
+			add_to_env(ft_strdup("OLDPWD"), ft_strdup(value), master);
+	}
+	else
+		add_to_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd), master);
+	// while (env != NULL)
+	// {
+	// 	if (ft_strcmp("OLDPWD", env->title) == 0)
+	// 	{
+	// 		free (env->value);
+	// 		if (find_in_env(aux, "PWD"))
+	// 			env->value = ft_strdup(get_env_value("PWD", aux));
+	// 		else
+	// 			env->value = ft_strdup(oldpwd);
+	// 		return ;
+	// 	}
+	// 	env = env->next;
+	// }
+	// add_to_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd), aux);
+	// aux = env;
+	// while (env != NULL)
+	// {
+	// 	if (ft_strcmp("OLDPWD", env->title) == 0)
+	// 	{
+	// 		free (env->value);
+	// 		env->value = ft_strdup(oldpwd);
+	// 		return ;
+	// 	}
+	// 	else
+	// 		env = env->next;
+	// }
+	// add_to_env(ft_strdup("OLDPWD"), ft_strdup(oldpwd), aux);
+}
+
+int	update_pwd(t_env *env, t_master *master)
 {
 	char	*pwd;
 
 	pwd = malloc(4097 * sizeof(char));
 	if (!pwd)
-		return (1);
+		clean_free(master, 1);
 	if (getcwd(pwd, 4097) == NULL)
-		return (1);
+	{
+		free (pwd);
+		clean_free(master, 1);
+	}
 	while (env != NULL)
 	{
 		if (ft_strcmp("PWD", env->title) == 0)
 		{
 			free (env->value);
 			env->value = ft_strdup(pwd);
+			if (!env->value)
+			{
+				free (pwd);
+				clean_free(master, 1);
+			}
 			break ;
 		}
 		else
@@ -76,10 +126,10 @@ int	update_pwd(t_env *env)
 	return (0);
 }
 
-void	update_env(char *oldpwd, t_env *env)
+void	update_env(char *oldpwd, t_env *env, t_master *master)
 {
-	update_oldpwd(oldpwd, env);
-	update_pwd(env);
+	update_oldpwd(oldpwd, env, master);
+	update_pwd(env, master);
 }
 
 char	*get_env_value(char *title, t_env *env)
@@ -111,10 +161,10 @@ int	ft_cd(t_env *env, char **args, t_master *master)
 		return (1);
 	if (args[1] == NULL || ft_strcmp(args[1], "~") == 0
 		|| ft_strcmp(args[1], "--") == 0)
-		i = change_dir(home_path, pwd, env);
+		i = change_dir(home_path, pwd, env, master);
 	else if (strcmp(args[1], "-") == 0)
 	{
-		if (!change_dir(home_path, pwd, env))
+		if (!change_dir(home_path, pwd, env, master))
 		{
 			ft_putendl_fd(home_path, 1);
 			i = 0;
@@ -123,7 +173,7 @@ int	ft_cd(t_env *env, char **args, t_master *master)
 			i = 1;
 	}
 	else
-		i = change_dir(args[1], pwd, env);
+		i = change_dir(args[1], pwd, env, master);
 	free (pwd);
 	return (i);
 }

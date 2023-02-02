@@ -51,9 +51,11 @@ char	*get_value(char *str, t_master *master)
 
 	aux = ft_strchr(str, '=');
 	if (!aux)
-		return (NULL);
+		clean_free(master, 1);
 	len = (aux - str) + 1;
 	value = ft_substr(str, len, ft_strlen(str) - len);
+	if (!value)
+		clean_free(master, 1);
 	if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
 	{
 		tmp = join_free_s2("\\", value);
@@ -86,13 +88,13 @@ void	add_back(t_env *env, t_env *new)
 	}
 }
 
-t_env	*new_env(char *title, char *value)
+t_env	*new_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
 	new = ft_calloc(1, sizeof(t_env));
 	if (!new)
-		return (NULL);
+		clean_free(master, 1);
 	new->title = title;
 	new->value = value;
 	new->next = NULL;
@@ -127,8 +129,7 @@ int	init_env(t_master *master, char **enviroment)
 	i = 1;
 	while (enviroment && enviroment[i])
 	{
-		new = new_env(get_title(enviroment[i], master),
-				get_value(enviroment[i], master));
+		new = new_env(get_title(enviroment[i], master), get_value(enviroment[i], master), master);
 		if (ft_strcmp(new->title, "SHLVL") == 0)
 		{
 			shlvl = ft_atoi(new->value) + 1;
@@ -144,7 +145,7 @@ int	init_env(t_master *master, char **enviroment)
 		i++;
 	}
 	if (!find_in_env(env, "SHLVL"))
-		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), env);
+		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
 	if (find_in_env(env, "_"))
 	{
 		while (env != NULL)

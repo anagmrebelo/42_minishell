@@ -103,7 +103,7 @@ void	wait_childs(t_master *master);
 //ENVIROMENT
 void	begin_env(char **environment, t_master *master);
 int		init_env(t_master *master, char **enviroment);
-t_env	*new_env(char *title, char *value);
+t_env	*new_env(char *title, char *value, t_master *master);
 char	*get_title(char *str, t_master *master);
 char	*get_value(char *str, t_master *master);
 void	add_back(t_env *env, t_env *new);
@@ -225,14 +225,14 @@ void	print_echo(char *str, int fd);
 int		ft_pwd(t_env *env);
 int		ft_cd(t_env *env, char **args, t_master *master);
 char	*get_env_value(char *title, t_env *env);
-void	update_env(char *oldpwd, t_env *env);
-int		update_pwd(t_env *env);
-void	update_oldpwd(char *oldpwd, t_env *env);
-int		change_dir(char *arg, char *oldpwd, t_env *env);
+void	update_env(char *oldpwd, t_env *env, t_master *master);
+int		update_pwd(t_env *env, t_master *master);
+void	update_oldpwd(char *oldpwd, t_env *env, t_master *master);
+int		change_dir(char *arg, char *oldpwd, t_env *env, t_master *master);
 int		ft_env(t_env *env);
 int		ft_unset(t_env *env, char **args);
 int		ft_export(t_env *env, char **args, t_master *master);
-void	add_to_env(char *title, char *value, t_env *env);
+void	add_to_env(char *title, char *value, t_master *master);
 void	print_export_error(char *str);
 int		ft_exit(char **args, t_master *master);
 
