@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 22:32:48 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:18:52 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*find_aux_here(char *str, t_master *master)
 {
 	t_env	*temp;
-	char	*a;
 	char	*test;
 
 	temp = master->env;
@@ -30,17 +29,7 @@ char	*find_aux_here(char *str, t_master *master)
 	while (temp && str)
 	{
 		if (ft_strcmp(str, temp->title) == 0)
-		{
-			if (str)
-				free(str);
-			if (!temp->value)
-				a = ft_strdup("");
-			else
-				a = ft_strdup(temp->value);
-			if (!a)
-				clean_free(master, 1);
-			return (a);
-		}
+			return (create_str(str, temp, master));
 		temp = temp->next;
 	}
 	if (str)

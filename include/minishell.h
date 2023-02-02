@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 11:26:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:14:11 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <../libft/libft.h>
-# include <sys/types.h> //para portatil en codespaces
-# include <sys/wait.h> //para portatil en codespaces
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 # define ARG 0
@@ -205,7 +205,8 @@ _Bool	check_path(char **path, char *cmd, t_master *master);
 char	*executable(char *cmd, t_master *master);
 _Bool	is_path(char *cmd);
 _Bool	path_bin(char **path);
-void	free_path_master(char *aux, char **path, t_master *master, int exit_code);
+void	free_path_master(char *aux, char **path, t_master *master,
+			int exit_code);
 
 //HEREDOC pasarlo a parsing
 void	handle_heredoc(t_token *token, char *limit, t_master *master);

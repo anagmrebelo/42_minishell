@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:08:49 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 11:01:40 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:46:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 size_t	ft_strlen(const char *str)
 {
 	int	n;
-	
+
 	n = 0;
-	if(!str)
+	if (!str)
 		return (n);
 	while (str[n])
 		n++;

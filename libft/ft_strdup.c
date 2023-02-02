@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:42:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/18 18:38:43 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:12:09 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strdup(const char *s1)
 	counter = 0;
 	ptr = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (!ptr)
-		return (0);	
+		return (0);
 	while (counter <= ft_strlen(s1))
 	{
 		ptr[counter] = s1[counter];

@@ -6,9 +6,10 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:54:55 by mrollo            #+#    #+#             */
-/*   Updated: 2022/11/25 21:54:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:12:35 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_strcmp(char *s1, char *s2)
