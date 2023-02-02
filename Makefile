@@ -77,7 +77,8 @@ SRC				= main.c\
 				heredoc/find_var_heredoc.c\
 				builtins/echo.c\
 				builtins/pwd.c\
-				builtins/cd.c\
+				builtins/cd/cd.c\
+				builtins/cd/aux_cd.c\
 				builtins/env.c\
 				builtins/export.c\
 				builtins/unset.c\
