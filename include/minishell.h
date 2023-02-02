@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 00:00:55 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/02 11:26:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ void	redir_outputs(t_command *cmd, t_master *master);
 _Bool	validate_input(t_token *temp, t_command *cmd, t_master *master);
 _Bool	validate_output(char *str, t_command *cmd, t_master *master);
 char	*file_new_path(char *str, t_master *master);
+_Bool	check_path_tofile(char *str, t_command *cmd, t_master *master);
 void	reset_redirs(t_master *master);
 
 //BUILTINS
@@ -261,11 +262,12 @@ void	free_fail_exec(char *command, char **path, char **env);
 //UTILS
 char	*join_free(char *s1, char *s2);
 void	free_double_array(char **table);
-size_t	ft_strlen_null(const char *str);
+size_t	ft_strlen(const char *str);
 char	**copy_double_array(char **src);
 char	*join_double_free(char *s1, char *s2);
 char	*join_free_s1(char *s1, char *s2);
 char	*join_free_s2(char *s1, char *s2);
+char	*free_aux_join(char *s1, char *s2, char *s3);
 _Bool	is_dots(char *cmd);
 
 //signal

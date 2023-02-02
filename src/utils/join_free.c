@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 12:17:58 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:35:22 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ char	*join_free(char *s1, char *s2)
 }
 
 /**
- * Equivalent to ft_strlen but protects against NULL argument
-*/
-size_t	ft_strlen_null(const char *str)
-{
-	int	n;
-
-	n = 0;
-	if (!str)
-		return (n);
-	while (str[n])
-		n++;
-	return (n);
-}
-
-/**
  * Function equivalent to ft_strnjoin however it frees both 
  * strings passed as arguments
 */
@@ -64,7 +49,7 @@ char	*join_double_free(char *s1, char *s2)
 
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
-	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1),
+	new = (char *)ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1),
 			sizeof(char));
 	if (!new)
 		return (0);
@@ -96,13 +81,9 @@ char	*join_free_s1(char *s1, char *s2)
 
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
-	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1),
-			sizeof(char));
-	if (!new)
-	{
-		free(s1);
-		return (0);
-	}
+	new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if (!new || !s1)
+		return (free_aux_join(new, s1, NULL));
 	i = -1;
 	while (s1[++i])
 		new[i] = s1[i];
@@ -126,24 +107,36 @@ char	*join_free_s2(char *s1, char *s2)
 	int		i;
 	int		j;
 	char	*new;
+	int		mal;
 
-	if (!s1)
+	mal = 0;
+	if (!s1 && mal++ == 0)
 		s1 = ft_calloc(1, sizeof(char));
-	new = (char *)ft_calloc((ft_strlen_null(s1) + ft_strlen_null(s2) + 1),
-			sizeof(char));
-	if (!new)
-	{
-		free(s2);
-		return (0);
-	}
+	new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if ((!new && (s1 && !mal)) || s1)
+		return (free_aux_join(s2, NULL, NULL));
+	else if (!new && (s1 && mal))
+		return (free_aux_join(s2, s1, NULL));
 	i = -1;
 	while (s1[++i])
 		new[i] = s1[i];
 	j = -1;
-	if (!s2)
-		return (new);
-	while (s2[++j])
+	while (s2 && s2[++j])
 		new[i + j] = s2[j];
-	free(s2);
+	if (mal)
+		free(s1);
+	if (s2)
+		free(s2);
 	return (new);
+}
+
+char	*free_aux_join(char *s1, char *s2, char *s3)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	return (NULL);
 }

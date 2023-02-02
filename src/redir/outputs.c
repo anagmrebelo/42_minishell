@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/02 00:19:50 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/02 10:35:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	handle_outputs(t_command *cmd, t_master *master)
 	t_token	*temp;
 
 	temp = cmd->outputs;
-	
 	while (temp && temp != last_token(cmd->failed))
 	{
 		if (temp->type == APPEND)
@@ -80,8 +79,6 @@ void	redir_outputs(t_command *cmd, t_master *master)
 
 _Bool	validate_output(char *str, t_command *cmd, t_master *master)
 {
-	char	*tmp;
-	
 	if (!access(str, W_OK))
 		return (1);
 	if (!ft_strchr(str, '/'))
@@ -93,27 +90,42 @@ _Bool	validate_output(char *str, t_command *cmd, t_master *master)
 		return (0);
 	}
 	else
-	{
-		tmp = file_new_path(str, master);
-		opendir(tmp);
-		if (errno == ENOTDIR)
-			cmd->not_dir = 1;
-		else if (!access(tmp, W_OK))
-		{
-			free(tmp);
-			return (1);
-		}
-		else if (!access(tmp, F_OK))
-			cmd->inv_perm = 1;
-		else
-			cmd->inv_file = 1;
-		cmd->failed = cmd->outputs;
-		free(tmp);
-		return (0);
-	}
+		return (check_path_tofile(str, cmd, master));
 	return (1);
 }
 
+/**
+  * If str contains a '/'
+  * then it confirms if path treats a document as a directory
+  * if there is no permissions to access to directory
+  * if path is not valid as does not exist such a file or dir
+ */
+_Bool	check_path_tofile(char *str, t_command *cmd, t_master *master)
+{
+	char	*tmp;
+
+	tmp = file_new_path(str, master);
+	opendir(tmp);
+	if (errno == ENOTDIR)
+	cmd->not_dir = 1;
+	else if (!access(tmp, W_OK))
+	{
+		free(tmp);
+		return (1);
+	}
+	else if (!access(tmp, F_OK))
+		cmd->inv_perm = 1;
+	else
+		cmd->inv_file = 1;
+	cmd->failed = cmd->outputs;
+	free(tmp);
+	return (0);
+}
+
+/**
+ * Returns a malloc of str without the last part of path
+ * (e.g. if str = src/parse/main.c returns src/parse)
+*/
 char	*file_new_path(char *str, t_master *master)
 {
 	int		i;
