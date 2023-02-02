@@ -28,17 +28,10 @@ void	add_to_env(char *title, char *value, t_master *master)
 		clean_free(master, 1);
 	}
 	if (!value)
-	{
-		free (title);
-		clean_free(master, 1);
-	}
+		free_aux_master(title, NULL, NULL, master);
 	new = new_env(title, value, master);
 	if (!new)
-	{
-		free (title);
-		free (value);
-		clean_free(master, 1);
-	}
+		free_aux_master(title, value, NULL, master);
 	add_back(master->env, new);
 }
 
@@ -155,7 +148,7 @@ int	ft_export(t_env *env, char **args, t_master *master)
 					free (title);
 				}
 				else
-					add_to_env(title, get_value(args[i], master), env);
+					add_to_env(title, get_value(args[i], master), master);
 			}
 			else
 			{

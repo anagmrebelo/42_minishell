@@ -55,14 +55,12 @@ char	*get_value(char *str, t_master *master)
 	len = (aux - str) + 1;
 	value = ft_substr(str, len, ft_strlen(str) - len);
 	if (!value)
-		clean_free(master, 1);
+		free_aux_master(aux, NULL, NULL, master);
 	if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
 	{
 		tmp = join_free_s2("\\", value);
 		return (tmp);
 	}
-	if (!value)
-		clean_free(master, 1);
 	return (value);
 }
 

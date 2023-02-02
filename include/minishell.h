@@ -259,6 +259,8 @@ char	*join_double_free(char *s1, char *s2);
 char	*join_free_s1(char *s1, char *s2);
 char	*join_free_s2(char *s1, char *s2);
 _Bool	is_dots(char *cmd);
+char	*free_aux_join(char *s1, char *s2, char *s3);
+char	*free_aux_master(char *s1, char *s2, char *s3, t_master *master);
 
 //signal
 void	init_signal(int i);

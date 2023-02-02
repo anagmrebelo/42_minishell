@@ -141,3 +141,26 @@ char	*join_free_s2(char *s1, char *s2)
 	free(s2);
 	return (new);
 }
+
+char	*free_aux_join(char *s1, char *s2, char *s3)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	return (NULL);
+}
+
+char	*free_aux_master(char *s1, char *s2, char *s3, t_master *master)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	clean_free(master, 1);
+	return (NULL);
+}
