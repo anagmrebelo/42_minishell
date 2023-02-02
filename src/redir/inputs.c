@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 18:01:53 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 00:00:28 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,28 @@ void	redir_inputs(t_command *cmd, t_master *master)
 }
 
 /**
- * Function that evaluates if path to a file is valid
+ * Function that evaluates if path to a file is valid and user has permissions
 */
-_Bool	validate_file(char *path)
+_Bool	validate_input(t_token *temp, t_command *cmd, t_master *master)
 {
-	int	status;
+	char	*path;
+	char	*tmp;
 
-	status = access(path, R_OK);
-	if (status == 0)
+	path = temp->str;
+	if (!access(path, R_OK))
 		return (1);
+	cmd->failed = cmd->inputs;
+	if (!access(path, F_OK))
+		cmd->inv_perm = 1;
+	else
+	{
+		tmp = file_new_path(path, master);
+		opendir(tmp);
+		if (errno == ENOTDIR)
+			cmd->not_dir = 1;
+		else
+			cmd->inv_file = 1;
+		free(tmp);
+	}
 	return (0);
 }

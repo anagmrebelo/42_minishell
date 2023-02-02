@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 11:41:30 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/01 23:36:57 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	init_redirs(t_master *master)
 void	handle_redirs(t_command *cmd, t_master *master)
 {	
 	if (cmd->inv_file)
-	{
-		print_error("minishell", last_token(cmd->inputs)->str,
-			"No such file or directory\n");
-		clean_free(master, 2);
-	}
+		no_file_dir(master, (last_token(cmd->failed))->str, 1);
+	if (cmd->inv_perm)
+		perm_denied(master, (last_token(cmd->failed))->str, 1);
+	if (cmd->not_dir)
+		not_dir(master, (last_token(cmd->failed))->str, 1);
 	redir_outputs(cmd, master);
 	redir_inputs(cmd, master);
 }

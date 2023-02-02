@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/01/30 23:22:15 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/02 10:25:22 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	readline_loop(t_master *master)
 }
 
 /**
- * If line is empty and original STDIN is not a terminal (e.g. is a file) changes master->status to 1 to end minishell loop and finish parent process
+ * If line is empty and original STDIN is not a terminal (e.g. is a file) 
+ * changes master->status to 1 to end minishell loop and finish parent process
 */
 _Bool	isatty_check(t_master *master)
 {
