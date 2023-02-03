@@ -58,7 +58,7 @@ char	*get_value(char *str, t_master *master)
 		free_aux_master(aux, NULL, NULL, master);
 	if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
 	{
-		tmp = join_free_s2("\\", value);
+		tmp = join_free_s2("\\", value); //PROTEGER
 		return (tmp);
 	}
 	return (value);
@@ -90,7 +90,7 @@ t_env	*new_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
-	new = ft_calloc(1, sizeof(t_env));
+	new = ft_calloc(1, sizeof(t_env)); //PROTEGER TITLE Y VALUE?
 	if (!new)
 		clean_free(master, 1);
 	new->title = title;
