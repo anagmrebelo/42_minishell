@@ -14,14 +14,15 @@
 
 void	create_shlvl(t_master *master)
 {
-	t_env	*new;
-	char	*title;
-	char	*value;
+	//t_env	*new;
+	// char	*title;
+	// char	*value;
 
-	title = ft_strdup("SHLVL"); //PREOTEGER
-	value = ft_strdup("1"); // PROTEGER
-	new = new_env(title, value, master); // PROTEGER
-	add_back(master->env, new);
+	// title = ft_strdup("SHLVL"); //PREOTEGER //add_to_env
+	// value = ft_strdup("1"); // PROTEGER
+	// new = new_env(title, value, master); // PROTEGER
+	// add_back(master->env, new);
+	add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
 }
 
 void	create_usr_bin(t_master *master)
@@ -47,6 +48,13 @@ void	create_path(t_master *master)
 	new = new_env(title, value, master); //PROTEGER
 	add_back(master->env, new);
 }
+
+// void	create_default_vars(t_master *master)
+// {
+// 	add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
+// 	add_to_env(ft_strdup("_"), ft_strdup("1"), master);
+// 	add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
+// }
 
 int	default_env(t_master *master)
 {
