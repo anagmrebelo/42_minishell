@@ -50,8 +50,6 @@ char	*get_value(char *str, t_master *master)
 	char	*tmp;
 
 	aux = ft_strchr(str, '=');
-	if (!aux)
-		clean_free(master, 1);
 	len = (aux - str) + 1;
 	value = ft_substr(str, len, ft_strlen(str) - len);
 	if (!value)
