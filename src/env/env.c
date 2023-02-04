@@ -61,23 +61,23 @@ char	**env_to_array(t_env *env)
 	len = env_len(env);
 	array_env = (char **)ft_calloc((len + 1), sizeof(char *));
 	if (!array_env)
-		return (NULL);
+		return (NULL); //CLEAN_FREE
 	i = 0;
 	while (i < len)
 	{
 		if (env->value)
 		{
-			str = ft_strdup(env->title);
-			str = join_free(str, "=");
-			str = join_free(str, env->value);
+			str = ft_strdup(env->title); //PROTEGER
+			str = join_free(str, "="); //PROTEGER
+			str = join_free(str, env->value); // PROTEGER
 		}
 		else
-			str = ft_strdup(env->title);
+			str = ft_strdup(env->title); //PROTEGER
 		array_env[i] = str;
 		if (!array_env[i])
 		{
 			free_double_array(array_env);
-			return (NULL);
+			return (NULL); //CLEAN_FREE
 		}
 		i++;
 		env = env->next;

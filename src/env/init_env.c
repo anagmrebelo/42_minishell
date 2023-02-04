@@ -56,7 +56,7 @@ char	*get_value(char *str, t_master *master)
 		free_aux_master(aux, NULL, NULL, master);
 	if (ft_strcmp(value, "\\") == 0 || ft_strcmp(value, "$") == 0)
 	{
-		tmp = join_free_s2("\\", value);
+		tmp = join_free_s2("\\", value); //PROTEGER
 		return (tmp);
 	}
 	return (value);
@@ -88,7 +88,7 @@ t_env	*new_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
-	new = ft_calloc(1, sizeof(t_env));
+	new = ft_calloc(1, sizeof(t_env)); //PROTEGER TITLE Y VALUE?
 	if (!new)
 		clean_free(master, 1);
 	new->title = title;
@@ -108,58 +108,40 @@ int	find_in_env(t_env *env, char *str)
 	return (0);
 }
 
-int	init_env(t_master *master, char **enviroment)
+void	update_shlvl(t_master *master)
+{
+	int		shlvl;
+	char	*value;
+	t_env 	*aux;
+
+	aux = master->env;
+	if (find_in_env(master->env, "SHLVL"))
+	{
+		value = get_env_value("SHLVL", master->env);
+		shlvl = ft_atoi(value) + 1;
+		while (aux != NULL)
+		{
+			if (ft_strcmp(aux->title, "SHLVL") == 0)
+			{
+				free (aux->value);
+				if (shlvl < 0)
+					aux->value = ft_strdup("0"); //proteger
+				else
+					aux->value = ft_itoa(shlvl); //proteger
+				return ;	
+			}
+			aux = aux->next;
+		}
+	}
+	else
+		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
+}
+
+void	var_update(t_master *master)
 {
 	t_env	*env;
-	t_env	*new;
-	int		i;
-	int		shlvl;
 
-	env = ft_calloc(1, sizeof(t_env));
-	if (!env)
-		clean_free(master, 1);
-	master->env = env;
-	env->title = get_title(enviroment[0], master);
-	env->value = get_value(enviroment[0], master);
-	env->next = NULL;
-	i = 1;
-	while (enviroment && enviroment[i])
-	{
-		new = new_env(get_title(enviroment[i], master), get_value(enviroment[i], master), master);
-		if (ft_strcmp(new->title, "SHLVL") == 0)
-		{
-			shlvl = ft_atoi(new->value) + 1;
-			if (!shlvl)
-			{
-				//free(shlvl);
-				free_env(new);
-				//free_env_lst(env);
-				clean_free(master, 1);
-			}
-			free (new->value);
-			if (shlvl < 0)
-			{
-				new->value = ft_strdup("0");
-				if (!new->value)
-				{
-					//free(shlvl);
-					free_env(new);
-					//free_env_lst(env);
-					clean_free(master, 1);
-				}
-			}
-			else
-			{
-				new->value = ft_itoa(shlvl);
-			}
-		}
-		if (!new)
-			clean_free(master, 1);
-		add_back(env, new);
-		i++;
-	}
-	if (!find_in_env(env, "SHLVL"))
-		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
+	env = master->env;
 	if (find_in_env(env, "_"))
 	{
 		while (env != NULL)
@@ -173,5 +155,27 @@ int	init_env(t_master *master, char **enviroment)
 			env = env->next;
 		}
 	}
+}
+
+int	init_env(t_master *master, char **enviroment)
+{
+	t_env	*env;
+	int		i;
+
+	env = ft_calloc(1, sizeof(t_env));
+	if (!env)
+		clean_free(master, 1);
+	master->env = env;
+	env->title = get_title(enviroment[0], master);
+	env->value = get_value(enviroment[0], master);
+	env->next = NULL;
+	i = 1;
+	while (enviroment && enviroment[i])
+	{
+		add_to_env(get_title(enviroment[i], master), get_value(enviroment[i], master), master);
+		i++;
+	}
+	update_shlvl(master);
+	var_update(master);
 	return (0);
 }
