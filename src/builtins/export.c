@@ -22,24 +22,16 @@ void	add_to_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
-	printf("6\n");
 	if (!title)
 	{
-		printf("7\n");
 		free (value);
 		clean_free(master, 1);
 	}
 	if (!value)
-	{
-		printf("8\n");
 		free_aux_master(title, NULL, NULL, master);
-	}
 	new = new_env(title, value, master);
 	if (!new)
-	{
-		printf("9\n");
 		free_aux_master(title, value, NULL, master);
-	}
 	add_back(master->env, new);
 }
 
@@ -142,29 +134,21 @@ int	ft_export(t_env *env, char **args, t_master *master)
 		i = 1;
 		while (args && args[i])
 		{
-			printf("1\n");
 			if (first_check(args[i]))
 			{
-				printf("2\n");
 				ret = 2;
 				break ;
 			}
 			if (var_title_check(args[i]))
 			{
-				printf("3\n");
 				title = get_title(args[i], master);
 				if (find_in_env(env, title))
 				{
-					printf("4\n");
 					update_var(env, title, args[i], master);
 					free (title);
 				}
 				else
-				{
-					printf("5\n");
-					printf("title: %s\n", title);
 					add_to_env(title, get_value(args[i], master), master);
-				}
 			}
 			else
 			{
