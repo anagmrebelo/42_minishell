@@ -56,9 +56,9 @@ void	create_pwd(t_master *master)
 	env = master->env;
 	pwd = malloc(4097 * sizeof(char));
 	if (!pwd)
-		clean_free(master, 1); //CLEAN_FREE?
+		clean_free(master, 1);
 	if (getcwd(pwd, 4097) == NULL)
-		free_aux_master(pwd, NULL, NULL, master); // CLEAN_FREE?
+		free_aux_master(pwd, NULL, NULL, master);
 	env->title = ft_strdup("PWD");
 	env->value = ft_strdup(pwd);
 	if (!env->title || !env->value)
