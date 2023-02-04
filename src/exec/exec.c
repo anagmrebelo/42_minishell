@@ -38,7 +38,7 @@ void	exec_bin(t_master *master, t_command *cmd)
 	if (!command)
 		exec_aux_free(cmd, master);
 	path = copy_double_array(cmd->args_char);
-	env = env_to_array(master->env);
+	env = env_to_array(master);
 	if (!path || !env)
 		exec_aux_bin_free(command, path, env, master);
 	clean_free_no_exit(master);

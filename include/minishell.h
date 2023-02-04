@@ -111,9 +111,10 @@ t_env	*last_env(t_env *env);
 void	print_env(t_env *env);
 void	free_env(t_env *item);
 void	free_env_lst(t_env *list);
-char	**env_to_array(t_env *env);
+char	**env_to_array(t_master *master);
 int		env_len(t_env *env);
 void	free_array(char **array);
+void	free_array_master(char **array, t_master *master);
 void	sort(char **sort_array, int len);
 char	**sort_env_array(char **sort_array, t_env *env, int len);
 void	print_sort_env(t_env *env);
@@ -121,6 +122,8 @@ char	*getvar_value(t_master *master, char *title);
 char	*getvar_value_env(char **env, char *title);
 int		default_env(t_master *master);
 int		find_in_env(t_env *env, char *str);
+void	update_shlvl(t_master *master);
+void	var_update(t_master *master);
 
 //PARSING
 _Bool	parsing(t_master *master);
