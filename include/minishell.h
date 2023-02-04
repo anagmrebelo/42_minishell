@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 16:14:11 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/04 01:28:09 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 # include <unistd.h>
 # include <errno.h>
 # include <dirent.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <../libft/libft.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# define READLINE_LIBRARY 1
+# include "readline.h"
+# include "history.h"
 
 # define ARG 0
 # define OUTPUT 1
@@ -139,6 +140,8 @@ _Bool	aux5_env(char *read, int *c);
 char	*find_var(char *str, t_master *master, int pos, char *full_line);
 char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
+char	*clean_dollar(char *str, int i, t_master *master, char *fre);
+char	*remove_dollar(char *str, t_master *master);
 void	home_join(t_token *new, t_master *master, unsigned int i);
 void	home_update(t_token *new, t_master *master);
 _Bool	is_valid_path(char *str, t_master *master);

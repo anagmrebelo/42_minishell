@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/15 11:46:14 by mrollo            #+#    #+#              #
-#    Updated: 2023/02/01 12:51:54 by arebelo          ###   ########.fr        #
+#    Updated: 2023/02/04 02:02:37 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,27 +18,6 @@ NAME	= minishell
 # **************************************************************************** #
 # DIRS
 # **************************************************************************** #
-
-SRC_DIR			= src
-
-INCLUDE_DIR		= include
-
-LIBS_DIR		= libft
-
-OBJ_DIR			= obj
-
-# **************************************************************************** #
-# FILES
-# **************************************************************************** #
-
-LIBS			= $(LIBS_DIR)/libft.a
-
-LIBS_HEADERS	= -I $(LIBS_DIR)/include/minishell.h
-
-INC				= -I $(INCLUDE_DIR) $(LIBS_HEADERS)
-
-COMFLAGS		= -I/Users/$(USER)/.brew/opt/readline/include
-LINKFLAGS		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 SRC				= main.c\
 				env/init_env.c\
@@ -63,6 +42,7 @@ SRC				= main.c\
 				expansions/variables_env_aux.c\
 				expansions/find_var.c\
 				expansions/home_update.c\
+				expansions/clean_dollar.c\
 				redir/initial_redir.c\
 				redir/outputs.c\
 				redir/inputs.c\
@@ -109,12 +89,28 @@ MKDIR			= mkdir -p
 
 # **************************************************************************** #
 #RULES
+SRC_DIR			= src
+INCLUDE_DIR		= include
+LIBS_DIR		= libft
+OBJ_DIR			= obj
+
+# **************************************************************************** #
+# FILES
+# **************************************************************************** #
+
+LIBS			= $(LIBS_DIR)/libft.a
+LIBS			+= aitor/libreadline.a
+LIBS			+= aitor/libhistory.a
+
+INC				= -I $(INCLUDE_DIR) $(COMFLAGS)
+COMFLAGS		= -I aitor
+LINKFLAGS		= -L aitor -lhistory -lreadline -ltermcap
 
 # **************************************************************************** #
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 				@$(MKDIR) -p $(dir $@)
-				@$(COMPILE) $(CFLAGS) $(COMFLAGS) -o $@ $<
+				@$(COMPILE) $(INC) -o $@ $<
 				@echo "Compiling... $^"
 
 all:			make_libs $(NAME)
@@ -125,7 +121,7 @@ make_libs:
 -include $(DEP)
 
 $(NAME):	$(OBJ) $(LIBS)
-			@$(LINK) $(OBJ) $(LIBS) $(LINKFLAGS) -o $(NAME) -lreadline
+			@$(LINK) $(OBJ) $(LIBS) $(INC) $(LINKFLAGS) -o $(NAME)
 			@echo "Created minishell (mandatory)"
 
 -include $(DEP_BONUS)
@@ -141,5 +137,9 @@ fclean:		clean
 			@echo "Minishell cleaned"
 
 re:			fclean all
+	pwd $(PAT)
+	cd ./aitor && ./configure
+	cd $(PAT)
+
 
 .PHONY:		all bonus clean fclean re

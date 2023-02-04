@@ -9,3 +9,15 @@
 	-heredoc
 	-builtins
 	-join_free
+
+
+
+
+	- [ ] Shell level ctrl C 
+- [ ] Exit max exit min
+- [ ] export ECMD="         'echo'      hi " ; $ECMD"
+- [x] echo $""USER
+- [x] echo  $USER "" $USER '$USER'$ "$USER" "'$USER'$ $USER"'$USER'"$USER"$'"$USER"' "$USER"$nada$1aaa$
+- [ ] ^C
+- [ ] Print exit with ctrl D when line is empty
+- [ ] ctrl D de minishell mientras ejecutas te devuelve 0 (no 1)

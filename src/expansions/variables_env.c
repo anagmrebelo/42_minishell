@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 18:15:57 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/04 00:45:52 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*aux1_env(char *read, t_master *master, char *line, int *c)
 	temp = ft_substr(read, c[J], c[I] - c[J]);
 	if (!temp)
 		clean_free(master, 1);
+	temp = remove_dollar(temp, master);
 	line = join_double_free(line, temp);
 	if (!line)
 	{
@@ -72,6 +73,7 @@ char	*aux2_env(char *read, t_master *master, char *line, int *c)
 	temp = ft_substr(read, c[J], 1);
 	if (!temp)
 		clean_free(master, 1);
+	temp = remove_dollar(temp, master);
 	line = join_double_free(line, find_var(temp, master, c[J], read));
 	if (!line)
 	{
@@ -89,6 +91,7 @@ char	*aux3_env(char *read, t_master *master, char *line, int *c)
 	temp = ft_substr(read, c[J], c[I] - c[J]);
 	if (!temp)
 		clean_free(master, 1);
+	temp = remove_dollar(temp, master);
 	line = join_double_free(line, find_var(temp, master, c[J], read));
 	if (!line)
 	{
@@ -106,6 +109,7 @@ char	*aux4_env(char *read, t_master *master, char *line, int *c)
 	temp = ft_substr(read, c[J], c[I] - c[J]);
 	if (!temp)
 		clean_free(master, 1);
+	temp = remove_dollar(temp, master);
 	line = join_double_free(line, temp);
 	if (!line)
 	{
