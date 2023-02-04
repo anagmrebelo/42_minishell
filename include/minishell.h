@@ -124,6 +124,7 @@ int		default_env(t_master *master);
 int		find_in_env(t_env *env, char *str);
 void	update_shlvl(t_master *master);
 void	var_update(t_master *master);
+void	create_shlvl(t_master *master);
 
 //PARSING
 _Bool	parsing(t_master *master);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/04 14:35:18 by mrollo            #+#    #+#             */
+/*   Updated: 2023/02/04 14:35:19 by mrollo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
 int	env_len(t_env *env)
@@ -26,6 +37,19 @@ int	find_in_env(t_env *env, char *str)
 	return (0);
 }
 
+char	*aux_shlvl(t_master *master, int shlvl)
+{
+	char	*str;
+
+	if (shlvl < 0)
+		str = ft_strdup("0");
+	else
+		str = ft_itoa(shlvl);
+	if (!str)
+		clean_free(master, 1);
+	return (str);
+}
+
 void	update_shlvl(t_master *master)
 {
 	int		shlvl;
@@ -42,19 +66,14 @@ void	update_shlvl(t_master *master)
 			if (ft_strcmp(aux->title, "SHLVL") == 0)
 			{
 				free (aux->value);
-				if (shlvl < 0)
-					aux->value = ft_strdup("0");
-				else
-					aux->value = ft_itoa(shlvl);
-				if (!aux->value)
-					clean_free(master, 1);
+				aux->value = aux_shlvl(master, shlvl);
 				return ;
 			}
 			aux = aux->next;
 		}
 	}
 	else
-		add_to_env(ft_strdup("SHLVL"), ft_strdup("1"), master);
+		create_shlvl(master);
 }
 
 void	var_update(t_master *master)
