@@ -119,7 +119,7 @@ int	ft_export(t_env *env, char **args, t_master *master)
 	{
 		if (!find_in_env(env, "OLDPWD"))
 			add_to_env(ft_strdup("OLDPWD"), NULL, master); //proteger STRDUP
-		print_sort_env(env);
+		print_sort_env(master);
 		return (0);
 	}
 	else
