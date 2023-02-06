@@ -113,7 +113,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 				@$(COMPILE) $(INC) -o $@ $<
 				@echo "Compiling... $^"
 
-all:			make_libs $(NAME)
+all:			make_libs  $(NAME)
 
 make_libs:
 			@make -s -C $(LIBS_DIR)
@@ -129,6 +129,8 @@ $(NAME):	$(OBJ) $(LIBS)
 clean:
 			@$(RM_FILE) $(OBJ)
 			@$(RM_DIR)  $(OBJ_DIR)
+			@$(RM_FILE) aitor/*.a
+			@$(RM_FILE) aitor/*.o
 			@make clean -C $(LIBS_DIR)
 
 fclean:		clean
@@ -136,10 +138,14 @@ fclean:		clean
 			@make fclean -C $(LIBS_DIR)
 			@echo "Minishell cleaned"
 
-re:			fclean all
-	pwd $(PAT)
-	cd ./aitor && ./configure
-	cd $(PAT)
+readline:
+		pwd $(PAT)
+		cd ./aitor && ./configure
+		make -C ./aitor
+		cd $(PAT)
+	
+
+re:			fclean readline all
 
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all bonus clean fclean re aitor
