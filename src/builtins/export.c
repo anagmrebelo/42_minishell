@@ -117,6 +117,21 @@ int	var_title_check(char *str)
 	return (1);
 }
 
+int	only_export(t_master *master)
+{
+	char	*title;
+
+	if (!find_in_env(master->env, "OLDPWD"))
+	{
+		title = ft_strdup("OLDPWD");
+		if (!title)
+			clean_free(master, 1);
+		add_to_env(title, NULL, master);
+	}
+	print_sort_env(master);
+	return (0);
+}
+
 int	ft_export(t_env *env, char **args, t_master *master)
 {
 	int		i;
@@ -125,12 +140,7 @@ int	ft_export(t_env *env, char **args, t_master *master)
 
 	ret = 0;
 	if (!args[1])
-	{
-		if (!find_in_env(env, "OLDPWD"))
-			add_to_env(ft_strdup("OLDPWD"), NULL, master); //proteger STRDUP
-		print_sort_env(master);
-		return (0);
-	}
+		return (only_export(master));
 	else
 	{
 		i = 1;
