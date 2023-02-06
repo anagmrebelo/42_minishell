@@ -51,7 +51,7 @@ void	init_signal(int i)
 	sa.sa_flags = SA_RESTART;
 	if (i)
 		sa.sa_handler = &handle_signal;
-	else
+	else	
 		sa.sa_handler = &handle_sig_exec;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);

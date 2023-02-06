@@ -1970,7 +1970,7 @@ configure:7017: $? = 0
 configure:7017: result: yes
 configure:7043: checking for tgetent
 configure:7043: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccIh6MHS.o: in function `main':
+/usr/bin/ld: /tmp/ccupIwQh.o: in function `main':
 /workspaces/minishell/aitor/conftest.c:123: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 configure:7043: $? = 1
@@ -2265,7 +2265,7 @@ configure:7383: $? = 0
 configure:7383: result: yes
 configure:7390: checking for mbscasecmp
 configure:7390: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/cccEXuh1.o: in function `main':
+/usr/bin/ld: /tmp/ccE8cHpS.o: in function `main':
 /workspaces/minishell/aitor/conftest.c:128: undefined reference to `mbscasecmp'
 collect2: error: ld returned 1 exit status
 configure:7390: $? = 1
@@ -2404,7 +2404,7 @@ configure: failed program was:
 configure:7390: result: no
 configure:7397: checking for mbscmp
 configure:7397: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccGOkG25.o: in function `main':
+/usr/bin/ld: /tmp/ccCMbIoU.o: in function `main':
 /workspaces/minishell/aitor/conftest.c:128: undefined reference to `mbscmp'
 collect2: error: ld returned 1 exit status
 configure:7397: $? = 1
@@ -2551,7 +2551,7 @@ configure:7411: $? = 0
 configure:7411: result: yes
 configure:7419: checking for mbschr
 configure:7419: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccamQWPF.o: in function `main':
+/usr/bin/ld: /tmp/ccQVrUZu.o: in function `main':
 /workspaces/minishell/aitor/conftest.c:130: undefined reference to `mbschr'
 collect2: error: ld returned 1 exit status
 configure:7419: $? = 1
@@ -2952,6 +2952,7 @@ config.status:947: creating shlib/Makefile
 config.status:947: creating readline.pc
 config.status:947: creating history.pc
 config.status:947: creating config.h
+config.status:1122: config.h is unchanged
 config.status:1136: executing stamp-h commands
 
 ## ---------------- ##
