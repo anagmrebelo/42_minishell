@@ -33,3 +33,22 @@ void	free_env_lst(t_env *list)
 		list = tmp;
 	}
 }
+
+void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array && array[i])
+	{
+		free (array[i]);
+		i++;
+	}
+	free(array);
+}
+
+void	free_array_master(char **array, t_master *master)
+{
+	free_double_array(array);
+	clean_free(master, 1);
+}

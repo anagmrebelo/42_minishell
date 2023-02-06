@@ -22,13 +22,6 @@ void	add_to_env(char *title, char *value, t_master *master)
 {
 	t_env	*new;
 
-	if (!title)
-	{
-		free (value);
-		clean_free(master, 1);
-	}
-	if (!value)
-		free_aux_master(title, NULL, NULL, master);
 	new = new_env(title, value, master);
 	if (!new)
 		free_aux_master(title, value, NULL, master);
@@ -125,8 +118,8 @@ int	ft_export(t_env *env, char **args, t_master *master)
 	if (!args[1])
 	{
 		if (!find_in_env(env, "OLDPWD"))
-			add_to_env(ft_strdup("OLDPWD"), NULL, master);
-		print_sort_env(env);
+			add_to_env(ft_strdup("OLDPWD"), NULL, master); //proteger STRDUP
+		print_sort_env(master);
 		return (0);
 	}
 	else
@@ -141,7 +134,7 @@ int	ft_export(t_env *env, char **args, t_master *master)
 			}
 			if (var_title_check(args[i]))
 			{
-				title = get_title(args[i], master);
+				title = get_title(args[i], master); //protegida dentro de get_title
 				if (find_in_env(env, title))
 				{
 					update_var(env, title, args[i], master);

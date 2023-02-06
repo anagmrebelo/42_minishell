@@ -35,23 +35,43 @@ void	sort(char **sort_array, int len)
 	}
 }
 
-char	**sort_env_array(char **sort_array, t_env *env, int len)
+char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
+{
+	char	*str;
+
+	str = ft_strdup(title);
+	if (!str)
+		free_array_master(ar, master);
+	str = join_free(str, "=\"");
+	if (!str)
+		free_array_master(ar, master);
+	str = join_free(str, value);
+	if (!str)
+		free_array_master(ar, master);
+	str = join_free(str, "\"");
+	if (!str)
+		free_array_master(ar, master);
+	return (str);
+}
+
+char	**sort_env_array(char **sort_array, t_master *master, int len)
 {
 	int		i;
 	char	*str;
+	t_env	*env;
 
+	env = master->env;
 	i = 0;
 	while (i < len)
 	{
 		if (env->value)
+			str = join_for_sort(master, env->title, env->value, sort_array);
+		else
 		{
 			str = ft_strdup(env->title);
-			str = join_free(str, "=\"");
-			str = join_free(str, env->value);
-			str = join_free(str, "\"");
+			if (!str)
+				free_array_master(sort_array, master);
 		}
-		else
-			str = ft_strdup(env->title);
 		sort_array[i] = str;
 		env = env->next;
 		i++;
@@ -60,15 +80,17 @@ char	**sort_env_array(char **sort_array, t_env *env, int len)
 	return (sort_array);
 }
 
-void	print_sort_env(t_env *env)
+void	print_sort_env(t_master *master)
 {
 	int		len;
 	int		i;
 	char	**sort_array;
 
-	len = env_len(env);
+	len = env_len(master->env);
 	sort_array = ft_calloc((len + 1), sizeof(char *));
-	sort_env_array(sort_array, env, len);
+	if (!sort_array)
+		clean_free(master, 1);
+	sort_env_array(sort_array, master, len);
 	i = 0;
 	while (sort_array && sort_array[i])
 	{
