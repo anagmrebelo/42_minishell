@@ -30,11 +30,20 @@ void	add_to_env(char *title, char *value, t_master *master)
 
 void	update_var(t_env *env, char *title, char *str, t_master *master)
 {
+	char	*value;
+
 	while (env != NULL)
 	{
 		if (ft_strcmp(title, env->title) == 0)
 		{
-			env->value = get_value(str, master);
+			value = get_value(str, master);
+			if (!*value)
+			{
+				free (value);
+				break ;
+			}
+			else
+				env->value = value;
 			break ;
 		}
 		env = env->next;
