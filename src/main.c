@@ -3,19 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 10:25:22 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/06 16:34:19 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_launch_minishell(char *line, char **environment)
+{
+	t_master	*master;
+
+	master = ft_calloc(1, sizeof(t_master));
+	if (!master)
+		return (1);
+	begin_env(environment, master);
+	init_redirs(master);
+	master->line = ft_strdup(line);
+	if (!master->line)
+		clean_free(master, 1);
+	if (master->line == 0)
+	{
+		free_master(master);
+		exit (1);
+	}
+	if (*master->line != '\0')
+	{
+		add_history(master->line);
+		minishell(master);
+	}
+	close_init_redirs(master);
+	free_master(master);
+	exit(g_error);
+}
+
 int	main(int argc, char **argv, char **environment)
 {
 	t_master	*master;
 
+	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
+  	{
+		int exit_status = ft_launch_minishell(argv[2], environment);
+		exit(exit_status);
+ 	}
 	if (argc >= 1 && argv)
 	{
 		master = ft_calloc(1, sizeof(t_master));
