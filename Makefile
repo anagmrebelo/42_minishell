@@ -21,8 +21,9 @@ NAME	= minishell
 
 SRC				= main.c\
 				env/init_env.c\
+				env/aux_env.c\
 				env/sort_env.c\
-				env/env.c \
+				env/env.c\
 				env/free_env.c\
 				env/return_var.c\
 				env/default_env.c\

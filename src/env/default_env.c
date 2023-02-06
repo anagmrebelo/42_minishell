@@ -14,56 +14,67 @@
 
 void	create_shlvl(t_master *master)
 {
-	t_env	*new;
 	char	*title;
 	char	*value;
 
 	title = ft_strdup("SHLVL");
 	value = ft_strdup("1");
-	new = new_env(title, value, master);
-	add_back(master->env, new);
+	if (!title || !value)
+		free_aux_master(title, value, NULL, master);
+	add_to_env(title, value, master);
 }
 
 void	create_usr_bin(t_master *master)
 {
-	t_env	*new;
 	char	*title;
 	char	*value;
 
 	title = ft_strdup("_");
 	value = ft_strdup("/usr/bin/env");
-	new = new_env(title, value, master);
-	add_back(master->env, new);
+	if (!title || !value)
+		free_aux_master(title, value, NULL, master);
+	add_to_env(title, value, master);
 }
 
 void	create_path(t_master *master)
 {
-	t_env	*new;
 	char	*title;
 	char	*value;
 
 	title = ft_strdup("PATH");
 	value = ft_strdup("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
-	new = new_env(title, value, master);
-	add_back(master->env, new);
+	if (!title || !value)
+		free_aux_master(title, value, NULL, master);
+	add_to_env(title, value, master);
+}
+
+void	create_pwd(t_master *master)
+{
+	char	*pwd;
+	t_env	*env;
+
+	env = master->env;
+	pwd = malloc(4097 * sizeof(char));
+	if (!pwd)
+		clean_free(master, 1);
+	if (getcwd(pwd, 4097) == NULL)
+		free_aux_master(pwd, NULL, NULL, master);
+	env->title = ft_strdup("PWD");
+	env->value = ft_strdup(pwd);
+	if (!env->title || !env->value)
+		free_aux_master(env->title, env->value, NULL, master);
+	env->next = NULL;
 }
 
 int	default_env(t_master *master)
 {
 	t_env	*env;
-	char	*pwd;
 
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		clean_free(master, 1);
 	master->env = env;
-	pwd = malloc(4097 * sizeof(char));
-	if (!pwd)
-		return (1);
-	if (getcwd(pwd, 4097) == NULL)
-		return (1);
-	env->title = ft_strdup("PWD");
-	env->value = ft_strdup(pwd);
+	create_pwd(master);
 	create_shlvl(master);
 	create_path(master);
 	create_usr_bin(master);
