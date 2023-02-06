@@ -250,6 +250,9 @@ int		ft_unset(t_env *env, char **args);
 int		ft_export(t_env *env, char **args, t_master *master);
 void	add_to_env(char *title, char *value, t_master *master);
 void	print_export_error(char *str);
+int		equal_check(char *str);
+int		first_check(char *str);
+int		var_title_check(char *str);
 int		ft_exit(char **args, t_master *master);
 
 //ERRORS

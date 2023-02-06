@@ -61,7 +61,8 @@ SRC				= main.c\
 				builtins/cd/cd.c\
 				builtins/cd/aux_cd.c\
 				builtins/env.c\
-				builtins/export.c\
+				builtins/export/export.c\
+				builtins/export/aux_exp.c\
 				builtins/unset.c\
 				builtins/exit.c\
 				errors/print_error.c\
