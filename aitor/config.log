@@ -1935,8 +1935,13 @@ configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_tgetent", referenced from:
+<<<<<<< HEAD
       _main in conftest-63f162.o
 ld: symbol(s) not found for architecture x86_64
+=======
+      _main in conftest-0f9f9e.o
+ld: symbol(s) not found for architecture arm64
+>>>>>>> dollar
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7074: $? = 1
 configure: failed program was:
@@ -2230,8 +2235,13 @@ configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_mbscasecmp", referenced from:
+<<<<<<< HEAD
       _main in conftest-80f9e8.o
 ld: symbol(s) not found for architecture x86_64
+=======
+      _main in conftest-817b32.o
+ld: symbol(s) not found for architecture arm64
+>>>>>>> dollar
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7421: $? = 1
 configure: failed program was:
@@ -2370,8 +2380,13 @@ configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_mbscmp", referenced from:
+<<<<<<< HEAD
       _main in conftest-5d9163.o
 ld: symbol(s) not found for architecture x86_64
+=======
+      _main in conftest-89316c.o
+ld: symbol(s) not found for architecture arm64
+>>>>>>> dollar
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7428: $? = 1
 configure: failed program was:
@@ -2518,8 +2533,13 @@ configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
 Undefined symbols for architecture x86_64:
   "_mbschr", referenced from:
+<<<<<<< HEAD
       _main in conftest-3606a2.o
 ld: symbol(s) not found for architecture x86_64
+=======
+      _main in conftest-e85832.o
+ld: symbol(s) not found for architecture arm64
+>>>>>>> dollar
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 configure:7450: $? = 1
 configure: failed program was:
