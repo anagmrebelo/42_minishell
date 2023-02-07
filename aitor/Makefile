@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /System/Volumes/Data/sgoinfre/Perso/arebelo/0_workspace/minishell/aitor
+BUILD_DIR = /sgoinfre/Perso/arebelo/0_workspace/minishell/aitor
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
