@@ -13,11 +13,13 @@
 
 
 
-	- [ ] Shell level ctrl C 
+- [ ] Shell level ctrl C 
 - [ ] Exit max exit min
 - [ ] export ECMD="         'echo'      hi " ; $ECMD"
 - [x] echo $""USER
 - [x] echo  $USER "" $USER '$USER'$ "$USER" "'$USER'$ $USER"'$USER'"$USER"$'"$USER"' "$USER"$nada$1aaa$
-- [ ] ^C
-- [ ] Print exit with ctrl D when line is empty
-- [ ] ctrl D de minishell mientras ejecutas te devuelve 0 (no 1)
+
+
+NO PRIORITARY
+- quitar el ^C
+- ctrl + D exit que lo aparezca en la misma línea
