@@ -78,7 +78,68 @@ LIBFT_DIR			= libft
 OBJS_DIR			= objs/
 SRCS_DIR			= srcs/
 
+<<<<<<< HEAD
 # LIBRARIES
+=======
+SRC				= main.c\
+				env/init_env.c\
+				env/aux_env.c\
+				env/sort_env.c\
+				env/env.c\
+				env/free_env.c\
+				env/return_var.c\
+				env/default_env.c\
+				env/begin_env.c\
+				pipe/pipe_stru.c\
+				parse/parsing.c\
+				parse/token.c\
+				parse/quotes.c\
+				parse/token_delete.c\
+				parse/copy_token.c\
+				parse/delete_update.c\
+				parse/type.c\
+				parse/command_separation.c\
+				parse/free.c\
+				parse/free_components.c\
+				expansions/variables_env.c\
+				expansions/variables_env_aux.c\
+				expansions/find_var.c\
+				expansions/home_update.c\
+				expansions/clean_dollar.c\
+				redir/initial_redir.c\
+				redir/outputs.c\
+				redir/inputs.c\
+				exec/exec_one.c\
+				exec/exec_multi.c\
+				exec/exec_utils.c\
+				exec/exec_builtin.c\
+				exec/get_command.c\
+				exec/exec.c\
+				heredoc/heredoc.c\
+				heredoc/variables_heredoc.c\
+				heredoc/find_var_heredoc.c\
+				builtins/echo.c\
+				builtins/pwd.c\
+				builtins/cd/cd.c\
+				builtins/cd/aux_cd.c\
+				builtins/env.c\
+				builtins/export/export.c\
+				builtins/export/aux_exp.c\
+				builtins/unset.c\
+				builtins/exit.c\
+				errors/print_error.c\
+				errors/common_errors.c\
+				utils/double_array.c\
+				utils/join_free.c\
+				utils/char_check.c\
+				signal.c\
+				
+
+OBJ				= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+
+DEP				= $(addsuffix .d, $(basename $(OBJ)))
+
+>>>>>>> fixexport
 # **************************************************************************** #
 LIBS_EXEC			= $(LIBFT_DIR)/libft.a
 LIBS_EXEC			+= $(READLINE_DIR)/libreadline.a

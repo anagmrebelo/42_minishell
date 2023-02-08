@@ -49,7 +49,11 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
+<<<<<<< HEAD
 BUILD_DIR = /Users/anarebelo/Documents/Coding/42/0_workspace/0_cursus/minishell/aitor
+=======
+BUILD_DIR = /workspaces/minishell/aitor
+>>>>>>> fixexport
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

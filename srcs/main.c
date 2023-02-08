@@ -72,8 +72,9 @@ void	readline_loop(t_master *master)
 		return ;
 	if (master->line == 0)
 	{
+		printf("exit\n");
 		free_master(master);
-		exit (1);
+		exit (0);
 	}
 	if (*master->line != '\0')
 	{
