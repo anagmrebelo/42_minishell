@@ -57,17 +57,27 @@ int	is_numeric(char *str)
 	return (0);
 }
 
+int	checknum(char *str)
+{
+	if (ft_strcmp(str, "9223372036854775807") > 0)
+		return (1);
+	if (ft_strcmp(str, "-9223372036854775807") > 0)
+		return (1);
+	return (0);
+}
+
 int	aux_exit(char **args, t_master *master)
 {
 	int	n;
 
-	if (is_numeric(args[1]))
+	n = 0;
+	if (is_numeric(args[1]) || checknum(args[1]))
 	{
 		print_exit_error(2, args[1]);
 		master->status = 1;
 		n = 255;
 	}
-	if (!is_numeric(args[1]) && !args[2])
+	else if (!is_numeric(args[1]) && !args[2])
 	{
 		n = ft_atoi(args[1]);
 		ft_putendl_fd("exit", 2);
@@ -81,7 +91,6 @@ int	aux_exit(char **args, t_master *master)
 int	ft_exit(char **args, t_master *master)
 {
 	int	n;
-
 	if (master->num_commands > 1)
 	{
 		n = ft_atoi(args[1]);
