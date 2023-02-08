@@ -32,11 +32,7 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
-<<<<<<< HEAD
 BUILD_DIR = /Users/anarebelo/Documents/Coding/42/0_workspace/0_cursus/minishell/aitor
-=======
-BUILD_DIR = /workspaces/minishell/aitor
->>>>>>> fixexport
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -53,13 +49,8 @@ LN = ln
 
 SHELL = /bin/sh
 
-<<<<<<< HEAD
 host_os = darwin21.5.0
 host_vendor = apple
-=======
-host_os = linux-gnu
-host_vendor = pc
->>>>>>> fixexport
 
 prefix = /usr/local
 exec_prefix = ${prefix}
@@ -87,21 +78,21 @@ LOCAL_DEFS =
 # changes to bash-maintainers@gnu.org.
 #
 SHOBJ_CC = gcc
-SHOBJ_CFLAGS = -fPIC
+SHOBJ_CFLAGS = -fno-common
 SHOBJ_LD = ${CC}
 
-SHOBJ_LDFLAGS = -shared -Wl,-soname,$@
+SHOBJ_LDFLAGS = -dynamiclib -dynamic -undefined dynamic_lookup 
 SHOBJ_XLDFLAGS = 
 SHOBJ_LIBS = 
 
-SHLIB_XLDFLAGS =  -Wl,-rpath,$(libdir) -Wl,-soname,`basename $@ $(SHLIB_MINOR)`
-SHLIB_LIBS =  
+SHLIB_XLDFLAGS =  -dynamiclib -install_name $(libdir)/`echo $@ | sed "s:\..*::"`.$(SHLIB_MAJOR).$(SHLIB_LIBSUFF) -current_version $(SHLIB_MAJOR)$(SHLIB_MINOR) -compatibility_version $(SHLIB_MAJOR)$(SHLIB_MINOR) -v
+SHLIB_LIBS = -lncurses
 
 SHLIB_DOT = .
 SHLIB_LIBPREF = lib
-SHLIB_LIBSUFF = so
+SHLIB_LIBSUFF = dylib
 
-SHLIB_LIBVERSION = $(SHLIB_LIBSUFF).$(SHLIB_MAJOR)$(SHLIB_MINOR)
+SHLIB_LIBVERSION = $(SHLIB_MAJOR)$(SHLIB_MINOR).$(SHLIB_LIBSUFF)
 SHLIB_DLLVERSION = $(SHLIB_MAJOR)
 
 SHLIB_STATUS = supported

@@ -31,11 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-<<<<<<< HEAD
 BUILD_DIR = /Users/anarebelo/Documents/Coding/42/0_workspace/0_cursus/minishell/aitor
-=======
-BUILD_DIR = /workspaces/minishell/aitor
->>>>>>> fixexport
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}

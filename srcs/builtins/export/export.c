@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:38:38 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:29:34 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/08 16:32:33 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	add_to_env(char *title, char *value, t_master *master)
@@ -87,8 +88,8 @@ int	ft_export(t_env *env, char **args, t_master *master)
 {
 	int		i;
 	int		rtrn;
-	char	*title;
 
+	(void) env;
 	rtrn = 0;
 	if (!args[1])
 		return (only_export(master));
