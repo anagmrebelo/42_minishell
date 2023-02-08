@@ -55,10 +55,10 @@ char	*join_title_value(t_master *master, char *title, char *value, char **ar)
 	str = ft_strdup(title);
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, "=");
+	str = join_free_s1(str, "=");
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, value);
+	str = join_free_s1(str, value);
 	if (!str)
 		free_array_master(ar, master);
 	return (str);
