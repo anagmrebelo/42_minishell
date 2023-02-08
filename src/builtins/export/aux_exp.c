@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_exp.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 13:04:47 by mrollo            #+#    #+#             */
+/*   Updated: 2023/02/08 13:04:48 by mrollo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../../include/minishell.h"
 
 void	print_export_error(char *str)
@@ -39,6 +50,13 @@ int	first_check(char *str)
 	return (0);
 }
 
+int	aux_var_title_check(char c, int i, int len)
+{
+	if ((i == (len - 1)) && c == '+')
+		return (1);
+	return (0);
+}
+
 int	var_title_check(char *str)
 {
 	int		i;
@@ -56,17 +74,11 @@ int	var_title_check(char *str)
 		return (0);
 	if (ft_isalpha(str[0]) || str[0] == '_')
 	{
-		i = 1;
-		while (i < len)
+		i = 0;
+		while (++i < len)
 		{
 			if (!ft_isalpha(str[i]) && str[i] != '_' && !ft_isdigit(str[i]))
-			{
-				if ((i == (len - 1)) && str[i] == '+')
-					return (1);
-				return (0);
-			}
-			else
-				i++;
+				return (aux_var_title_check(str[i], i, len));
 		}
 	}
 	else
