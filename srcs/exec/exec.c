@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:09:00 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/07 18:55:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/07 19:32:18 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	exec(t_master *master, t_command *cmd)
 	else if (!cmd->args_char[0])
 		exit(0);
 	else if (is_builtin(cmd->args_char[0]))
-		clean_free(master, exec_builtin(cmd->args_char[0], cmd, master->env, master));
+		clean_free(master, exec_builtin(cmd->args_char[0],
+				cmd, master->env, master));
 	else
 		exec_bin(master, cmd);
 	return (0);

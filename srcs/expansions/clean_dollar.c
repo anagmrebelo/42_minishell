@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:24:58 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/06 18:03:37 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/07 19:28:53 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ _Bool	is_first_quote(char *ret, int pos)
 	int		i;
 	int		j;
 	_Bool	allow_update;
-	
+
 	allow_update = 0;
 	i = 0;
 	j = -1;

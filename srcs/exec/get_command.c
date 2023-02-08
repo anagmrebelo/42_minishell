@@ -6,11 +6,17 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:07:42 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/07 18:59:15 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/07 19:39:39 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	aux_norminette(char *aux, char **path, t_master *master)
+{
+	if (!aux)
+		free_path_master(aux, path, master, 1);
+}
 
 void	get_command_aux(char *path_cmd, char **path, t_master *master)
 {
@@ -33,8 +39,7 @@ char	*get_command(char **path, char *cmd, t_master *master)
 	while (path[i])
 	{
 		aux = ft_strjoin(path[i++], "/");
-		if (!aux)
-			free_path_master(aux, path, master, 1);
+		aux_norminette(aux, path, master);
 		path_cmd = join_free_s1(aux, cmd);
 		if (!path_cmd)
 			free_path_master(aux, path, master, 1);
