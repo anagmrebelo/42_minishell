@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+         #
+#    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:12:42 by arebelo           #+#    #+#              #
-#    Updated: 2023/02/08 16:31:02 by anarebelo        ###   ########.fr        #
+#    Updated: 2023/02/08 19:23:08 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,11 @@ LINK				= gcc
 CC					= gcc -c
 DEPFLAGS			= -MMD -MP
 CFLAGS				= -Wall -Wextra -Werror 
+CFLAGS 				+= -Wpedantic -Werror=pedantic -pedantic-errors -Wcast-align
+CFLAGS 				+= -Wcast-qual -Wdisabled-optimization -Wformat=2 -Wuninitialized
+CFLAGS 				+= -Wmissing-include-dirs -Wredundant-decls -Wshadow
+CFLAGS 				+= -Wstrict-overflow=5 -Wundef -fdiagnostics-show-option
+CFLAGS 				+= -fstack-protector-all
 RM					= rm -rf
 
 # RULES
@@ -117,7 +122,7 @@ $(READLINE_DIR)/libhistory.a:
 					@cd $(TMP)
 
 $(BINARY): $(OBJS) $(LIBS_EXEC)
-					@$(LINK) $(CFLAGS) $(LIBS_EXEC) $(LIBS) $(INCLUDE) -o $@ $^
+					@$(LINK) $(CFLAGS) $(INCLUDE) -o $@ $^ $(LIBS)
 
 clean:
 					@$(RM) $(OBJS_DIR)
