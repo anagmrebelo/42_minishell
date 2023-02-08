@@ -66,7 +66,7 @@ int	do_export(t_master *master, char *str)
 	rtrn = 0;
 	if (var_title_check(str))
 	{
-		title = get_title(str, master); //protegida dentro de get_title
+		title = get_title(str, master);
 		if (find_in_env(master->env, title))
 		{
 			update_var(master->env, title, str, master);
