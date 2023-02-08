@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/02 16:13:09 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/08 15:51:12 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ char	*join_double_free(char *s1, char *s2)
 	int		i;
 	int		j;
 	char	*new;
-	int		mal;
 
-	mal = 0;
 	if (!s1)
 		s1 = ft_calloc(1, sizeof(char));
 	new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
