@@ -40,6 +40,21 @@ int	check_n(char *arg)
 	return (0);
 }
 
+int	do_echo(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		print_echo(args[i], STDOUT_FILENO);
+		if (args[i + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
+	return (i);
+}
+
 int	ft_echo(char **args)
 {
 	int	i;
@@ -62,14 +77,7 @@ int	ft_echo(char **args)
 		flag = 1;
 		args = &args[i];
 	}
-	i = 0;
-	while (args[i])
-	{
-		print_echo(args[i], STDOUT_FILENO);
-		if (args[i + 1])
-			ft_putchar_fd(' ', STDOUT_FILENO);
-		i++;
-	}
+	i = do_echo(args);
 	if (!args[i] && !flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
