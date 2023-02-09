@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:12:42 by arebelo           #+#    #+#              #
-#    Updated: 2023/02/09 13:25:47 by arebelo          ###   ########.fr        #
+#    Updated: 2023/02/09 22:09:20 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ SRCS				= main.c\
 					parse/delete_update.c\
 					parse/type.c\
 					parse/command_separation.c\
-					parse/free.c\
 					parse/free_components.c\
+					free/free.c\
 					expansions/variables_env.c\
 					expansions/variables_env_aux.c\
 					expansions/find_var.c\
@@ -121,7 +121,7 @@ $(READLINE_DIR)/libhistory.a:
 					@make -C $(READLINE_DIR)
 					@cd $(TMP)
 
-$(BINARY): $(OBJS) $(LIBS_EXEC)
+$(BINARY): $(OBJS) $(LIBS_EXEC) 
 					@$(LINK) $(CFLAGS) $(INCLUDE) -o $@ $^ $(LIBS)
 
 clean:

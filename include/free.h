@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 20:38:41 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:36:00 by arebelo          ###   ########.fr       */
+/*   Created: 2023/02/09 15:50:53 by arebelo           #+#    #+#             */
+/*   Updated: 2023/02/09 15:54:13 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FREE_H
+# define FREE_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s != NULL)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
-}
+# include "minishell.h"
+
+void	clean_free(t_master *master, int exit_code);
+void	clean_free_no_exit(t_master *master);
+void	prep_next_line(t_master *master);
+void	free_master(t_master *master);
+
+#endif

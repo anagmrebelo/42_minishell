@@ -6,11 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:04:07 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:11:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:58:30 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include "utils.h"
+#include "free.h"
 
 void	sort(char **sort_array, int len)
 {

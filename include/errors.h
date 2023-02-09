@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 20:38:41 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:36:00 by arebelo          ###   ########.fr       */
+/*   Created: 2023/02/09 15:40:43 by arebelo           #+#    #+#             */
+/*   Updated: 2023/02/09 15:49:15 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s != NULL)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
-}
+# include "minishell.h"
+
+void	no_file_dir(t_master *master, char *cmd, int exit_code);
+void	perm_denied(t_master *master, char *cmd, int exit_code);
+void	not_dir(t_master *master, char *cmd, int exit_code);
+void	print_error(char *minishell, char *builtin, char *message);
+char	*create_message(t_master *master, char *message,
+			char *token, char *msg);
+
+#endif

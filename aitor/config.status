@@ -430,11 +430,7 @@ Copyright (C) 2021 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-<<<<<<< HEAD
 ac_pwd='/sgoinfre/Perso/arebelo/0_workspace/minishell/aitor'
-=======
-ac_pwd='/Users/mrollo/Cursus/minishell/aitor'
->>>>>>> 13cb0649fad8824806809c8c529e3a9237d47a25
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 test -n "$AWK" || AWK=awk
@@ -617,11 +613,7 @@ S["ARFLAGS"]="cr"
 S["LOCAL_DEFS"]=""
 S["LOCAL_LDFLAGS"]=""
 S["LOCAL_CFLAGS"]=""
-<<<<<<< HEAD
 S["BUILD_DIR"]="/sgoinfre/Perso/arebelo/0_workspace/minishell/aitor"
-=======
-S["BUILD_DIR"]="/Users/mrollo/Cursus/minishell/aitor"
->>>>>>> 13cb0649fad8824806809c8c529e3a9237d47a25
 S["EXAMPLES_INSTALL_TARGET"]="install-examples"
 S["SHARED_INSTALL_TARGET"]="install-shared"
 S["STATIC_INSTALL_TARGET"]="install-static"

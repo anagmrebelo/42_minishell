@@ -6,12 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:42:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 16:12:09 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:36:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strdup(const char *s1)
 {

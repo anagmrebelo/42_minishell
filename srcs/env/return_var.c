@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   return_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:49:10 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:50:34 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:39:38 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+
+#include "minishell.h"
 
 /**
  * Function that returns a shallow copy of the value of env variable with

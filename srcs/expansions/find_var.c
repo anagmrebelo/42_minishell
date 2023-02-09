@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:06:27 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:20:00 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "expansions.h"
 
 /**
  * Checks if it is alphanumeric or $
@@ -20,6 +20,39 @@ _Bool	ok(char c)
 	if (!ft_isalnum(c) && c != '$' && c != '?' && c != '_')
 		return (0);
 	return (1);
+}
+
+static char	*find_aux2(char *str, t_master *master)
+{
+	str = join_free_s2("$", str);
+	if (!str)
+		clean_free(master, 1);
+	return (str);
+}
+
+static char	*find_aux(char *str, t_master *master)
+{
+	t_env	*temp;
+	char	*test;
+
+	temp = master->env;
+	if (ft_strcmp(str, "?") == 0)
+	{
+		free(str);
+		test = ft_itoa(g_error);
+		if (!test)
+			clean_free(master, 1);
+		return (test);
+	}
+	while (temp && str)
+	{
+		if (ft_strcmp(str, temp->title) == 0)
+			return (create_str(str, temp, master));
+		temp = temp->next;
+	}
+	if (str)
+		free(str);
+	return (NULL);
 }
 
 /**
@@ -59,31 +92,6 @@ char	*find_var(char *str, t_master *master, int pos, char *full_line)
 	return (find_aux2(str, master));
 }
 
-char	*find_aux(char *str, t_master *master)
-{
-	t_env	*temp;
-	char	*test;
-
-	temp = master->env;
-	if (ft_strcmp(str, "?") == 0)
-	{
-		free(str);
-		test = ft_itoa(g_error);
-		if (!test)
-			clean_free(master, 1);
-		return (test);
-	}
-	while (temp && str)
-	{
-		if (ft_strcmp(str, temp->title) == 0)
-			return (create_str(str, temp, master));
-		temp = temp->next;
-	}
-	if (str)
-		free(str);
-	return (NULL);
-}
-
 /**
  * Creates a malloc char* with value of matched env variable
 */
@@ -101,12 +109,4 @@ char	*create_str(char *str, t_env *temp, t_master *master)
 		clean_free(master, 1);
 	a = do_non_print(a);
 	return (a);
-}
-
-char	*find_aux2(char *str, t_master *master)
-{
-	str = join_free_s2("$", str);
-	if (!str)
-		clean_free(master, 1);
-	return (str);
 }

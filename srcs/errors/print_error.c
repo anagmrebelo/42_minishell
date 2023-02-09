@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:03 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/01/31 17:47:49 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:42:00 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "errors.h"
 
 void	print_error(char *minishell, char *builtin, char *message)
 {

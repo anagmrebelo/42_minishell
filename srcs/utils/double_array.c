@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:11:03 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 18:12:39 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:51:06 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "utils.h"
 
 /**
  * Frees a double pointer

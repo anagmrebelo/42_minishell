@@ -6,11 +6,39 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/02 10:35:24 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:55:26 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "redir.h"
+
+/**
+  * If str contains a '/'
+  * then it confirms if path treats a document as a directory
+  * if there is no permissions to access to directory
+  * if path is not valid as does not exist such a file or dir
+ */
+static _Bool	check_path_tofile(char *str, t_command *cmd, t_master *master)
+{
+	char	*tmp;
+
+	tmp = file_new_path(str, master);
+	opendir(tmp);
+	if (errno == ENOTDIR)
+	cmd->not_dir = 1;
+	else if (!access(tmp, W_OK))
+	{
+		free(tmp);
+		return (1);
+	}
+	else if (!access(tmp, F_OK))
+		cmd->inv_perm = 1;
+	else
+		cmd->inv_file = 1;
+	cmd->failed = cmd->outputs;
+	free(tmp);
+	return (0);
+}
 
 /**
  * Checks if path to file exists, if not creates file
@@ -92,34 +120,6 @@ _Bool	validate_output(char *str, t_command *cmd, t_master *master)
 	else
 		return (check_path_tofile(str, cmd, master));
 	return (1);
-}
-
-/**
-  * If str contains a '/'
-  * then it confirms if path treats a document as a directory
-  * if there is no permissions to access to directory
-  * if path is not valid as does not exist such a file or dir
- */
-_Bool	check_path_tofile(char *str, t_command *cmd, t_master *master)
-{
-	char	*tmp;
-
-	tmp = file_new_path(str, master);
-	opendir(tmp);
-	if (errno == ENOTDIR)
-	cmd->not_dir = 1;
-	else if (!access(tmp, W_OK))
-	{
-		free(tmp);
-		return (1);
-	}
-	else if (!access(tmp, F_OK))
-		cmd->inv_perm = 1;
-	else
-		cmd->inv_file = 1;
-	cmd->failed = cmd->outputs;
-	free(tmp);
-	return (0);
 }
 
 /**

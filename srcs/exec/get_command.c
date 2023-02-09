@@ -6,23 +6,33 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:07:42 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/07 19:39:39 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:39:11 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "exec.h"
 
-void	aux_norminette(char *aux, char **path, t_master *master)
+static void	aux_norminette(char *aux, char **path, t_master *master)
 {
 	if (!aux)
 		free_path_master(aux, path, master, 1);
 }
 
-void	get_command_aux(char *path_cmd, char **path, t_master *master)
+static void	get_command_aux(char *path_cmd, char **path, t_master *master)
 {
 	print_error("minishell", path_cmd, "Permission denied\n");
 	free(path_cmd);
 	free_path_master(NULL, path, master, 126);
+}
+
+static void	free_path_master(char *aux, char **path,
+	t_master *master, int exit_code)
+{
+	if (aux)
+		free(aux);
+	if (path)
+		free_double_array(path);
+	clean_free(master, exit_code);
 }
 
 //Prueba en cada direccion de path si encuentra el comando necesario
@@ -54,14 +64,4 @@ char	*get_command(char **path, char *cmd, t_master *master)
 	if (path_bin(path))
 		return (executable(cmd, master));
 	return (NULL);
-}
-
-void	free_path_master(char *aux, char **path,
-	t_master *master, int exit_code)
-{
-	if (aux)
-		free(aux);
-	if (path)
-		free_double_array(path);
-	clean_free(master, exit_code);
 }

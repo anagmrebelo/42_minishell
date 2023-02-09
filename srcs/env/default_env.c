@@ -6,11 +6,12 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:53:00 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 16:34:14 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 16:03:44 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "utils.h"
+#include "free.h"
 
 void	create_shlvl(t_master *master)
 {

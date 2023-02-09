@@ -6,11 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:49:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:23:10 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:14:31 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
+#include "errors.h"
+#include "free.h"
 
 /**
  * When creating the token assign type;
@@ -41,12 +43,35 @@ void	add_type(t_token *new)
  * Second condition: | |
  * Third condition | < >
 */
-_Bool	check_exceptions(t_token *fst, t_token *scnd)
+static _Bool	check_exceptions(t_token *fst, t_token *scnd)
 {
 	if (fst->type < 5 && scnd->type)
 		return (1);
 	if (fst->type == 5 && scnd->type == 5)
 		return (1);
+	return (0);
+}
+
+static _Bool	syntax_verifications(t_token *temp, t_master *master)
+{
+	char	*message;
+
+	if (!(!temp->next || check_exceptions(temp, temp->next)))
+		return (1);
+	if (!temp->next)
+	{
+		message = ft_strdup("syntax error near unexpected token `newline\'\n");
+		if (!message)
+			clean_free(master, 1);
+	}
+	else
+	{
+		message = create_message(master,
+				"syntax error near unexpected token `", temp->next->str, "\'\n");
+	}
+	print_error("minishell", NULL, message);
+	g_error = 258;
+	free(message);
 	return (0);
 }
 
@@ -96,27 +121,4 @@ void	add_types_redir(t_master *master)
 		}
 		temp = temp->next;
 	}
-}
-
-_Bool	syntax_verifications(t_token *temp, t_master *master)
-{
-	char	*message;
-
-	if (!(!temp->next || check_exceptions(temp, temp->next)))
-		return (1);
-	if (!temp->next)
-	{
-		message = ft_strdup("syntax error near unexpected token `newline\'\n");
-		if (!message)
-			clean_free(master, 1);
-	}
-	else
-	{
-		message = create_message(master,
-				"syntax error near unexpected token `", temp->next->str, "\'\n");
-	}
-	print_error("minishell", NULL, message);
-	g_error = 258;
-	free(message);
-	return (0);
 }

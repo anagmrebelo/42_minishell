@@ -6,13 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:55:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:13:29 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "heredoc.h"
 
-char	*aux1_here(char *read, t_master *master, char *line, int *c)
+static char	*aux1_here(char *read, t_master *master, char *line, int *c)
 {
 	char	*temp;
 
@@ -29,7 +29,7 @@ char	*aux1_here(char *read, t_master *master, char *line, int *c)
 	return (line);
 }
 
-char	*aux2_here(char *read, t_master *master, char *line, int *c)
+static char	*aux2_here(char *read, t_master *master, char *line, int *c)
 {
 	char	*temp;
 
@@ -46,7 +46,7 @@ char	*aux2_here(char *read, t_master *master, char *line, int *c)
 	return (line);
 }
 
-char	*aux3_here(char *read, t_master *master, char *line, int *c)
+static char	*aux3_here(char *read, t_master *master, char *line, int *c)
 {
 	char	*temp;
 
@@ -63,7 +63,7 @@ char	*aux3_here(char *read, t_master *master, char *line, int *c)
 	return (line);
 }
 
-char	*aux4_here(char *read, t_master *master, char *line, int *c)
+static char	*aux4_here(char *read, t_master *master, char *line, int *c)
 {
 	char	*temp;
 

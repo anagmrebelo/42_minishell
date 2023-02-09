@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:13:44 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/02 10:24:39 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:41:19 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "errors.h"
 
 /**
  * Prints error of no such file or directory and sets exit code to 127

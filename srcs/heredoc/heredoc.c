@@ -6,13 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:29:21 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:53:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:10:50 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "heredoc.h"
 
-void	handle_heredoc(t_token *token, char *limit, t_master *master)
+static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 {
 	int		fd;
 	char	*line;

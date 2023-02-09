@@ -6,11 +6,22 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 13:07:22 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:51:31 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "utils.h"
+
+static char	*free_aux_join(char *s1, char *s2, char *s3)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	if (s3)
+		free(s3);
+	return (NULL);
+}
 
 /**
  * Function equivalent to ft_strnjoin however it frees both 
@@ -99,16 +110,6 @@ char	*join_free_s2(char *s1, char *s2)
 	return (new);
 }
 
-char	*free_aux_join(char *s1, char *s2, char *s3)
-{
-	if (s1)
-		free(s1);
-	if (s2)
-		free(s2);
-	if (s3)
-		free(s3);
-	return (NULL);
-}
 
 char	*free_aux_master(char *s1, char *s2, char *s3, t_master *master)
 {

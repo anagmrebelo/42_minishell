@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   aux_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:35:18 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/04 14:35:19 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 15:57:02 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "free.h"
 #include "minishell.h"
 
 int	env_len(t_env *env)

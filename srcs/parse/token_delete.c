@@ -6,16 +6,16 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:05:15 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:11:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:02:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
 
 /**
  * Function that deletes token from list and updates next and prev
 */
-void	delete_token(t_token *token, t_master *master)
+static void	delete_token(t_token *token, t_master *master)
 {
 	if (token->prev)
 		token->prev->next = token->next;
@@ -47,7 +47,7 @@ void	clean_tokens(t_master *master)
 /**
 * Frees memory of a specific token
 */
-void	free_token(t_token *item)
+static void	free_token(t_token *item)
 {
 	if (item)
 	{

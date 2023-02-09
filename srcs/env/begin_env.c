@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:52:56 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/30 19:56:21 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:30:42 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Creates an environment with the default variables, 

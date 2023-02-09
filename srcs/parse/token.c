@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 18:40:10 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 22:25:26 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 16:09:16 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
+#include "free.h"
+#include "utils.h"
+
 /**
  * Add token to the back of the list
 */
@@ -39,13 +42,19 @@ t_token	*last_token(t_token *token)
 }
 
 /**
- * Returns the first token of the list
+ * Returns the number of char* from a char**
 */
-t_token	*first_token(t_token *token)
+static int	list_len(t_token *token)
 {
-	while (token && token->prev)
-		token = token->prev;
-	return (token);
+	int		len;
+
+	len = 0;
+	while (token != NULL)
+	{
+		len++;
+		token = token->next;
+	}
+	return (len);
 }
 
 /**
@@ -74,20 +83,4 @@ char	**token_to_array(t_token *token, t_master *master)
 		i++;
 	}
 	return (token_array);
-}
-
-/**
- * Returns the number of char* from a char**
-*/
-int	list_len(t_token *token)
-{
-	int		len;
-
-	len = 0;
-	while (token != NULL)
-	{
-		len++;
-		token = token->next;
-	}
-	return (len);
 }

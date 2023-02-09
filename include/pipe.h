@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 20:38:41 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:36:00 by arebelo          ###   ########.fr       */
+/*   Created: 2023/02/09 14:45:06 by arebelo           #+#    #+#             */
+/*   Updated: 2023/02/09 14:46:02 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPE_H
+# define PIPE_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s != NULL)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
-}
+# include "minishell.h"
+# include "parse.h"
+
+void	minishell(t_master *master);
+
+#endif

@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/07 19:02:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:52:39 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "free.h"
 
 void	clean_free_no_exit(t_master *master)
 {

@@ -6,17 +6,18 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:24:25 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:39:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:11:12 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
+#include "free.h"
 
 /**
  * Creates a deep copy of a given token
  * Returns the pointer to the created token
 */
-t_token	*copy_token(t_token *src, t_master *master)
+static t_token	*copy_token(t_token *src, t_master *master)
 {
 	t_token	*res;
 

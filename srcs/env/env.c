@@ -6,11 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:36:39 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:12:24 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:01:09 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "free.h"
+#include "utils.h"
 
 char	*get_title(char *str, t_master *master)
 {

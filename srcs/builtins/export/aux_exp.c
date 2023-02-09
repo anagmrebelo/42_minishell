@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   aux_exp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:04:47 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/08 13:04:48 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:31:26 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../../include/minishell.h"
+
+#include "minishell.h"
 
 void	print_export_error(char *str)
 {

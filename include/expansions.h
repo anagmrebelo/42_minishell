@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   expansions.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 19:51:54 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:35:53 by arebelo          ###   ########.fr       */
+/*   Created: 2023/02/09 15:14:06 by arebelo           #+#    #+#             */
+/*   Updated: 2023/02/09 15:49:42 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXPANSIONS_H
+# define EXPANSIONS_H
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	i;
+# include "minishell.h"
 
-	if (!dest && !src)
-		return (0);
-	if (dest < src)
-	{
-		ft_memcpy(dest, src, n);
-	}
-	i = n - 1;
-	if (dest > src)
-	{
-		while (i < n)
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i--;
-		}
-	}
-	return (dest);
-}
+char	*remove_dollar(char *str, t_master *master);
+_Bool	ok(char c);
+char	*create_str(char *str, t_env *temp, t_master *master);
+char	*find_var(char *str, t_master *master, int pos, char *full_line);
+void	home_update(t_master *master);
+char	*env_update(char *read, t_master *master, char *line);
+_Bool	aux5_env(char *read, int *c);
+
+#endif

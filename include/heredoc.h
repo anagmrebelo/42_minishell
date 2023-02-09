@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 20:38:41 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:36:00 by arebelo          ###   ########.fr       */
+/*   Created: 2023/02/09 15:08:26 by arebelo           #+#    #+#             */
+/*   Updated: 2023/02/09 15:49:49 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s != NULL)
-	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
-	}
-}
+# include "minishell.h"
+
+char	*find_here(char *str, t_master *master, int pos, char *full_line);
+char	*heredoc_update(char *read, char *line, t_master *master);
+void	check_heredoc(t_master *master);
+
+#endif

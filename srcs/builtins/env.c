@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:31:56 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 15:31:57 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:41:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+
+#include "minishell.h"
 
 int	ft_env(t_env *env)
 {
