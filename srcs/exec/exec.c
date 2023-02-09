@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:09:00 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/09 15:39:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:57:36 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "errors.h"
+#include "free.h"
+#include "utils.h"
+#include "parse.h"
 
 int	exec(t_master *master, t_command *cmd)
 {

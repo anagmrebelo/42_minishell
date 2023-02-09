@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   join_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 14:51:31 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:09:52 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "free.h"
 
 static char	*free_aux_join(char *s1, char *s2, char *s3)
 {

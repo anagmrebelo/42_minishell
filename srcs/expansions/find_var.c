@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:20:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:43:05 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
+#include "utils.h"
+#include "free.h"
 
 /**
  * Checks if it is alphanumeric or $

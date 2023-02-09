@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   aux_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/02 14:31:07 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 23:01:53 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
+#include "free.h"
+#include "utils.h"
 
 int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 {

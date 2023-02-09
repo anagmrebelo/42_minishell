@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   clean_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:24:58 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:17:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:45:00 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
+#include "free.h"
 
 static _Bool	is_first_quote(char *ret, int pos)
 {

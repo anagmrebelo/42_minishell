@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free_components.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:43:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:02:25 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:39:51 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "utils.h"
 
 /**
  * Frees line and sets it to null

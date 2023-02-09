@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 14:54:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:48:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redir.h"
+#include "free.h"
 
 /**
  * Function that makes the STDIN be the last input of the command

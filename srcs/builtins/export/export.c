@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:38:38 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:31:31 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:04:52 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils.h"
+#include "free.h"
 
 void	add_to_env(char *title, char *value, t_master *master)
 {

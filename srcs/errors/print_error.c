@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:03 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/09 15:42:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:07:04 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "errors.h"
+#include "free.h"
+#include "utils.h"
 
 void	print_error(char *minishell, char *builtin, char *message)
 {

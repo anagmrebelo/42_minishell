@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   home_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:22:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:43:52 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
+#include "free.h"
+#include "utils.h"
 
 /**
  * Checks if after ~ exists a valid path substituting ~ by /Users/

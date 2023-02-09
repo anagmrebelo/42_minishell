@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   variables_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:24:41 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:42:28 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
+#include "free.h"
+#include "utils.h"
 
 char	*aux1_env(char *read, t_master *master, char *line, int *c)
 {

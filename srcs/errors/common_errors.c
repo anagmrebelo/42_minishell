@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   common_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:13:44 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/09 15:41:19 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:08:28 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "errors.h"
+#include "free.h"
 
 /**
  * Prints error of no such file or directory and sets exit code to 127

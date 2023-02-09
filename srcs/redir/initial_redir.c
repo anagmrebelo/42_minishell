@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   initial_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:48:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:46:32 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redir.h"
+#include "free.h"
+#include "errors.h"
 
 /**
  * Copies the initial STDIN and STDOUT to the master structure

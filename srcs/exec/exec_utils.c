@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 21:51:35 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/09 15:39:23 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:52:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "free.h"
+#include "utils.h"
+#include "errors.h"
 
 /**
  * Looks for variable path and transforms its paths into char**

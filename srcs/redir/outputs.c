@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 14:55:26 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:48:10 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redir.h"
+#include "free.h"
 
 /**
   * If str contains a '/'

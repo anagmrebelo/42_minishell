@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   find_var_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:10:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:00:18 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#include "free.h"
+#include "utils.h"
+#include "expansions.h"
 
 static char	*find_aux_here(char *str, t_master *master)
 {

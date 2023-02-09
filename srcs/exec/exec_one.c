@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:39:34 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:51:02 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "errors.h"
+#include "redir.h"
+#include "free.h"
 
 void	minishell_one(t_master *master)
 {

@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   variables_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:13:29 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:59:13 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#include "free.h"
+#include "utils.h"
+#include "expansions.h"
 
 static char	*aux1_here(char *read, t_master *master, char *line, int *c)
 {
