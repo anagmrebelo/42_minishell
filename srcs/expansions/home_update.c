@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 12:49:31 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 00:57:52 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
  * Expands '~' to home directory if is surrounded by spaces or it has a '/' after
  * or represents a valid path
 */
-void	home_update(t_token *new, t_master *master)
+void	home_update(t_master *master)
 {
 	unsigned int	i;
 
 	i = 0;
-	if (ft_strrchr(new->str, '~') == NULL)
+	if (ft_strrchr(master->line, '~') == NULL)
 		return ;
-	while (new->str[i])
+	while (master->line[i])
 	{
-		if (new->str[i] == '~')
+		if (master->line[i] == '~')
 		{
-			if (i == 0 || (i > 0 && is_space(new->str[i - 1])))
+			if (i == 0 || (i > 0 && is_space(master->line[i - 1])))
 			{
-				if (i == (ft_strlen(new->str) - 1)
-					|| (is_space(new->str[i + 1]) || new->str[i + 1] == '/'))
-					home_join(new, master, i);
-				if (is_valid_path(&new->str[i + 1], master))
-					users_join(new, master, i);
+				if (i == (ft_strlen(master->line) - 1)
+					|| (is_space(master->line[i + 1]) || master->line[i + 1] == '/'))
+					home_join(master, i);
+				if (is_valid_path(&master->line[i + 1], master))
+					users_join(master, i);
 			}
 		}
 		i++;
@@ -62,13 +62,14 @@ _Bool	is_valid_path(char *str, t_master *master)
 		free(tmp);
 		return (1);
 	}
+	free(tmp);
 	return (0);
 }
 
 /**
  * Returns string with one more expansion of '~' from variable HOME or getenv
 */
-void	home_join(t_token *new, t_master *master, unsigned int i)
+void	home_join(t_master *master, unsigned int i)
 {
 	char	*home;
 	char	*before;
@@ -79,38 +80,38 @@ void	home_join(t_token *new, t_master *master, unsigned int i)
 		home = getenv("HOME");
 	if (!home)
 		return ;
-	before = ft_substr(new->str, 0, i);
-	after = ft_substr(new->str, i + 1, ft_strlen(new->str) - i);
+	before = ft_substr(master->line, 0, i);
+	after = ft_substr(master->line, i + 1, ft_strlen(master->line) - i);
 	if (!before || !after)
 		clean_free(master, 1);
-	free(new->str);
-	new->str = join_free_s1(before, home);
-	if (!new->str)
+	free(master->line);
+	master->line = join_free_s1(before, home);
+	if (!master->line)
 		clean_free(master, 1);
-	new->str = join_double_free(new->str, after);
-	if (!new->str)
+	master->line = join_double_free(master->line, after);
+	if (!master->line)
 		clean_free(master, 1);
 }
 
 /**
  * Returns string with one more expansion of '~' of /Users/
 */
-void	users_join(t_token *new, t_master *master, unsigned int i)
+void	users_join(t_master *master, unsigned int i)
 {
 	char	*home;
 	char	*before;
 	char	*after;
 
 	home = "/Users/";
-	before = ft_substr(new->str, 0, i);
-	after = ft_substr(new->str, i + 1, ft_strlen(new->str) - i);
+	before = ft_substr(master->line, 0, i);
+	after = ft_substr(master->line, i + 1, ft_strlen(master->line) - i);
 	if (!before || !after)
 		clean_free(master, 1);
-	free(new->str);
-	new->str = join_free_s1(before, home);
-	if (!new->str)
+	free(master->line);
+	master->line = join_free_s1(before, home);
+	if (!master->line)
 		clean_free(master, 1);
-	new->str = join_double_free(new->str, after);
-	if (!new->str)
+	master->line = join_double_free(master->line, after);
+	if (!master->line)
 		clean_free(master, 1);
 }

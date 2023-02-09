@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 22:24:51 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 00:55:00 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ _Bool	parsing(t_master *master)
 		g_error = 258;
 		return (0);
 	}
+	home_update(master);
 	tmp = env_update(master->line, master, NULL);
 	if (tmp != master->line)
 		free_line(master);
@@ -110,7 +111,6 @@ t_token	*new_token(char *line, int size, t_master *master)
 	}
 	add_type(new);
 	del_update(new);
-	home_update(new, master);
 	quotes_update(new, master);
 	return (new);
 }

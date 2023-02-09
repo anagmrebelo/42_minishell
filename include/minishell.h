@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/05 23:55:55 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 00:56:28 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ char	*find_aux(char *str, t_master *master);
 char	*find_aux2(char *str, t_master *master);
 char	*clean_dollar(char *str, int i, t_master *master, char *fre);
 char	*remove_dollar(char *str, t_master *master);
-void	home_join(t_token *new, t_master *master, unsigned int i);
-void	home_update(t_token *new, t_master *master);
+void	home_join(t_master *master, unsigned int i);
+void	home_update(t_master *master);
 _Bool	is_valid_path(char *str, t_master *master);
-void	users_join(t_token *new, t_master *master, unsigned int i);
+void	users_join(t_master *master, unsigned int i);
 _Bool	is_dots(char *cmd);
 void	del_update(t_token *new);
 _Bool	ok(char c);
