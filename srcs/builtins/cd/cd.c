@@ -9,27 +9,9 @@
 /*   Updated: 2023/02/01 15:11:25 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
-void	update_env(char *oldpwd, t_env *env, t_master *master)
-{
-	update_oldpwd(oldpwd, env, master);
-	update_pwd(env, master);
-}
-
-char	*get_env_value(char *title, t_env *env)
-{
-	while (env != NULL)
-	{
-		if (ft_strcmp(title, env->title) == 0)
-			return (env->value);
-		else
-			env = env->next;
-	}
-	return (NULL);
-}
-
-int	manage_cd(t_master *master, char *pwd)
+static int	manage_cd(t_master *master, char *pwd)
 {
 	char	*oldpwd;
 	int		rtrn;
@@ -53,6 +35,24 @@ int	manage_cd(t_master *master, char *pwd)
 	else
 		rtrn = 1;
 	return (rtrn);
+}
+
+void	update_env(char *oldpwd, t_env *env, t_master *master)
+{
+	update_oldpwd(oldpwd, env, master);
+	update_pwd(env, master);
+}
+
+char	*get_env_value(char *title, t_env *env)
+{
+	while (env != NULL)
+	{
+		if (ft_strcmp(title, env->title) == 0)
+			return (env->value);
+		else
+			env = env->next;
+	}
+	return (NULL);
 }
 
 int	ft_cd(t_env *env, char **args, t_master *master)

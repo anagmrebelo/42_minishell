@@ -11,6 +11,49 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+static char	*join_title_value(t_master *master, char *title, char *value, char **ar)
+{
+	char	*str;
+
+	str = ft_strdup(title);
+	if (!str)
+		free_array_master(ar, master);
+	str = join_free(str, "=");
+	if (!str)
+		free_array_master(ar, master);
+	str = join_free(str, value);
+	if (!str)
+		free_array_master(ar, master);
+	return (str);
+}
+
+static char	**fill_array(t_master *master, char **array, int len)
+{
+	int		i;
+	t_env	*env;
+	char	*str;
+
+	env = master->env;
+	i = 0;
+	while (i < len)
+	{
+		if (env->value)
+			str = join_title_value(master, env->title, env->value, array);
+		else
+		{
+			str = ft_strdup(env->title);
+			if (!str)
+				free_array_master(array, master);
+		}
+		array[i] = str;
+		if (!array[i])
+			free_array_master(array, master);
+		i++;
+		env = env->next;
+	}
+	return (array);
+}
+
 char	*get_title(char *str, t_master *master)
 {
 	char	*aux;
@@ -46,49 +89,6 @@ char	*get_value(char *str, t_master *master)
 		return (tmp);
 	}
 	return (value);
-}
-
-char	*join_title_value(t_master *master, char *title, char *value, char **ar)
-{
-	char	*str;
-
-	str = ft_strdup(title);
-	if (!str)
-		free_array_master(ar, master);
-	str = join_free(str, "=");
-	if (!str)
-		free_array_master(ar, master);
-	str = join_free(str, value);
-	if (!str)
-		free_array_master(ar, master);
-	return (str);
-}
-
-char	**fill_array(t_master *master, char **array, int len)
-{
-	int		i;
-	t_env	*env;
-	char	*str;
-
-	env = master->env;
-	i = 0;
-	while (i < len)
-	{
-		if (env->value)
-			str = join_title_value(master, env->title, env->value, array);
-		else
-		{
-			str = ft_strdup(env->title);
-			if (!str)
-				free_array_master(array, master);
-		}
-		array[i] = str;
-		if (!array[i])
-			free_array_master(array, master);
-		i++;
-		env = env->next;
-	}
-	return (array);
 }
 
 char	**env_to_array(t_master *master)

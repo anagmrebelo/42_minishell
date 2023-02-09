@@ -10,21 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	create_shlvl(t_master *master)
-{
-	char	*title;
-	char	*value;
-
-	title = ft_strdup("SHLVL");
-	value = ft_strdup("1");
-	if (!title || !value)
-		free_aux_master(title, value, NULL, master);
-	add_to_env(title, value, master);
-}
-
-void	create_usr_bin(t_master *master)
+static void	create_usr_bin(t_master *master)
 {
 	char	*title;
 	char	*value;
@@ -36,7 +24,7 @@ void	create_usr_bin(t_master *master)
 	add_to_env(title, value, master);
 }
 
-void	create_path(t_master *master)
+static void	create_path(t_master *master)
 {
 	char	*title;
 	char	*value;
@@ -48,7 +36,7 @@ void	create_path(t_master *master)
 	add_to_env(title, value, master);
 }
 
-void	create_pwd(t_master *master)
+static void	create_pwd(t_master *master)
 {
 	char	*pwd;
 	t_env	*env;
@@ -64,6 +52,18 @@ void	create_pwd(t_master *master)
 	if (!env->title || !env->value)
 		free_aux_master(env->title, env->value, NULL, master);
 	env->next = NULL;
+}
+
+void	create_shlvl(t_master *master)
+{
+	char	*title;
+	char	*value;
+
+	title = ft_strdup("SHLVL");
+	value = ft_strdup("1");
+	if (!title || !value)
+		free_aux_master(title, value, NULL, master);
+	add_to_env(title, value, master);
 }
 
 int	default_env(t_master *master)

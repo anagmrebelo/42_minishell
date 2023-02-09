@@ -11,33 +11,7 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	env_len(t_env *env)
-{
-	t_env	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = env;
-	while (tmp != NULL)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-int	find_in_env(t_env *env, char *str)
-{
-	while (env != NULL)
-	{
-		if (ft_strcmp(env->title, str) == 0)
-			return (1);
-		env = env->next;
-	}
-	return (0);
-}
-
-char	*aux_shlvl(t_master *master, int shlvl)
+static char	*aux_shlvl(t_master *master, int shlvl)
 {
 	char	*str;
 
@@ -75,6 +49,34 @@ void	update_shlvl(t_master *master)
 	else
 		create_shlvl(master);
 }
+
+int	env_len(t_env *env)
+{
+	t_env	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = env;
+	while (tmp != NULL)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+int	find_in_env(t_env *env, char *str)
+{
+	while (env != NULL)
+	{
+		if (ft_strcmp(env->title, str) == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}
+
+
 
 void	var_update(t_master *master)
 {

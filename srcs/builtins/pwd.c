@@ -9,9 +9,9 @@
 /*   Updated: 2023/02/01 16:24:31 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	env_path_update(t_env *env, char *str)
+static void	env_path_update(t_env *env, char *str)
 {
 	while (env != NULL)
 	{

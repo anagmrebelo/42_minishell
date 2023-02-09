@@ -9,16 +9,16 @@
 /*   Updated: 2023/02/01 16:10:36 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	print_unset_error(char *str)
+static void	print_unset_error(char *str)
 {
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 }
 
-int	first_u_check(char *str)
+static int	first_u_check(char *str)
 {
 	if (str[0] == '-')
 	{
@@ -32,7 +32,7 @@ int	first_u_check(char *str)
 	return (0);
 }
 
-void	unset_var(t_env *env, char *str)
+static void	unset_var(t_env *env, char *str)
 {
 	t_env	*next;
 
@@ -50,7 +50,7 @@ void	unset_var(t_env *env, char *str)
 	}
 }
 
-int	check_var(char *str)
+static int	check_var(char *str)
 {
 	int	len;
 	int	i;

@@ -25,7 +25,7 @@ void	print_env(t_env *env)
 	}
 }
 
-t_env	*last_env(t_env *env)
+static t_env	*last_env(t_env *env)
 {
 	if (!env)
 		return (NULL);

@@ -9,14 +9,14 @@
 /*   Updated: 2023/02/01 15:13:22 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	print_echo(char *str, int fd)
+static void	print_echo(char *str, int fd)
 {
 	ft_putstr_fd(str, fd);
 }
 
-int	check_n(char *arg)
+static int	check_n(char *arg)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ int	check_n(char *arg)
 	return (0);
 }
 
-int	do_echo(char **args)
+static int	do_echo(char **args)
 {
 	int	i;
 

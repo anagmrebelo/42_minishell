@@ -9,9 +9,9 @@
 /*   Updated: 2023/02/01 16:53:41 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <minishell.h>
+#include "minishell.h"
 
-void	sort(char **sort_array, int len)
+static void	sort(char **sort_array, int len)
 {
 	int		i;
 	int		j;
@@ -35,7 +35,7 @@ void	sort(char **sort_array, int len)
 	}
 }
 
-char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
+static char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
 {
 	char	*str;
 
@@ -54,7 +54,7 @@ char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
 	return (str);
 }
 
-char	**sort_env_array(char **sort_array, t_master *master, int len)
+static char	**sort_env_array(char **sort_array, t_master *master, int len)
 {
 	int		i;
 	char	*str;
