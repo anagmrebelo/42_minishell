@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:33:20 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 02:01:19 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:08:08 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	aux_exit(char **args, t_master *master)
 int	ft_exit(char **args, t_master *master)
 {
 	int	n;
+
 	if (master->num_commands > 1)
 	{
 		n = ft_atoi(args[1]);

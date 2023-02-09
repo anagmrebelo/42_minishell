@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:36:39 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:37:34 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:12:24 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*get_title(char *str, t_master *master)
@@ -55,10 +56,10 @@ char	*join_title_value(t_master *master, char *title, char *value, char **ar)
 	str = ft_strdup(title);
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, "=");
+	str = join_free_s1(str, "=");
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, value);
+	str = join_free_s1(str, value);
 	if (!str)
 		free_array_master(ar, master);
 	return (str);

@@ -6,9 +6,10 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:04:07 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:53:41 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 13:11:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <minishell.h>
 
 void	sort(char **sort_array, int len)
@@ -42,13 +43,13 @@ char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
 	str = ft_strdup(title);
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, "=\"");
+	str = join_free_s1(str, "=\"");
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, value);
+	str = join_free_s1(str, value);
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free(str, "\"");
+	str = join_free_s1(str, "\"");
 	if (!str)
 		free_array_master(ar, master);
 	return (str);

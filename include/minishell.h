@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 01:46:50 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:07:36 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,6 @@ void	clean_free_no_exit(t_master *master);
 void	free_fail_exec(char *command, char **path, char **env);
 
 //UTILS
-char	*join_free(char *s1, char *s2);
 void	free_double_array(char **table);
 size_t	ft_strlen(const char *str);
 char	**copy_double_array(char **src);

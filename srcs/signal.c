@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:24:46 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/04 00:36:37 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:06:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_signal(int i)
 	sa.sa_flags = SA_RESTART;
 	if (i)
 		sa.sa_handler = &handle_signal;
-	else	
+	else
 		sa.sa_handler = &handle_sig_exec;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);

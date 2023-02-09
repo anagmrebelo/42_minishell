@@ -1,12 +1,9 @@
 - review with mica for leaks and clean exit
-	-env
 	-heredoc
-	-builtins
-	-join_free
 
-- [ ] Shell level ctrl C 
 - [ ] Exit max exit min
-- [ ] export HOME='    '
+- [ ] heredoc signals
+- exit man exit min
 
 
 NO PRIORITARY
