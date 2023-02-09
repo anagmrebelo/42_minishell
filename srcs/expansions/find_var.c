@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 11:43:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:06:27 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	*create_str(char *str, t_env *temp, t_master *master)
 		a = ft_strdup(temp->value);
 	if (!a)
 		clean_free(master, 1);
+	a = do_non_print(a);
 	return (a);
 }
 

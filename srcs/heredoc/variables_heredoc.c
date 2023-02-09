@@ -6,9 +6,10 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:34:33 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/28 22:31:59 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:55:32 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 char	*aux1_here(char *read, t_master *master, char *line, int *c)
@@ -85,16 +86,12 @@ char	*aux4_here(char *read, t_master *master, char *line, int *c)
  and it is not between simple quotes
  * If there is $$ it should print minishell pid
 */
-char	*heredoc_update(char *read, t_master *master)
+char	*heredoc_update(char *read, char *line, t_master *master)
 {
 	int		c[2];
-	char	*line;
 
-	if (ft_strrchr(read, '$') == NULL)
-		return (read);
 	c[I] = -1;
 	c[J] = 0;
-	line = NULL;
 	while (read[++c[I]])
 	{
 		if (read[c[I]] == '$' && read[c[I] + 1] && ok(read[c[I] + 1]))
@@ -103,8 +100,7 @@ char	*heredoc_update(char *read, t_master *master)
 			if (ft_isdigit(read[c[I]]))
 				c[I]++;
 			else
-				while (read[c[I]] && ok(read[c[I]])
-					&& read[c[I]] != '$' && read[c[I]] != '?')
+				while (aux5_env(read, c))
 					c[I]++;
 			if (c[J] == c[I])
 				line = aux2_here(read, master, line, c);

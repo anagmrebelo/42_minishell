@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:41:32 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:42:29 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:41:47 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,38 @@ char	*quotes_clean(t_token *new, t_master *master)
  * Function that frees initial str of token with quotes and also eliminates
  * excessive memory in char* from quotes_clean
 */
-void	quotes_update(t_token *new, t_master *master)
+void	quotes_update(t_token *ne, t_master *master)
 {
 	char	*temp;
 
-	temp = new->str;
-	new->str = quotes_clean(new, master);
+	quotes_heredoc(ne);
+	temp = ne->str;
+	ne->str = quotes_clean(ne, master);
 	free(temp);
-	temp = new->str;
-	new->str = ft_strdup(new->str);
+	temp = ne->str;
+	ne->str = ft_strdup(ne->str);
 	free(temp);
-	if (!new->str)
+	if (!ne->str)
 		clean_free(master, 1);
+	ne->str = undo_non_print(ne->str);
+}
+
+/**
+ * Checks if there are quotes in the token->str
+ * If it finds, changes token->here to true
+*/
+void	quotes_heredoc(t_token *ne)
+{
+	int	i;
+
+	i = 0;
+	while (ne->str[i])
+	{
+		if (ne->str[i] == '\'' || ne->str[i] == '\"')
+		{
+			ne->here = 1;
+			return ;
+		}
+		i++;
+	}
 }

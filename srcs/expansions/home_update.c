@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 00:57:52 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:43:21 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	home_update(t_master *master)
 			if (i == 0 || (i > 0 && is_space(master->line[i - 1])))
 			{
 				if (i == (ft_strlen(master->line) - 1)
-					|| (is_space(master->line[i + 1]) || master->line[i + 1] == '/'))
+					|| (is_space(master->line[i + 1])
+						|| master->line[i + 1] == '/'))
 					home_join(master, i);
 				if (is_valid_path(&master->line[i + 1], master))
 					users_join(master, i);

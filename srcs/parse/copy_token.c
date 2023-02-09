@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 23:24:25 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:42:12 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:39:17 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_token	*copy_token(t_token *src, t_master *master)
 		free(res);
 		clean_free(master, 1);
 	}
+	res->here = src->here;
 	res->type = src->type;
 	res->next = NULL;
 	res->prev = NULL;

@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 00:56:28 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 01:46:50 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_token
 	int				type;
 	int				fd;
 	_Bool			no_del;
+	_Bool			here;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -93,7 +94,6 @@ typedef struct s_master
 	int			fd[2];
 	_Bool		status;
 	int			pid;
-	int			error;
 }	t_master;
 
 //MAIN
@@ -152,6 +152,8 @@ _Bool	is_valid_path(char *str, t_master *master);
 void	users_join(t_master *master, unsigned int i);
 _Bool	is_dots(char *cmd);
 void	del_update(t_token *new);
+char	*do_non_print(char *a);
+char	*undo_non_print(char *a);
 _Bool	ok(char c);
 char	*quotes_clean(t_token *new, t_master *master);
 void	quotes_update(t_token *new, t_master *master);
@@ -217,8 +219,9 @@ void	free_path_master(char *aux, char **path, t_master *master,
 
 //HEREDOC pasarlo a parsing
 void	handle_heredoc(t_token *token, char *limit, t_master *master);
-char	*heredoc_update(char *read, t_master *master);
+char	*heredoc_update(char *read, char *line, t_master *master);
 char	*find_here(char *str, t_master *master, int pos, char *full_line);
+void	quotes_heredoc(t_token *ne);
 
 //REDIRECTIONS
 void	init_redirs(t_master *master);

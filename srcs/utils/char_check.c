@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:17:47 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 21:59:01 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 01:04:57 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,42 @@ _Bool	is_dots(char *cmd)
 	else if (ft_strlen(cmd) == 2 && cmd[0] == '.' && cmd[1] == '.')
 		return (1);
 	return (0);
+}
+
+/**
+ * Changes '\'' for non printable char 27 and '\"' for non-printable char 28
+*/
+char	*do_non_print(char *a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i])
+	{
+		if (a[i] == '\'')
+			a[i] = 27;
+		if (a[i] == '\"')
+			a[i] = 28;
+		i++;
+	}
+	return (a);
+}
+
+/**
+ * Changes non printable char 27 for '\'' and non-printable char 28 for '\"'
+*/
+char	*undo_non_print(char *a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i])
+	{
+		if (a[i] == 27)
+			a[i] = '\'';
+		if (a[i] == 28)
+			a[i] = '\"';
+		i++;
+	}
+	return (a);
 }
