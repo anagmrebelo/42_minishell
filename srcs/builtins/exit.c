@@ -62,7 +62,7 @@ int	checknum(char *str)
 {
 	if (ft_strcmp(str, "9223372036854775807") > 0)
 		return (1);
-	if (ft_strcmp(str, "-9223372036854775807") > 0)
+	else if (str[0] == '-' && ft_strcmp(str, "-9223372036854775807") > 0)
 		return (1);
 	return (0);
 }
