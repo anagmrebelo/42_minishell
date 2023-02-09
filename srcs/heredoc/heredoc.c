@@ -33,6 +33,8 @@ void	handle_heredoc(t_token *token, char *limit, t_master *master)
 	close(fd);
 	free(token->str);
 	token->str = ft_strdup(".hdoc");
+	if (!token->str)
+		clean_free(master, 1);
 }
 
 /**
