@@ -31,13 +31,13 @@ void	update_var(t_env *env, char *title, char *str, t_master *master)
 		if (ft_strcmp(title, env->title) == 0)
 		{
 			value = get_value(str, master);
-			if (!*value)
+			if (ft_strchr(str, '='))
+				env->value = value;
+			else if (!*value)
 			{
 				free (value);
 				break ;
 			}
-			else
-				env->value = value;
 			break ;
 		}
 		env = env->next;
