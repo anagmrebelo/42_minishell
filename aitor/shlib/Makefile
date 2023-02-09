@@ -32,7 +32,11 @@ datarootdir = ${prefix}/share
 srcdir = .
 VPATH = ..
 topdir = ..
+<<<<<<< HEAD
 BUILD_DIR = /sgoinfre/Perso/arebelo/0_workspace/minishell/aitor
+=======
+BUILD_DIR = /Users/mrollo/Cursus/minishell/aitor
+>>>>>>> 13cb0649fad8824806809c8c529e3a9237d47a25
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
