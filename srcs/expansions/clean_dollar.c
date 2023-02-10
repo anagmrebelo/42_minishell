@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   clean_dollar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 00:24:58 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/07 19:28:53 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:45:00 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "expansions.h"
+#include "free.h"
 
-_Bool	is_first_quote(char *ret, int pos)
+static _Bool	is_first_quote(char *ret, int pos)
 {
 	int		i;
 	int		j;
@@ -43,7 +44,7 @@ _Bool	is_first_quote(char *ret, int pos)
 /**
  * Returns the str without the char at position i
 */
-char	*clean_dollar(char *str, int i, t_master *master, char *fre)
+static char	*clean_dollar(char *str, int i, t_master *master, char *fre)
 {
 	char	*ret;
 

@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:17:47 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:04:57 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 14:51:00 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "utils.h"
 
 /**
  * Returns true if space, tab, pipe or redirs

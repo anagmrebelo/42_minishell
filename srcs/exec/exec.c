@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:09:00 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/07 19:32:18 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 22:57:36 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "exec.h"
+#include "errors.h"
+#include "free.h"
+#include "utils.h"
+#include "parse.h"
 
 int	exec(t_master *master, t_command *cmd)
 {
@@ -24,6 +28,30 @@ int	exec(t_master *master, t_command *cmd)
 	else
 		exec_bin(master, cmd);
 	return (0);
+}
+
+static void	exec_aux_bin_free(char *command, char**path,
+	char **env, t_master *master)
+{
+	if (command)
+		free(command);
+	if (path)
+		free_double_array(path);
+	if (env)
+		free_double_array(env);
+	clean_free(master, 1);
+}
+
+static void	exec_aux_free(t_command *cmd, t_master *master)
+{
+	if (ft_strlen(cmd->args_char[0]) == 1 && *(cmd->args_char[0]) == '.')
+	{
+		print_error("minishell", cmd->args_char[0],
+			"filename argument required\n");
+		clean_free(master, 2);
+	}
+	print_error("minishell", cmd->args_char[0], "command not found\n");
+	clean_free(master, 127);
 }
 
 //ejecuta los comandos en un child process
@@ -45,28 +73,4 @@ void	exec_bin(t_master *master, t_command *cmd)
 	clean_free_no_exit(master);
 	execve(command, path, env);
 	free_fail_exec(command, path, env);
-}
-
-void	exec_aux_bin_free(char *command, char**path,
-	char **env, t_master *master)
-{
-	if (command)
-		free(command);
-	if (path)
-		free_double_array(path);
-	if (env)
-		free_double_array(env);
-	clean_free(master, 1);
-}
-
-void	exec_aux_free(t_command *cmd, t_master *master)
-{
-	if (ft_strlen(cmd->args_char[0]) == 1 && *(cmd->args_char[0]) == '.')
-	{
-		print_error("minishell", cmd->args_char[0],
-			"filename argument required\n");
-		clean_free(master, 2);
-	}
-	print_error("minishell", cmd->args_char[0], "command not found\n");
-	clean_free(master, 127);
 }

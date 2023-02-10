@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:59:56 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 15:11:25 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:16 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
+#include "free.h"
+#include "utils.h"
 
 static int	manage_cd(t_master *master, char *pwd)
 {

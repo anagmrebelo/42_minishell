@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   aux_exp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:04:47 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/08 13:04:48 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:28 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	equal_check(char *str)

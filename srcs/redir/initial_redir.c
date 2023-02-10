@@ -6,11 +6,13 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/01 23:36:57 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 22:46:32 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "redir.h"
+#include "free.h"
+#include "errors.h"
 
 /**
  * Copies the initial STDIN and STDOUT to the master structure

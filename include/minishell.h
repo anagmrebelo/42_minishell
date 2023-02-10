@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:07:36 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:31:15 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -96,14 +97,6 @@ typedef struct s_master
 	int			pid;
 }	t_master;
 
-//MAIN
-void	readline_loop(t_master *master);
-_Bool	isatty_check(t_master *master);
-
-//PIPES
-void	minishell(t_master *master);
-void	wait_childs(t_master *master);
-
 //ENVIROMENT
 void	begin_env(char **environment, t_master *master);
 int		init_env(t_master *master, char **enviroment);
@@ -127,114 +120,6 @@ void	update_shlvl(t_master *master);
 void	var_update(t_master *master);
 void	create_shlvl(t_master *master);
 
-//PARSING
-_Bool	parsing(t_master *master);
-int		tokenize(char *line, t_master *master);
-int		aux_tokenize(char *line, int i);
-t_token	*new_token(char *line, int size, t_master *master);
-char	*env_update(char *read, t_master *master, char *line);
-char	*aux1_env(char *read, t_master *master, char *line, int *c);
-char	*aux2_env(char *read, t_master *master, char *line, int *c);
-char	*aux3_env(char *read, t_master *master, char *line, int *c);
-char	*aux4_env(char *read, t_master *master, char *line, int *c);
-_Bool	aux5_env(char *read, int *c);
-char	*find_var(char *str, t_master *master, int pos, char *full_line);
-char	*find_aux(char *str, t_master *master);
-char	*find_aux2(char *str, t_master *master);
-char	*clean_dollar(char *str, int i, t_master *master, char *fre);
-char	*remove_dollar(char *str, t_master *master);
-void	home_join(t_master *master, unsigned int i);
-void	home_update(t_master *master);
-_Bool	is_valid_path(char *str, t_master *master);
-void	users_join(t_master *master, unsigned int i);
-_Bool	is_dots(char *cmd);
-void	del_update(t_token *new);
-char	*do_non_print(char *a);
-char	*undo_non_print(char *a);
-_Bool	ok(char c);
-char	*quotes_clean(t_token *new, t_master *master);
-void	quotes_update(t_token *new, t_master *master);
-_Bool	check_quotes(char *line);
-_Bool	check_syntax(t_master *master);
-_Bool	check_exceptions(t_token *fst_ty, t_token *scnd_ty);
-_Bool	syntax_verifications(t_token *temp, t_master *master);
-void	add_type(t_token *new);
-void	add_types_redir(t_master *master);
-void	check_heredoc(t_master *master);
-void	add_list(t_master *list, t_token *item);
-t_token	*last_token(t_token *token);
-t_token	*first_token(t_token *token);
-t_token	*copy_token(t_token *src, t_master *master);
-int		list_len(t_token *token);
-void	free_token(t_token *item);
-void	free_token_list(t_token *ls);
-void	clean_tokens(t_master *master);
-void	delete_token(t_token *token, t_master *master);
-void	free_commands(t_master *master);
-void	free_command(t_command *pipe);
-void	prep_next_line(t_master *master);
-int		command_separation(t_master *master);
-t_token	*adding_sort(t_token *temp, t_command *cmd,
-			t_master *master, int cmd_nb);
-int		count_commands(t_master *master);
-void	add_to_command(t_token *member, t_token **list, t_master *master);
-void	insert_in_list(t_command *member, t_master *master);
-t_token	*find_next_pipe(t_token *temp);
-_Bool	is_delimeter(char c);
-_Bool	is_space(char c);
-char	*create_str(char *str, t_env *temp, t_master *master);
-
-//EXEC ONE COMMAND
-void	minishell_one(t_master *master);
-void	exec_one(t_master *master, t_command *cmd);
-void	exec_bin_one(t_master *master, t_command *cmd);
-void	exec_aux_free(t_command *cmd, t_master *master);
-
-//EXECUTE MULTI
-void	child(t_master *master, t_command *cmd);
-void	parent(t_master *master);
-void	minishell_multi(t_master *master);
-
-void	exec_bin(t_master *master, t_command *cmd);
-int		exec(t_master *master, t_command *cmd);
-int		is_builtin(char *command);
-int		exec_builtin(char *command, t_command *cmd,
-			t_env *env, t_master *master);
-void	exec_aux_bin_free(char *command, char**path, char **env,
-			t_master *master);
-
-//EXEC UTILS
-char	**find_path(t_master *master);
-char	*get_command(char **path, char *cmd, t_master *master);
-char	**token_to_array(t_token *token, t_master *master);
-_Bool	check_path(char **path, char *cmd, t_master *master);
-char	*executable(char *cmd, t_master *master);
-_Bool	is_path(char *cmd);
-_Bool	path_bin(char **path);
-void	free_path_master(char *aux, char **path, t_master *master,
-			int exit_code);
-
-//HEREDOC pasarlo a parsing
-void	handle_heredoc(t_token *token, char *limit, t_master *master);
-char	*heredoc_update(char *read, char *line, t_master *master);
-char	*find_here(char *str, t_master *master, int pos, char *full_line);
-void	quotes_heredoc(t_token *ne);
-
-//REDIRECTIONS
-void	init_redirs(t_master *master);
-void	init_pipe(t_master *master);
-void	close_init_redirs(t_master *master);
-void	handle_redirs(t_command *cmd, t_master *master);
-void	handle_pipe(t_master *master, t_command *cmd);
-void	handle_outputs(t_command *cmd, t_master *master);
-void	redir_inputs(t_command *cmd, t_master *master);
-void	redir_outputs(t_command *cmd, t_master *master);
-_Bool	validate_input(t_token *temp, t_command *cmd, t_master *master);
-_Bool	validate_output(char *str, t_command *cmd, t_master *master);
-char	*file_new_path(char *str, t_master *master);
-_Bool	check_path_tofile(char *str, t_command *cmd, t_master *master);
-void	reset_redirs(t_master *master);
-
 //BUILTINS
 int		ft_echo(char **args);
 int		ft_pwd(t_env *env);
@@ -252,33 +137,6 @@ void	print_export_error(char *str);
 int		first_check(char *str);
 int		var_title_check(char *str);
 int		ft_exit(char **args, t_master *master);
-
-//ERRORS
-void	print_error(char *minishell, char *builtin, char *message);
-char	*create_message(t_master *master, char *message,
-			char *token, char *msg);
-void	no_file_dir(t_master *master, char *cmd, int exit_code);
-void	perm_denied(t_master *master, char *cmd, int exit_code);
-void	not_dir(t_master *master, char *cmd, int exit_code);
-
-//FREE
-void	free_master(t_master *master);
-void	free_line(t_master *master);
-void	clean_free(t_master *master, int exit_code);
-void	clean_free_no_exit(t_master *master);
-void	free_fail_exec(char *command, char **path, char **env);
-
-//UTILS
-void	free_double_array(char **table);
-size_t	ft_strlen(const char *str);
-char	**copy_double_array(char **src);
-char	*join_double_free(char *s1, char *s2);
-char	*join_free_s1(char *s1, char *s2);
-char	*join_free_s2(char *s1, char *s2);
-char	*free_aux_join(char *s1, char *s2, char *s3);
-_Bool	is_dots(char *cmd);
-char	*free_aux_join(char *s1, char *s2, char *s3);
-char	*free_aux_master(char *s1, char *s2, char *s3, t_master *master);
 
 //signal
 void	init_signal(int i);

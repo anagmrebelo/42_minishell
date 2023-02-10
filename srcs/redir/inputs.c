@@ -6,11 +6,12 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/02 00:00:28 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/09 22:48:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "redir.h"
+#include "free.h"
 
 /**
  * Function that makes the STDIN be the last input of the command

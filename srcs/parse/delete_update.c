@@ -6,11 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:51:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/01/31 17:07:46 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 15:02:29 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
 
 void	del_update(t_token *new)
 {

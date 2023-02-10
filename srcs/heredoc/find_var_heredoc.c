@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   find_var_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:05:45 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:30:36 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 23:00:18 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "heredoc.h"
+#include "free.h"
+#include "utils.h"
+#include "expansions.h"
 
-char	*find_aux_here(char *str, t_master *master)
+static char	*find_aux_here(char *str, t_master *master)
 {
 	t_env	*temp;
 	char	*test;
@@ -37,7 +40,7 @@ char	*find_aux_here(char *str, t_master *master)
 	return (NULL);
 }
 
-char	*find_aux2_here(char *str, t_master *master)
+static char	*find_aux2_here(char *str, t_master *master)
 {
 	str = join_free_s2("$", str);
 	if (!str)

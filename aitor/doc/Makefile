@@ -49,11 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-<<<<<<< HEAD
 BUILD_DIR = /sgoinfre/Perso/arebelo/0_workspace/minishell/aitor
-=======
-BUILD_DIR = /Users/mrollo/Cursus/minishell/aitor
->>>>>>> 13cb0649fad8824806809c8c529e3a9237d47a25
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

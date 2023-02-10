@@ -6,11 +6,15 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 22:41:32 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 01:41:47 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:10:03 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "parse.h"
+#include "parse.h"
+#include "free.h"
+#include "utils.h"
+
 /**
  * Function that checks if all quotes are closed
  * Returns 0 if not closed;
@@ -44,7 +48,7 @@ _Bool	check_quotes(char *line)
 /**
  * Function that creates a new char* cleaned of quotes 
 */
-char	*quotes_clean(t_token *new, t_master *master)
+static char	*quotes_clean(t_token *new, t_master *master)
 {
 	int		i;
 	int		j;
@@ -71,6 +75,26 @@ char	*quotes_clean(t_token *new, t_master *master)
 }
 
 /**
+ * Checks if there are quotes in the token->str
+ * If it finds, changes token->here to true
+*/
+static void	quotes_heredoc(t_token *ne)
+{
+	int	i;
+
+	i = 0;
+	while (ne->str[i])
+	{
+		if (ne->str[i] == '\'' || ne->str[i] == '\"')
+		{
+			ne->here = 1;
+			return ;
+		}
+		i++;
+	}
+}
+
+/**
  * Function that frees initial str of token with quotes and also eliminates
  * excessive memory in char* from quotes_clean
 */
@@ -88,24 +112,4 @@ void	quotes_update(t_token *ne, t_master *master)
 	if (!ne->str)
 		clean_free(master, 1);
 	ne->str = undo_non_print(ne->str);
-}
-
-/**
- * Checks if there are quotes in the token->str
- * If it finds, changes token->here to true
-*/
-void	quotes_heredoc(t_token *ne)
-{
-	int	i;
-
-	i = 0;
-	while (ne->str[i])
-	{
-		if (ne->str[i] == '\'' || ne->str[i] == '\"')
-		{
-			ne->here = 1;
-			return ;
-		}
-		i++;
-	}
 }

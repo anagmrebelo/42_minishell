@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:38:38 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/08 16:32:33 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:34 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils.h"
+#include "free.h"
 
 static	void	update_var(t_env *env, char *title, char *str, t_master *master)
 {

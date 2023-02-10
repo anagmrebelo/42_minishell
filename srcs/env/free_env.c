@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:39:22 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:40:30 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/09 16:02:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
+#include "utils.h"
+#include "free.h"
 
 void	free_env(t_env *item)
 {

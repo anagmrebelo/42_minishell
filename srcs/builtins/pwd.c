@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrollo <mrollo@student.42barcelon...>      +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:54:11 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/01 16:24:31 by mrollo           ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:45 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	env_path_update(t_env *env, char *str)
