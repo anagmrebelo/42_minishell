@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:42:09 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:53:17 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:31:45 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ char	**token_to_array(t_token *token, t_master *master);
 void	add_type(t_token *new);
 _Bool	check_syntax(t_master *master);
 void	add_types_redir(t_master *master);
-
 
 #endif

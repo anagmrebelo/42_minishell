@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 15:26:34 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:27 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:32:40 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANSIONS_H
-# define EXPANSIONS_H
+#ifndef EXEC_H
+# define EXEC_H
 
 # include "minishell.h"
+
 int		exec_builtin(char *command, t_command *cmd,
 			t_env *env, t_master *master);
 int		is_builtin(char *command);

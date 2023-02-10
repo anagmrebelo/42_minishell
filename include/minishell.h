@@ -6,12 +6,13 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 10:27:38 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 13:31:15 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -121,7 +122,6 @@ int		find_in_env(t_env *env, char *str);
 void	update_shlvl(t_master *master);
 void	var_update(t_master *master);
 void	create_shlvl(t_master *master);
-
 
 //BUILTINS
 int		ft_echo(char **args);
