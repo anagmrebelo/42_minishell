@@ -37,7 +37,7 @@ static void	unset_var(t_env *env, char *str)
 {
 	t_env	*next;
 
-	if (ft_strcmp(str, "_") == 0)
+	if (ft_strcmp(str, "_") == 0 || ft_strcmp(str, "MSHELL") == 0)
 		return ;
 	while (env != NULL)
 	{
