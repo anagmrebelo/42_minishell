@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 15:46:32 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 10:27:38 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,6 @@ typedef struct s_master
 	_Bool		status;
 	int			pid;
 }	t_master;
-
-//MAIN
-void	readline_loop(t_master *master);
-_Bool	isatty_check(t_master *master);
-
 
 //ENVIROMENT
 void	begin_env(char **environment, t_master *master);

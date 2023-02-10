@@ -6,14 +6,13 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:18:50 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 22:51:34 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 10:38:35 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "free.h"
 #include "redir.h"
-
 
 static void	child(t_master *master, t_command *cmd)
 {
@@ -33,7 +32,7 @@ static void	child(t_master *master, t_command *cmd)
 	handle_redirs(cmd, master);
 }
 
-static  void	parent(t_master *master)
+static void	parent(t_master *master)
 {
 	_Bool	i;
 

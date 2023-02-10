@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 10:09:26 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 10:28:05 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,39 @@ int	ft_launch_minishell(char *line, char **environment)
 	exit(g_error);
 }
 
+/**
+ * If line is empty and original STDIN is not a terminal (e.g. is a file) 
+ * changes master->status to 1 to end minishell loop and finish parent process
+*/
+static _Bool	isatty_check(t_master *master)
+{
+	if (isatty(STDIN_FILENO) == 0 && !master->line)
+		return (1);
+	return (0);
+}
+
+static void	readline_loop(t_master *master)
+{
+	init_signal(1);
+	master->line = readline(YELLOW"minishell: "RESET);
+	master->status = isatty_check(master);
+	if (master->status)
+		return ;
+	if (master->line == 0)
+	{
+		printf("exit\n");
+		free_master(master);
+		exit (0);
+	}
+	if (*master->line != '\0')
+	{
+		add_history(master->line);
+		minishell(master);
+	}
+	else
+		free_line(master);
+}
+
 int	main(int argc, char **argv, char **environment)
 {
 	t_master	*master;
@@ -64,37 +97,4 @@ int	main(int argc, char **argv, char **environment)
 		free_master(master);
 	}
 	return (g_error);
-}
-
-void	readline_loop(t_master *master)
-{
-	init_signal(1);
-	master->line = readline(YELLOW"minishell: "RESET);
-	master->status = isatty_check(master);
-	if (master->status)
-		return ;
-	if (master->line == 0)
-	{
-		printf("exit\n");
-		free_master(master);
-		exit (0);
-	}
-	if (*master->line != '\0')
-	{
-		add_history(master->line);
-		minishell(master);
-	}
-	else
-		free_line(master);
-}
-
-/**
- * If line is empty and original STDIN is not a terminal (e.g. is a file) 
- * changes master->status to 1 to end minishell loop and finish parent process
-*/
-_Bool	isatty_check(t_master *master)
-{
-	if (isatty(STDIN_FILENO) == 0 && !master->line)
-		return (1);
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:07:40 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 23:09:52 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 10:39:00 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ char	*join_free_s2(char *s1, char *s2)
 		free(s2);
 	return (new);
 }
-
 
 char	*free_aux_master(char *s1, char *s2, char *s3, t_master *master)
 {
