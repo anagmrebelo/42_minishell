@@ -139,6 +139,6 @@ int		var_title_check(char *str);
 int		ft_exit(char **args, t_master *master);
 
 //signal
-void	init_signal(int i);
+void	init_signal(int i, t_env *env);
 
 #endif

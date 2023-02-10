@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	handle_signal(int signal)
+static	void	handle_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -30,7 +30,7 @@ void	handle_signal(int signal)
 	}
 }
 
-void	handle_sig_exec(int signal)
+static void	handle_sig_exec(int signal)
 {
 	if (signal == SIGQUIT)
 	{
@@ -44,15 +44,30 @@ void	handle_sig_exec(int signal)
 	}
 }
 
-void	init_signal(int i)
+static void	handle_child(int signal)
+{
+	if (signal == SIGQUIT)
+		g_error = 131;
+	else if (signal == SIGINT)
+		g_error = 130;
+}
+
+void	init_signal(int i, t_env *env)
 {
 	struct sigaction	sa;
+	int					mshell;
 
 	sa.sa_flags = SA_RESTART;
 	if (i)
 		sa.sa_handler = &handle_signal;
 	else
-		sa.sa_handler = &handle_sig_exec;
+	{
+		mshell = ft_atoi(get_env_value("MSHELL", env));
+		if (mshell)
+			sa.sa_handler = &handle_sig_exec;
+		else
+			sa.sa_handler = &handle_child;
+	}
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }
