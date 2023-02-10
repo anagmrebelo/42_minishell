@@ -6,10 +6,11 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 22:03:23 by anarebelo         #+#    #+#             */
-/*   Updated: 2023/02/09 15:40:26 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:50:59 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "exec.h"
 
 int	exec_builtin(char *command, t_command *cmd, t_env *env, t_master *master)

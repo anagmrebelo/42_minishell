@@ -6,12 +6,14 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:15:03 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 16:01:20 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:50:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env.h"
 #include "free.h"
+#include "builtins.h"
 
 void	print_env(t_env *env)
 {

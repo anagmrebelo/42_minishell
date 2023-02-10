@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   aux_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 23:01:53 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 17:51:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "free.h"
+#include "env.h"
+#include "builtins.h"
 #include "utils.h"
 
 static void	updt_env_var(t_env *env, char *title, char *value, t_master *master)

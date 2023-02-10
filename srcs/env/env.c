@@ -6,15 +6,17 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:36:39 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 16:01:09 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:56:43 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "free.h"
+#include "env.h"
 #include "utils.h"
 
-static char	*join_title_value(t_master *master, char *title, char *value, char **ar)
+static char	*join_title_value(t_master *master, char *title,
+	char *value, char **ar)
 {
 	char	*str;
 

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   home_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:36:26 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 22:43:52 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/10 17:41:07 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansions.h"
 #include "free.h"
+#include "env.h"
 #include "utils.h"
 
 /**

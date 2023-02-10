@@ -6,11 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:35:18 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 15:57:02 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:55:40 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
+#include "env.h"
+#include "builtins.h"
 #include "minishell.h"
 
 static char	*aux_shlvl(t_master *master, int shlvl)
@@ -77,8 +79,6 @@ int	find_in_env(t_env *env, char *str)
 	}
 	return (0);
 }
-
-
 
 void	var_update(t_master *master)
 {
