@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 15:54:06 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 10:09:26 by anarebelo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "errors.h"
-#include "exec.h"
-#include "expansions.h"
-#include "heredoc.h"
-#include "parse.h"
 #include "redir.h"
 #include "pipe.h"
-#include "utils.h"
 #include "free.h"
 
 int	ft_launch_minishell(char *line, char **environment)
