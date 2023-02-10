@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/01 15:31:57 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	ft_env(t_env *env)
 {

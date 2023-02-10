@@ -9,7 +9,7 @@
 /*   Updated: 2023/02/01 16:50:34 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Function that returns a shallow copy of the value of env variable with

@@ -9,16 +9,9 @@
 /*   Updated: 2023/02/08 13:04:48 by mrollo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
-void	print_export_error(char *str)
-{
-	ft_putstr_fd("minishell: export: `", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
-}
-
-int	equal_check(char *str)
+static int	equal_check(char *str)
 {
 	int	i;
 	int	len;
@@ -35,6 +28,20 @@ int	equal_check(char *str)
 	return (1);
 }
 
+static int	aux_var_title_check(char c, int i, int len)
+{
+	if ((i == (len - 1)) && c == '+')
+		return (1);
+	return (0);
+}
+
+void	print_export_error(char *str)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
+}
+
 int	first_check(char *str)
 {
 	if (str[0] == '-')
@@ -47,13 +54,6 @@ int	first_check(char *str)
 		ft_putendl_fd("[name[=value] ...] or export -p", 2);
 		return (1);
 	}
-	return (0);
-}
-
-int	aux_var_title_check(char c, int i, int len)
-{
-	if ((i == (len - 1)) && c == '+')
-		return (1);
 	return (0);
 }
 

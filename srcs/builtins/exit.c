@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	print_exit_error(int n, char *str)
+static void	print_exit_error(int n, char *str)
 {
 	if (n == 1)
 	{
@@ -29,7 +29,7 @@ void	print_exit_error(int n, char *str)
 	}
 }
 
-int	is_numeric(char *str)
+static int	is_numeric(char *str)
 {
 	size_t	i;
 	size_t	len;
@@ -58,16 +58,16 @@ int	is_numeric(char *str)
 	return (0);
 }
 
-int	checknum(char *str)
+static int	checknum(char *str)
 {
 	if (ft_strcmp(str, "9223372036854775807") > 0)
 		return (1);
-	if (ft_strcmp(str, "-9223372036854775807") > 0)
+	else if (str[0] == '-' && ft_strcmp(str, "-9223372036854775807") > 0)
 		return (1);
 	return (0);
 }
 
-int	aux_exit(char **args, t_master *master)
+static int	aux_exit(char **args, t_master *master)
 {
 	int	n;
 

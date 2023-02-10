@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+static void	updt_env_var(t_env *env, char *title, char *value, t_master *master)
+{
+	while (env != NULL)
+	{
+		if (ft_strcmp(env->title, title) == 0)
+		{
+			free (env->value);
+			env->value = ft_strdup(value);
+			if (!env->value)
+				clean_free(master, 1);
+			return ;
+		}
+		env = env->next;
+	}
+}
+
 int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 {
 	if (!arg)
@@ -38,22 +54,6 @@ int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 	}
 }
 
-void	update_env_var(t_env *env, char *title, char *value, t_master *master)
-{
-	while (env != NULL)
-	{
-		if (ft_strcmp(env->title, title) == 0)
-		{
-			free (env->value);
-			env->value = ft_strdup(value);
-			if (!env->value)
-				clean_free(master, 1);
-			return ;
-		}
-		env = env->next;
-	}
-}
-
 void	update_oldpwd(char *oldpwd, t_env *env, t_master *master)
 {
 	t_env	*aux;
@@ -64,7 +64,7 @@ void	update_oldpwd(char *oldpwd, t_env *env, t_master *master)
 	{
 		value = get_env_value("PWD", env);
 		if (find_in_env(aux, "OLDPWD"))
-			update_env_var(env, "OLDPWD", value, master);
+			updt_env_var(env, "OLDPWD", value, master);
 		else
 			add_to_env(ft_strdup("OLDPWD"), ft_strdup(value), master);
 	}

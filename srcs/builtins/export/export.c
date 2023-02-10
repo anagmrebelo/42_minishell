@@ -10,19 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
-void	add_to_env(char *title, char *value, t_master *master)
-{
-	t_env	*new;
-
-	new = new_env(title, value, master);
-	if (!new)
-		free_aux_master(title, value, NULL, master);
-	add_back(master->env, new);
-}
-
-void	update_var(t_env *env, char *title, char *str, t_master *master)
+static	void	update_var(t_env *env, char *title, char *str, t_master *master)
 {
 	char	*value;
 
@@ -44,7 +34,7 @@ void	update_var(t_env *env, char *title, char *str, t_master *master)
 	}
 }
 
-int	only_export(t_master *master)
+static int	only_export(t_master *master)
 {
 	char	*title;
 
@@ -59,7 +49,7 @@ int	only_export(t_master *master)
 	return (0);
 }
 
-int	do_export(t_master *master, char *str)
+static int	do_export(t_master *master, char *str)
 {
 	int		rtrn;
 	char	*title;
@@ -82,6 +72,16 @@ int	do_export(t_master *master, char *str)
 		rtrn = 1;
 	}
 	return (rtrn);
+}
+
+void	add_to_env(char *title, char *value, t_master *master)
+{
+	t_env	*new;
+
+	new = new_env(title, value, master);
+	if (!new)
+		free_aux_master(title, value, NULL, master);
+	add_back(master->env, new);
 }
 
 int	ft_export(t_env *env, char **args, t_master *master)
