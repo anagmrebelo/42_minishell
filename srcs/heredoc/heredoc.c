@@ -10,16 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "heredoc.h"
 #include "free.h"
+
+static void	aux_heredoc(t_master *master, t_token *token, char *line, int fd)
+{
+	free(line);
+	close(fd);
+	if (!g_ctrlc)
+	{
+		free(token->str);
+		token->str = ft_strdup(".hdoc");
+		if (!token->str)
+			clean_free(master, 1);
+	}
+}
 
 static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 {
 	int		fd;
 	char	*line;
 
+	rl_getc_function = getc;
+	init_signal(3, master->env);
 	fd = open(".hdoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	line = readline("> ");
+	if (line == 0)
+		return ;
 	if (!token->here)
 		line = heredoc_update(line, NULL, master);
 	while (ft_strcmp(line, limit) != 0)
@@ -27,29 +45,37 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 		ft_putendl_fd(line, fd);
 		free (line);
 		line = readline("> ");
+		if (line == 0)
+			break ;
 		if (!token->here)
 			line = heredoc_update(line, NULL, master);
 	}
-	free(line);
-	close(fd);
-	free(token->str);
-	token->str = ft_strdup(".hdoc");
-	if (!token->str)
-		clean_free(master, 1);
+	aux_heredoc(master, token, line, fd);
 }
 
 /**
  * Checks the line for heredoc
 */
-void	check_heredoc(t_master *master)
+_Bool	check_heredoc(t_master *master)
 {
 	t_token	*token;
+	//int		pid;
 
+	//pid = fork();
+	//if (pid == 0)
+	//{
 	token = master->token_list;
 	while (token)
 	{
 		if (token->type == HEREDOC)
+		{
 			handle_heredoc(token, token->str, master);
+			if (ft_strcmp(token->str, ".hdoc"))
+				return (0);
+		}
 		token = token->next;
 	}
+	return (1);
+	//}
+	//waitpid(-1, NULL, 0);
 }

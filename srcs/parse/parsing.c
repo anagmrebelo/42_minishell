@@ -115,7 +115,8 @@ _Bool	parsing(t_master *master)
 	{
 		add_types_redir(master);
 		clean_tokens(master);
-		check_heredoc(master);
+		if (!check_heredoc(master))
+			return (0);
 		return (command_separation(master));
 	}
 	return (0);

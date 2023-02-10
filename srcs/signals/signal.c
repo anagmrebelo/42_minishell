@@ -49,7 +49,10 @@ static void	handle_child(int signal)
 	if (signal == SIGQUIT)
 		g_error = 131;
 	else if (signal == SIGINT)
+	{
+		g_ctrlc = 1;
 		g_error = 130;
+	}
 }
 
 void	init_signal(int i, t_env *env)
@@ -60,6 +63,8 @@ void	init_signal(int i, t_env *env)
 	sa.sa_flags = SA_RESTART;
 	if (i)
 		sa.sa_handler = &handle_signal;
+	if (i == 3)
+		sa.sa_handler = &handle_child;
 	else
 	{
 		mshell = ft_atoi(get_env_value("MSHELL", env));

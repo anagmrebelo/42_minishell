@@ -89,6 +89,8 @@ int	main(int argc, char **argv, char **environment)
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
+		g_ctrlc = 0;
+		g_error = 0;
 		begin_env(environment, master);
 		init_redirs(master);
 		while (!master->status)

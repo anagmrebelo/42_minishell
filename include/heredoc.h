@@ -17,6 +17,6 @@
 
 char	*find_here(char *str, t_master *master, int pos, char *full_line);
 char	*heredoc_update(char *read, char *line, t_master *master);
-void	check_heredoc(t_master *master);
+_Bool	check_heredoc(t_master *master);
 
 #endif

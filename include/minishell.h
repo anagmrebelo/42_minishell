@@ -50,6 +50,7 @@
 # define RESET   "\x1b[0m"
 
 int	g_error;
+int	g_ctrlc;
 
 typedef struct s_env
 {
