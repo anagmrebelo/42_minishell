@@ -32,7 +32,7 @@ void	minishell_one(t_master *master)
 		else
 			print_error("minishell", (last_token(cmd->failed))->str,
 				"Not a directory\n");
-		g_error = 1;
+		g_global.g_error = 1;
 		return ;
 	}
 	redir_outputs(cmd, master);
@@ -54,7 +54,7 @@ static void	exec_bin_one(t_master *master, t_command *cmd)
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
 	if (WIFEXITED(code))
-		g_error = WEXITSTATUS(code);
+		g_global.g_error = WEXITSTATUS(code);
 }
 
 void	exec_one(t_master *master, t_command *cmd)
@@ -63,11 +63,11 @@ void	exec_one(t_master *master, t_command *cmd)
 	redir_outputs(cmd, master);
 	if (!cmd->args_char[0] || !*cmd->args_char[0])
 	{
-		g_error = 0;
+		g_global.g_error = 0;
 		return ;
 	}
 	if (is_builtin(cmd->args_char[0]))
-		g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master);
+		g_global.g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master);
 	else
 		exec_bin_one(master, cmd);
 }

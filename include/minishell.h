@@ -49,8 +49,11 @@
 # define CYAN    "\x1b[36m"
 # define RESET   "\x1b[0m"
 
-int	g_error;
-int	g_ctrlc;
+typedef struct s_global
+{
+	int	g_error;
+	int	g_ctrlc;
+}	t_global;
 
 typedef struct s_env
 {
@@ -97,6 +100,8 @@ typedef struct s_master
 	_Bool		status;
 	int			pid;
 }	t_master;
+
+t_global	g_global;
 
 //signal
 void	init_signal(int i, t_env *env);

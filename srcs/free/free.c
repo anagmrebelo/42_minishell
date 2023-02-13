@@ -28,7 +28,7 @@ void	clean_free(t_master *master, int exit_code)
 
 void	prep_next_line(t_master *master)
 {
-	g_ctrlc = 0;
+	g_global.g_ctrlc = 0;
 	reset_redirs(master);
 	free_token_list(master->token_list);
 	master->token_list = NULL;

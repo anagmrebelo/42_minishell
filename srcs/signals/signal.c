@@ -21,13 +21,13 @@ static	void	handle_signal(int signal)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_error = 1;
+		g_global.g_error = 1;
 	}
 	else if (signal == SIGQUIT)
 	{
 		rl_on_new_line();
 		rl_redisplay();
-		g_error = 1;
+		g_global.g_error = 1;
 	}
 }
 
@@ -36,31 +36,31 @@ static void	handle_sig_exec(int signal)
 	if (signal == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 8);
-		g_error = 131;
+		g_global.g_error = 131;
 	}
 	else if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		g_error = 130;
+		g_global.g_error = 130;
 	}
 }
 
 static void	handle_child(int signal)
 {
 	if (signal == SIGQUIT)
-		g_error = 131;
+		g_global.g_error = 131;
 	else if (signal == SIGINT)
-		g_error = 130;
+		g_global.g_error = 130;
 }
 
 static void	handle_sig_here(int signal)
 {
 	if (signal == SIGQUIT)
-		g_error = 131;
+		g_global.g_error = 131;
 	else if (signal == SIGINT)
 	{
-		g_ctrlc = 1;
-		g_error = 130;
+		g_global.g_ctrlc = 1;
+		g_global.g_error = 130;
 	}
 }
 
