@@ -24,7 +24,7 @@ static char	*find_aux_here(char *str, t_master *master)
 	if (ft_strcmp(str, "?") == 0)
 	{
 		free(str);
-		test = ft_itoa(g_error);
+		test = ft_itoa(g_global.g_error);
 		if (!test)
 			clean_free(master, 1);
 		return (test);

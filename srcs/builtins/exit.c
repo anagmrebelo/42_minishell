@@ -102,7 +102,7 @@ int	ft_exit(char **args, t_master *master)
 	{
 		ft_putendl_fd("exit", 2);
 		master->status = 1;
-		return (g_error);
+		return (g_global.g_error);
 	}
 	else if (args[2] && !is_numeric(args[1]))
 	{

@@ -18,7 +18,7 @@ static void	aux_heredoc(t_master *master, t_token *token, char *line, int fd)
 {
 	free(line);
 	close(fd);
-	if (!g_ctrlc)
+	if (!g_global.g_ctrlc)
 	{
 		free(token->str);
 		token->str = ft_strdup(".hdoc");
