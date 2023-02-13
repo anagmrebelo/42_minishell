@@ -6,12 +6,14 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 19:53:00 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:50:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
+#include "env.h"
+#include "builtins.h"
 #include "free.h"
 
 static void	create_usr_bin(t_master *master)

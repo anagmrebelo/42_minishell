@@ -6,12 +6,13 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:04:07 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:56:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
+#include "env.h"
 #include "free.h"
 
 static void	sort(char **sort_array, int len)
@@ -38,7 +39,8 @@ static void	sort(char **sort_array, int len)
 	}
 }
 
-static char	*join_for_sort(t_master *master, char *title, char *val, char **ar)
+static char	*join_for_sort(t_master *master, char *title,
+	char *value, char **ar)
 {
 	char	*str;
 
