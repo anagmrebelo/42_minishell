@@ -50,7 +50,7 @@ static char	*join_for_sort(t_master *master, char *title,
 	str = join_free_s1(str, "=\"");
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free_s1(str, val);
+	str = join_free_s1(str, value);
 	if (!str)
 		free_array_master(ar, master);
 	str = join_free_s1(str, "\"");

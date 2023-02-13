@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 static	void	handle_signal(int signal)
 {

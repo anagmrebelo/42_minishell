@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include "utils.h"
 #include "free.h"
+#include "builtins.h"
 
 static void	update_mshell(t_master *master, char *value)
 {
