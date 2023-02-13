@@ -78,8 +78,6 @@ int	find_in_env(t_env *env, char *str)
 	return (0);
 }
 
-
-
 void	var_update(t_master *master)
 {
 	t_env	*env;

@@ -59,11 +59,7 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 _Bool	check_heredoc(t_master *master)
 {
 	t_token	*token;
-	//int		pid;
 
-	//pid = fork();
-	//if (pid == 0)
-	//{
 	token = master->token_list;
 	while (token)
 	{
@@ -76,6 +72,4 @@ _Bool	check_heredoc(t_master *master)
 		token = token->next;
 	}
 	return (1);
-	//}
-	//waitpid(-1, NULL, 0);
 }

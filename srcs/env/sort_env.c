@@ -38,7 +38,7 @@ static void	sort(char **sort_array, int len)
 	}
 }
 
-static char	*join_for_sort(t_master *master, char *title, char *value, char **ar)
+static char	*join_for_sort(t_master *master, char *title, char *val, char **ar)
 {
 	char	*str;
 
@@ -48,7 +48,7 @@ static char	*join_for_sort(t_master *master, char *title, char *value, char **ar
 	str = join_free_s1(str, "=\"");
 	if (!str)
 		free_array_master(ar, master);
-	str = join_free_s1(str, value);
+	str = join_free_s1(str, val);
 	if (!str)
 		free_array_master(ar, master);
 	str = join_free_s1(str, "\"");
