@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /sgoinfre/Perso/arebelo/0_workspace/minishell/aitor
+BUILD_DIR = /Users/mrollo/Cursus/minishell/aitor
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

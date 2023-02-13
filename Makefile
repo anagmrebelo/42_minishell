@@ -67,7 +67,7 @@ SRCS				= main.c\
 					utils/double_array.c\
 					utils/join_free.c\
 					utils/char_check.c\
-					signal.c
+					signals/signal.c
 
 OBJS				=${addprefix ${OBJS_DIR}, ${SRCS:.c=.o}}
 DEPS				=${addprefix ${OBJS_DIR}, ${SRCS:.c=.d}}

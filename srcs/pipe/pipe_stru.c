@@ -48,7 +48,7 @@ static void	wait_childs(t_master *master)
 */
 void	minishell(t_master *master)
 {
-	init_signal(0);
+	init_signal(0, master->env);
 	if (parsing(master))
 	{
 		if (master->num_commands == 1)

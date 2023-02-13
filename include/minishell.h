@@ -50,6 +50,7 @@
 # define RESET   "\x1b[0m"
 
 int	g_error;
+int	g_ctrlc;
 
 typedef struct s_env
 {
@@ -98,6 +99,6 @@ typedef struct s_master
 }	t_master;
 
 //signal
-void	init_signal(int i);
+void	init_signal(int i, t_env *env);
 
 #endif

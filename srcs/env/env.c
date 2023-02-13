@@ -15,8 +15,8 @@
 #include "env.h"
 #include "utils.h"
 
-static char	*join_title_value(t_master *master, char *title,
-	char *value, char **ar)
+static char	
+	*join_title_value(t_master *master, char *title, char *value, char **ar)
 {
 	char	*str;
 
