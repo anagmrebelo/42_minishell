@@ -16,45 +16,6 @@
 #include "free.h"
 #include "builtins.h"
 
-static void	update_mshell(t_master *master, char *value)
-{
-	t_env	*env;
-
-	env = master->env;
-	while (env != NULL)
-	{
-		if (ft_strcmp(env->title, "MSHELL") == 0)
-		{
-			free (env->value);
-			env->value = value;
-			break ;
-		}
-		env = env->next;
-	}
-}
-
-static void	check_mshell(t_master *master)
-{
-	char	*value;
-	char	*title;
-
-	if (find_in_env(master->env, "MSHELL"))
-	{
-		value = ft_strdup("0");
-		if (!value)
-			clean_free(master, 1);
-		update_mshell(master, value);
-	}
-	else
-	{
-		title = ft_strdup("MSHELL");
-		value = ft_strdup("1");
-		if (!title || !value)
-			free_aux_master(title, value, NULL, master);
-		add_to_env(title, value, master);
-	}
-}
-
 /**
  * Creates an environment with the default variables, 
  in the case of minishell being initiated with no env
@@ -66,5 +27,4 @@ void	begin_env(char **environment, t_master *master)
 		default_env(master);
 	else
 		init_env(master, environment);
-	check_mshell(master);
 }

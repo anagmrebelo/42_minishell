@@ -104,6 +104,6 @@ typedef struct s_master
 t_global	g_global;
 
 //signal
-void	init_signal(int i, t_env *env);
+void	init_signal(int mode, t_env *env);
 
 #endif

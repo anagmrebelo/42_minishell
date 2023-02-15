@@ -12,76 +12,111 @@
 
 #include "minishell.h"
 #include "builtins.h"
+# include <termios.h>
 
-static	void	handle_signal(int signal)
+// static	void	handle_signal(int signal)
+// {
+// 	if (signal == SIGINT)
+// 	{
+// 		rl_replace_line("", 0);
+// 		write(1, "\n", 1);
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 		g_global.g_error = 1;
+// 	}
+// 	else if (signal == SIGQUIT)
+// 	{
+// 		rl_on_new_line();
+// 		rl_redisplay();
+// 		g_global.g_error = 1;
+// 	}
+// }
+
+// static void	handle_sig_exec(int signal)
+// {
+// 	if (signal == SIGQUIT)
+// 	{
+// 		write(1, "Quit: 3\n", 8);
+// 		g_global.g_error = 131;
+// 	}
+// 	else if (signal == SIGINT)
+// 	{
+// 		write(1, "\n", 1);
+// 		g_global.g_error = 130;
+// 	}
+// }
+
+// static void	handle_child(int signal)
+// {
+// 	if (signal == SIGQUIT)
+// 		g_global.g_error = 131;
+// 	else if (signal == SIGINT)
+// 		g_global.g_error = 130;
+// }
+
+// static void	handle_sig_here(int signal)
+// {
+// 	if (signal == SIGQUIT)
+// 		g_global.g_error = 131;
+// 	else if (signal == SIGINT)
+// 	{
+// 		close(STDIN_FILENO);
+// 		write(STDOUT_FILENO, "> \n", 3);
+// 		g_global.g_ctrlc = 1;
+// 		g_global.g_error = 130;
+// 	}
+// }
+
+static void	handle_signals(int sig)
 {
-	if (signal == SIGINT)
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+ 		rl_redisplay();
+	}
+	else if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
-		write(1, "\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
-		g_global.g_error = 1;
-	}
-	else if (signal == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		g_global.g_error = 1;
 	}
 }
 
-static void	handle_sig_exec(int signal)
+static void	handle_signals_heredoc(int sig)
 {
-	if (signal == SIGQUIT)
-	{
-		write(1, "Quit: 3\n", 8);
-		g_global.g_error = 131;
+	if (sig == SIGQUIT){
+		return ;
 	}
-	else if (signal == SIGINT)
+	else if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
-		g_global.g_error = 130;
-	}
-}
-
-static void	handle_child(int signal)
-{
-	if (signal == SIGQUIT)
-		g_global.g_error = 131;
-	else if (signal == SIGINT)
-		g_global.g_error = 130;
-}
-
-static void	handle_sig_here(int signal)
-{
-	if (signal == SIGQUIT)
-		g_global.g_error = 131;
-	else if (signal == SIGINT)
-	{
+		close(STDIN_FILENO);
+		write(STDOUT_FILENO, "> \n", 3);
 		g_global.g_ctrlc = 1;
-		g_global.g_error = 130;
+		g_global.g_error = 1;
 	}
 }
 
-void	init_signal(int i, t_env *env)
+void	init_signal(int mode, t_env *env)
 {
 	struct sigaction	sa;
-	int					mshell;
+	//struct termios	term;
 
-	sa.sa_flags = SA_RESTART;
-	if (i)
-		sa.sa_handler = &handle_signal;
-	if (i == 3)
-		sa.sa_handler = &handle_sig_here;
-	else if (i == 0)
-	{
-		mshell = ft_atoi(get_env_value("MSHELL", env));
-		if (mshell)
-			sa.sa_handler = &handle_sig_exec;
-		else
-			sa.sa_handler = &handle_child;
-	}
+	// if (tcgetattr(STDIN_FILENO, &term) == -1)
+	// 	return ;
+	// term.c_lflag &= ~ECHOCTL;
+	// if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+	// 	return ;
+	(void)env;
+	sa.sa_flags = SA_SIGINFO;
+	if (mode == 1)
+		sa.sa_handler = SIG_IGN;
+	else if (mode == 2)
+		sa.sa_handler = &handle_signals_heredoc;
+	else if (mode == 3)
+		sa.sa_handler = &handle_signals;
+	else if (mode == 0)
+		sa.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }

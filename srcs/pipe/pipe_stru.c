@@ -25,6 +25,7 @@ static void	wait_childs(t_master *master)
 	int	j;
 
 	i = master->num_commands;
+	init_signal(1, master->env);
 	if (i == 1)
 		return ;
 	while (i--)
@@ -33,7 +34,13 @@ static void	wait_childs(t_master *master)
 		pid = waitpid(-1, &j, 0);
 		if (pid == -1)
 			clean_free(master, 1);
-		if (pid == master->pid)
+		if (i == 0 && WIFSIGNALED(j))
+		{
+			j += 128;
+			if (j == 130)
+				ft_putchar_fd('\n', STDOUT_FILENO);
+		}
+		else if (pid == master->pid)
 		{
 			if (WIFEXITED(j))
 				g_global.g_error = WEXITSTATUS(j);
@@ -48,14 +55,16 @@ static void	wait_childs(t_master *master)
 */
 void	minishell(t_master *master)
 {
-	init_signal(0, master->env);
 	if (parsing(master))
 	{
+		init_signal(0, master->env);
 		if (master->num_commands == 1)
 			minishell_one(master);
 		else
+		{
 			minishell_multi(master);
+			wait_childs(master);
+		}
 	}
-	wait_childs(master);
 	prep_next_line(master);
 }

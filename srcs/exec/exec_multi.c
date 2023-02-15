@@ -56,6 +56,7 @@ void	minishell_multi(t_master *master)
 	{
 		if (pipe(master->fd) == -1)
 			clean_free(master, 1);
+		init_signal(0, master->env);
 		master->pid = fork();
 		if (master->pid < 0)
 		{

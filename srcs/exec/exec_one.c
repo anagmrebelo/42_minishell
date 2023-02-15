@@ -51,9 +51,19 @@ static void	exec_bin_one(t_master *master, t_command *cmd)
 		clean_free(master, 1);
 	if (pid == 0)
 		exec_bin(master, cmd);
+	init_signal(1, master->env);
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
-	if (WIFEXITED(code))
+	if (WIFSIGNALED(code))
+	{
+		code += 128;
+		if (code == 130)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		if (code == 131)
+			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+		g_global.g_error = code;
+	}
+	else if (WIFEXITED(code))
 		g_global.g_error = WEXITSTATUS(code);
 }
 

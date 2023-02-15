@@ -56,7 +56,7 @@ static _Bool	isatty_check(t_master *master)
 
 static void	readline_loop(t_master *master)
 {
-	init_signal(1, master->env);
+	init_signal(3, master->env);
 	master->line = readline(YELLOW"minishell: "RESET);
 	master->status = isatty_check(master);
 	if (master->status)
@@ -74,6 +74,7 @@ static void	readline_loop(t_master *master)
 	}
 	else
 		free_line(master);
+	init_signal(1, master->env);
 }
 
 int	main(int argc, char **argv, char **environment)

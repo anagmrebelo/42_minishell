@@ -16,7 +16,8 @@
 
 static void	aux_heredoc(t_master *master, t_token *token, char *line, int fd)
 {
-	free(line);
+	if (line)
+		free(line);
 	close(fd);
 	if (!g_global.g_ctrlc)
 	{
@@ -32,25 +33,26 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 	int		fd;
 	char	*line;
 
-	rl_getc_function = getc;
-	init_signal(3, master->env);
 	fd = open(".hdoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	line = readline("> ");
-	if (line == 0)
-		return ;
-	if (!token->here)
-		line = heredoc_update(line, NULL, master);
-	while (ft_strcmp(line, limit) != 0)
+	if (fd < 0)
+		clean_free(master, 1);
+	init_signal(2, master->env);
+	while (1)
 	{
-		ft_putendl_fd(line, fd);
-		free (line);
 		line = readline("> ");
 		if (line == 0)
 			break ;
+		if (ft_strcmp(line, limit) == 0)
+			break ;
+		ft_putendl_fd(line, fd);
 		if (!token->here)
 			line = heredoc_update(line, NULL, master);
 	}
-	aux_heredoc(master, token, line, fd);
+	if (g_global.g_ctrlc == 1)
+		return ;
+	else
+		aux_heredoc(master, token, line, fd);
+	g_global.g_ctrlc = 0;
 }
 
 /**
