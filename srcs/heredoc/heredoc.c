@@ -19,7 +19,7 @@ static void	aux_heredoc(t_master *master, t_token *token, char *line, int fd)
 	if (line)
 		free(line);
 	close(fd);
-	if (!g_global.g_ctrlc)
+	if (!g_glbl.g_ctrlc)
 	{
 		free(token->str);
 		token->str = ft_strdup(".hdoc");
@@ -48,11 +48,11 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 		if (!token->here)
 			line = heredoc_update(line, NULL, master);
 	}
-	if (g_global.g_ctrlc == 1)
+	if (g_glbl.g_ctrlc == 1)
 		return ;
 	else
 		aux_heredoc(master, token, line, fd);
-	g_global.g_ctrlc = 0;
+	g_glbl.g_ctrlc = 0;
 }
 
 /**

@@ -43,7 +43,7 @@ static void	wait_childs(t_master *master)
 		else if (pid == master->pid)
 		{
 			if (WIFEXITED(j))
-				g_global.g_error = WEXITSTATUS(j);
+				g_glbl.g_error = WEXITSTATUS(j);
 		}
 	}
 }

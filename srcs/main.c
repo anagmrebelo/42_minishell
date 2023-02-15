@@ -40,7 +40,7 @@ int	ft_launch_minishell(char *line, char **environment)
 	}
 	close_init_redirs(master);
 	free_master(master);
-	exit(g_global.g_error);
+	exit(g_glbl.g_error);
 }
 
 /**
@@ -91,8 +91,8 @@ int	main(int argc, char **argv, char **environment)
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
-		g_global.g_ctrlc = 0;
-		g_global.g_error = 0;
+		g_glbl.g_ctrlc = 0;
+		g_glbl.g_error = 0;
 		begin_env(environment, master);
 		init_redirs(master);
 		while (!master->status)
@@ -100,5 +100,5 @@ int	main(int argc, char **argv, char **environment)
 		close_init_redirs(master);
 		free_master(master);
 	}
-	return (g_global.g_error);
+	return (g_glbl.g_error);
 }

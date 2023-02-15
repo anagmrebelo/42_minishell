@@ -127,7 +127,7 @@ int	command_separation(t_master *master)
 	}
 	if (!master->token_list)
 	{
-		g_global.g_error = 0;
+		g_glbl.g_error = 0;
 		return (0);
 	}
 	return (1);

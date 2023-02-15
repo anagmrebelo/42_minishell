@@ -101,7 +101,7 @@ _Bool	parsing(t_master *master)
 	if (!check_quotes(master->line))
 	{
 		print_error("minishell", NULL, "syntax error\n");
-		g_global.g_error = 258;
+		g_glbl.g_error = 258;
 		return (0);
 	}
 	home_update(master);

@@ -101,7 +101,7 @@ typedef struct s_master
 	int			pid;
 }	t_master;
 
-t_global	g_global;
+t_global	g_glbl;
 
 //signal
 void	init_signal(int mode, t_env *env);

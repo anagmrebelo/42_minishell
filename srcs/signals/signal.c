@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 #include "builtins.h"
-# include <termios.h>
+#include <termios.h>
 
 // static	void	handle_signal(int signal)
 // {
@@ -72,7 +72,7 @@ static void	handle_signals(int sig)
 	if (sig == SIGQUIT)
 	{
 		rl_on_new_line();
- 		rl_redisplay();
+		rl_redisplay();
 	}
 	else if (sig == SIGINT)
 	{
@@ -85,23 +85,21 @@ static void	handle_signals(int sig)
 
 static void	handle_signals_heredoc(int sig)
 {
-	if (sig == SIGQUIT){
+	if (sig == SIGQUIT)
 		return ;
-	}
 	else if (sig == SIGINT)
 	{
 		close(STDIN_FILENO);
 		write(STDOUT_FILENO, "> \n", 3);
-		g_global.g_ctrlc = 1;
-		g_global.g_error = 1;
+		g_glbl.g_ctrlc = 1;
+		g_glbl.g_error = 1;
 	}
 }
 
 void	init_signal(int mode, t_env *env)
 {
 	struct sigaction	sa;
-	//struct termios	term;
-
+	// struct termios	term;
 	// if (tcgetattr(STDIN_FILENO, &term) == -1)
 	// 	return ;
 	// term.c_lflag &= ~ECHOCTL;
