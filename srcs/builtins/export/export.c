@@ -62,8 +62,6 @@ static int	do_export(t_master *master, char *str)
 	if (var_title_check(str))
 	{
 		title = get_title(str, master);
-		if (ft_strcmp(title, "MSHELL") == 0)
-			return (rtrn);
 		if (find_in_env(master->env, title))
 		{
 			update_var(master->env, title, str, master);
