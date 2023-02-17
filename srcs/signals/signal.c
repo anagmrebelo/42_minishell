@@ -99,12 +99,10 @@ static void	handle_signals_heredoc(int sig)
 void	init_signal(int mode, t_env *env)
 {
 	struct sigaction	sa;
-	// struct termios	term;
-	// if (tcgetattr(STDIN_FILENO, &term) == -1)
-	// 	return ;
-	// term.c_lflag &= ~ECHOCTL;
-	// if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-	// 	return ;
+	struct termios	term;
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	(void)env;
 	sa.sa_flags = SA_SIGINFO;
 	if (mode == 1)
