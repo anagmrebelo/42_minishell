@@ -105,5 +105,6 @@ t_global	g_glbl;
 
 //signal
 void	init_signal(int mode, t_env *env);
+void	set_term();
 
 #endif

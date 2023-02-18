@@ -96,13 +96,26 @@ static void	handle_signals_heredoc(int sig)
 	}
 }
 
+void	set_term()
+{
+	struct termios	term;
+	
+	if (tcgetattr(STDIN_FILENO, &term) != 0)
+		printf("sale mal 1\n");
+	term.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
+		printf("sale mal 2\n");
+}
+
 void	init_signal(int mode, t_env *env)
 {
 	struct sigaction	sa;
-	struct termios	term;
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	// struct termios	term;
+	// if (tcgetattr(STDIN_FILENO, &term) != 0)
+	// 	printf("sale mal 1\n");
+	// term.c_lflag &= ~ECHOCTL;
+	// if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
+	// 	printf("sale mal 2\n");
 	(void)env;
 	sa.sa_flags = SA_SIGINFO;
 	if (mode == 1)

@@ -57,6 +57,7 @@ static _Bool	isatty_check(t_master *master)
 static void	readline_loop(t_master *master)
 {
 	init_signal(3, master->env);
+	set_term();
 	master->line = readline(YELLOW"minishell: "RESET);
 	master->status = isatty_check(master);
 	if (master->status)
