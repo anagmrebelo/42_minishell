@@ -70,7 +70,10 @@ char	*get_title(char *str, t_master *master)
 		len = ft_strlen(str) + 1;
 	else
 		len = (aux - str) + 1;
-	title = ft_substr(str, 0, len - 1);
+	if (str[len - 2] == '+')
+		title = ft_substr(str, 0, len - 2);
+	else
+		title = ft_substr(str, 0, len - 1);
 	if (!title)
 		clean_free(master, 1);
 	return (title);

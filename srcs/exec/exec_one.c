@@ -32,7 +32,7 @@ void	minishell_one(t_master *master)
 		else
 			print_error("minishell", (last_token(cmd->failed))->str,
 				"Not a directory\n");
-		g_global.g_error = 1;
+		g_glbl.g_error = 1;
 		return ;
 	}
 	redir_outputs(cmd, master);
@@ -51,23 +51,38 @@ static void	exec_bin_one(t_master *master, t_command *cmd)
 		clean_free(master, 1);
 	if (pid == 0)
 		exec_bin(master, cmd);
+	init_signal(1);
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
-	if (WIFEXITED(code))
-		g_global.g_error = WEXITSTATUS(code);
+	if (WIFSIGNALED(code))
+	{
+		code += 128;
+		if (code == 130)
+			ft_putendl_fd("^C", STDOUT_FILENO);
+		if (code == 131)
+			ft_putendl_fd("^\\Quit: 3", STDOUT_FILENO);
+		g_glbl.g_error = code;
+	}
+	else if (WIFEXITED(code))
+		g_glbl.g_error = WEXITSTATUS(code);
 }
 
 void	exec_one(t_master *master, t_command *cmd)
 {
+	int	err;
+
 	redir_inputs(cmd, master);
 	redir_outputs(cmd, master);
 	if (!cmd->args_char[0] || !*cmd->args_char[0])
 	{
-		g_global.g_error = 0;
+		g_glbl.g_error = 0;
 		return ;
 	}
 	if (is_builtin(cmd->args_char[0]))
-		g_global.g_error = exec_builtin(cmd->args_char[0], cmd, master->env, master);
+	{
+		err = exec_builtin(cmd->args_char[0], cmd, master->env, master);
+		g_glbl.g_error = err;
+	}
 	else
 		exec_bin_one(master, cmd);
 }

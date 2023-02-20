@@ -6,82 +6,68 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:24:46 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/09 13:31:16 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 10:59:10 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
+#include "free.h"
+#include <termios.h>
 
-static	void	handle_signal(int signal)
+static void	handle_signals(int sig)
 {
-	if (signal == SIGINT)
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
-		write(1, "\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
-		g_global.g_error = 1;
-	}
-	else if (signal == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		g_global.g_error = 1;
 	}
 }
 
-static void	handle_sig_exec(int signal)
+static void	handle_signals_heredoc(int sig)
 {
-	if (signal == SIGQUIT)
+	if (sig == SIGQUIT)
+		return ;
+	else if (sig == SIGINT)
 	{
-		write(1, "Quit: 3\n", 8);
-		g_global.g_error = 131;
-	}
-	else if (signal == SIGINT)
-	{
-		write(1, "\n", 1);
-		g_global.g_error = 130;
+		close(STDIN_FILENO);
+		write(STDOUT_FILENO, "> \n", 3);
+		g_glbl.g_ctrlc = 1;
+		g_glbl.g_error = 1;
 	}
 }
 
-static void	handle_child(int signal)
+void	set_term(t_master *master)
 {
-	if (signal == SIGQUIT)
-		g_global.g_error = 131;
-	else if (signal == SIGINT)
-		g_global.g_error = 130;
+	struct termios	term;
+
+	if (tcgetattr(STDIN_FILENO, &term) != 0)
+		clean_free(master, 1);
+	term.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
+		clean_free(master, 1);
 }
 
-static void	handle_sig_here(int signal)
-{
-	if (signal == SIGQUIT)
-		g_global.g_error = 131;
-	else if (signal == SIGINT)
-	{
-		g_global.g_ctrlc = 1;
-		g_global.g_error = 130;
-	}
-}
-
-void	init_signal(int i, t_env *env)
+void	init_signal(int mode)
 {
 	struct sigaction	sa;
-	int					mshell;
 
-	sa.sa_flags = SA_RESTART;
-	if (i)
-		sa.sa_handler = &handle_signal;
-	if (i == 3)
-		sa.sa_handler = &handle_sig_here;
-	else if (i == 0)
-	{
-		mshell = ft_atoi(get_env_value("MSHELL", env));
-		if (mshell)
-			sa.sa_handler = &handle_sig_exec;
-		else
-			sa.sa_handler = &handle_child;
-	}
+	sa.sa_flags = SA_SIGINFO;
+	if (mode == 1)
+		sa.sa_handler = SIG_IGN;
+	else if (mode == 2)
+		sa.sa_handler = &handle_signals_heredoc;
+	else if (mode == 3)
+		sa.sa_handler = &handle_signals;
+	else if (mode == 0)
+		sa.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }

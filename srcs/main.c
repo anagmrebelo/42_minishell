@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:13:55 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 17:15:35 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 10:57:46 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_launch_minishell(char *line, char **environment)
 	}
 	close_init_redirs(master);
 	free_master(master);
-	exit(g_global.g_error);
+	exit(g_glbl.g_error);
 }
 
 /**
@@ -56,7 +56,8 @@ static _Bool	isatty_check(t_master *master)
 
 static void	readline_loop(t_master *master)
 {
-	init_signal(1, master->env);
+	init_signal(3);
+	set_term(master);
 	master->line = readline(YELLOW"minishell: "RESET);
 	master->status = isatty_check(master);
 	if (master->status)
@@ -74,6 +75,7 @@ static void	readline_loop(t_master *master)
 	}
 	else
 		free_line(master);
+	init_signal(1);
 }
 
 int	main(int argc, char **argv, char **environment)
@@ -90,8 +92,8 @@ int	main(int argc, char **argv, char **environment)
 		master = ft_calloc(1, sizeof(t_master));
 		if (!master)
 			return (1);
-		g_global.g_ctrlc = 0;
-		g_global.g_error = 0;
+		g_glbl.g_ctrlc = 0;
+		g_glbl.g_error = 0;
 		begin_env(environment, master);
 		init_redirs(master);
 		while (!master->status)
@@ -99,5 +101,5 @@ int	main(int argc, char **argv, char **environment)
 		close_init_redirs(master);
 		free_master(master);
 	}
-	return (g_global.g_error);
+	return (g_glbl.g_error);
 }

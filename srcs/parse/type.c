@@ -70,7 +70,7 @@ static _Bool	syntax_verifications(t_token *temp, t_master *master)
 				"syntax error near unexpected token `", temp->next->str, "\'\n");
 	}
 	print_error("minishell", NULL, message);
-	g_global.g_error = 258;
+	g_glbl.g_error = 258;
 	free(message);
 	return (0);
 }
@@ -87,7 +87,7 @@ _Bool	check_syntax(t_master *master)
 	{
 		print_error("minishell", NULL,
 			"syntax error near unexpected token `|\'\n");
-		g_global.g_error = 258;
+		g_glbl.g_error = 258;
 		return (0);
 	}
 	while (temp)

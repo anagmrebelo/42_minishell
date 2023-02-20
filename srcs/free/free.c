@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:55:49 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/10 17:40:51 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:56:36 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	clean_free(t_master *master, int exit_code)
 
 void	prep_next_line(t_master *master)
 {
-	g_global.g_ctrlc = 0;
 	reset_redirs(master);
 	free_token_list(master->token_list);
 	master->token_list = NULL;

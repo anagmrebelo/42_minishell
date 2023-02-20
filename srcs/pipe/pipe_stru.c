@@ -6,13 +6,21 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:04:55 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 16:04:42 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:53:01 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
 #include "free.h"
 #include "exec.h"
+
+static void	aux_wait_childs(int code)
+{
+	if (code == 130)
+		ft_putendl_fd("^C", STDOUT_FILENO);
+	if (code == 131)
+		ft_putstr_fd("^\\", STDOUT_FILENO);
+}
 
 /**
  * Waits for all child processes
@@ -25,6 +33,7 @@ static void	wait_childs(t_master *master)
 	int	j;
 
 	i = master->num_commands;
+	init_signal(1);
 	if (i == 1)
 		return ;
 	while (i--)
@@ -33,11 +42,14 @@ static void	wait_childs(t_master *master)
 		pid = waitpid(-1, &j, 0);
 		if (pid == -1)
 			clean_free(master, 1);
-		if (pid == master->pid)
+		if (i == 0 && WIFSIGNALED(j))
 		{
-			if (WIFEXITED(j))
-				g_global.g_error = WEXITSTATUS(j);
+			j += 128;
+			aux_wait_childs(j);
 		}
+		else if (pid == master->pid)
+			if (WIFEXITED(j))
+				g_glbl.g_error = WEXITSTATUS(j);
 	}
 }
 
@@ -48,14 +60,16 @@ static void	wait_childs(t_master *master)
 */
 void	minishell(t_master *master)
 {
-	init_signal(0, master->env);
 	if (parsing(master))
 	{
+		init_signal(0);
 		if (master->num_commands == 1)
 			minishell_one(master);
 		else
+		{
 			minishell_multi(master);
+			wait_childs(master);
+		}
 	}
-	wait_childs(master);
 	prep_next_line(master);
 }

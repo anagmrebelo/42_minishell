@@ -60,6 +60,7 @@ SRCS				= main.c\
 					builtins/env.c\
 					builtins/export/export.c\
 					builtins/export/aux_exp.c\
+					builtins/export/concat.c\
 					builtins/unset.c\
 					builtins/exit.c\
 					errors/print_error.c\
