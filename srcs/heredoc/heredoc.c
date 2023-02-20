@@ -44,6 +44,7 @@ static void	child_heredoc(int fd, t_token *token, char *limit, t_master *master)
 		if (!token->here)
 			line = heredoc_update(line, NULL, master);
 		ft_putendl_fd(line, fd);
+		free (line);
 	}
 	if (line)
 		free(line);
