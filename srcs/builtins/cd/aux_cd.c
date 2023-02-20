@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/20 16:35:33 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:00:28 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_aux(char *arg)
 	ft_putstr_fd(": ", 2);
 }
 
-static void	print_cd_error(char *arg)
+void	print_cd_error(char *arg)
 {
 	DIR	*file;
 

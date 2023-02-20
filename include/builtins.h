@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:45:46 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/10 17:49:31 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:01:04 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		first_check(char *str);
 int		var_title_check(char *str);
 int		ft_exit(char **args, t_master *master);
 int		concat_var(t_master *master, char *str);
+void	print_cd_error(char *arg);
 
 #endif
