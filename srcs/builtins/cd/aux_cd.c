@@ -32,6 +32,32 @@ static void	updt_env_var(t_env *env, char *title, char *value, t_master *master)
 	}
 }
 
+static void	print_cd_error(char *arg)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": ", 2);
+	if (access(arg, F_OK) == -1)
+	{
+		if (errno == ENOENT)
+			ft_putendl_fd("No such file or directory", 2);
+		else if (errno == ENOTDIR)
+			ft_putendl_fd("Not a directory", 2);
+		else if (errno == EACCES)
+			ft_putendl_fd("Permission denied", 2);
+	}
+	else if (access(arg, R_OK) == -1)
+	{
+		opendir(arg);
+		if (errno == ENOTDIR)
+			ft_putendl_fd("Not a directory", 2);
+		else
+			ft_putendl_fd("Permission denied", 2);
+	}
+	else
+		ft_putendl_fd("Not a directory", 2);
+}
+
 int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 {
 	if (!arg)
@@ -46,15 +72,7 @@ int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
 	}
 	else
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putstr_fd(": ", 2);
-		if (access(arg, F_OK) == -1)
-			ft_putendl_fd("No such file or directory", 2);
-		else if (access(arg, R_OK) == -1)
-			ft_putendl_fd("Permission denied", 2);
-		else
-			ft_putendl_fd("Not a directory", 2);
+		print_cd_error(arg);
 		return (1);
 	}
 }
