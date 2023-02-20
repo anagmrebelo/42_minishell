@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:53:01 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:55 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:05:48 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	redir_inputs(t_command *cmd, t_master *master);
 void	redir_outputs(t_command *cmd, t_master *master);
 _Bool	validate_input(t_token *temp, t_command *cmd, t_master *master);
 _Bool	validate_output(char *str, t_command *cmd, t_master *master);
-char	*file_new_path(char *str, t_master *master);
 void	reset_redirs(t_master *master);
 
 #endif

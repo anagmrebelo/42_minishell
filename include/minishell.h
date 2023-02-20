@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 11:50:53 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 17:58:30 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:44:01 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_command
 	_Bool				inv_file;
 	_Bool				inv_perm;
 	_Bool				not_dir;
+	_Bool				is_dir;
 	t_token				*failed;
 	t_token				*outputs;
 	char				**args_char;

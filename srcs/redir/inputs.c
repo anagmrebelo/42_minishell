@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:57:59 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 22:48:26 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/20 15:54:33 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,27 @@ void	redir_inputs(t_command *cmd, t_master *master)
 _Bool	validate_input(t_token *temp, t_command *cmd, t_master *master)
 {
 	char	*path;
-	char	*tmp;
 
+	(void) master;
 	path = temp->str;
 	if (!access(path, R_OK))
 		return (1);
 	cmd->failed = cmd->inputs;
-	if (!access(path, F_OK))
-		cmd->inv_perm = 1;
-	else
+	if (access(path, F_OK) == -1)
 	{
-		tmp = file_new_path(path, master);
-		opendir(tmp);
+		if (errno == ENOENT)
+			cmd->inv_file = 1;
+		else if (errno == ENOTDIR)
+			cmd->not_dir = 1;
+		else if (errno == EACCES)
+			cmd->inv_perm = 1;
+	}
+	else if (access(path, R_OK) == -1)
+	{
 		if (errno == ENOTDIR)
 			cmd->not_dir = 1;
 		else
-			cmd->inv_file = 1;
-		free(tmp);
+			cmd->inv_perm = 1;
 	}
 	return (0);
 }

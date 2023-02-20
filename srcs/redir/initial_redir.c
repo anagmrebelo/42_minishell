@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:48 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 22:46:32 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/20 15:51:20 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	handle_redirs(t_command *cmd, t_master *master)
 		perm_denied(master, (last_token(cmd->failed))->str, 1);
 	if (cmd->not_dir)
 		not_dir(master, (last_token(cmd->failed))->str, 1);
+	if (cmd->is_dir)
+		is_dir(master, (last_token(cmd->failed))->str, 1);
 	redir_outputs(cmd, master);
 	redir_inputs(cmd, master);
 }

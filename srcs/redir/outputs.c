@@ -3,43 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 19:21:41 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 22:48:10 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/20 16:06:11 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redir.h"
 #include "free.h"
-
-/**
-  * If str contains a '/'
-  * then it confirms if path treats a document as a directory
-  * if there is no permissions to access to directory
-  * if path is not valid as does not exist such a file or dir
- */
-static _Bool	check_path_tofile(char *str, t_command *cmd, t_master *master)
-{
-	char	*tmp;
-
-	tmp = file_new_path(str, master);
-	opendir(tmp);
-	if (errno == ENOTDIR)
-	cmd->not_dir = 1;
-	else if (!access(tmp, W_OK))
-	{
-		free(tmp);
-		return (1);
-	}
-	else if (!access(tmp, F_OK))
-		cmd->inv_perm = 1;
-	else
-		cmd->inv_file = 1;
-	cmd->failed = cmd->outputs;
-	free(tmp);
-	return (0);
-}
 
 /**
  * Checks if path to file exists, if not creates file
@@ -106,43 +78,39 @@ void	redir_outputs(t_command *cmd, t_master *master)
 	}
 }
 
-_Bool	validate_output(char *str, t_command *cmd, t_master *master)
+static void	aux_output(char *str, t_command *cmd)
 {
-	if (!access(str, W_OK))
-		return (1);
-	if (!ft_strchr(str, '/'))
-	{
-		if (access(str, F_OK))
-			return (1);
-		cmd->inv_perm = 1;
-		cmd->failed = cmd->outputs;
-		return (0);
-	}
+	DIR	*file;
+
+	file = opendir(str);
+	if (file || errno == EACCES)
+		cmd->is_dir = 1;
 	else
-		return (check_path_tofile(str, cmd, master));
-	return (1);
+	{
+		access(str, W_OK);
+		if (errno == EACCES)
+			cmd->inv_perm = 1;
+	}
+	if (file)
+		closedir(file);
 }
 
-/**
- * Returns a malloc of str without the last part of path
- * (e.g. if str = src/parse/main.c returns src/parse)
-*/
-char	*file_new_path(char *str, t_master *master)
+_Bool	validate_output(char *str, t_command *cmd, t_master *master)
 {
-	int		i;
-	char	*tmp;
-
-	i = ft_strlen(str);
-	while (i > 0)
+	(void) master;
+	if (!access(str, W_OK))
+		return (1);
+	if (access(str, F_OK) == -1)
 	{
-		if (str[i] == '/')
-		{
-			tmp = ft_substr(str, 0, i);
-			if (!tmp)
-				clean_free(master, 1);
-			return (tmp);
-		}
-		i--;
+		if (errno == ENOTDIR)
+			cmd->not_dir = 1;
+		else if (errno == EACCES)
+			cmd->inv_perm = 1;
+		else
+			return (1);
 	}
-	return (NULL);
+	else if (access(str, W_OK) == -1)
+		aux_output(str, cmd);
+	cmd->failed = cmd->outputs;
+	return (0);
 }

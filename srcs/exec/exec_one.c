@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anarebelo <anarebelo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:37:31 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 22:51:02 by anarebelo        ###   ########.fr       */
+/*   Updated: 2023/02/20 15:40:39 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	minishell_one(t_master *master)
 
 	cmd = master->commands_list;
 	handle_outputs(cmd, master);
-	if (cmd->inv_file || cmd->inv_perm || cmd->not_dir)
+	if (cmd->inv_file || cmd->inv_perm || cmd->not_dir || cmd->is_dir)
 	{
 		if (cmd->inv_file)
 			print_error("minishell", last_token(cmd->failed)->str,
@@ -29,6 +29,9 @@ void	minishell_one(t_master *master)
 		else if (cmd->inv_perm)
 			print_error("minishell", (last_token(cmd->failed))->str,
 				"Permission denied\n");
+		else if (cmd->is_dir)
+			print_error("minishell", (last_token(cmd->failed))->str,
+				"Is a directory\n");
 		else
 			print_error("minishell", (last_token(cmd->failed))->str,
 				"Not a directory\n");

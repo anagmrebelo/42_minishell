@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 17:51:20 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:05:58 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	updt_env_var(t_env *env, char *title, char *value, t_master *master)
 
 static void	print_cd_error(char *arg)
 {
+	DIR	*file;
+	
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd(": ", 2);
@@ -48,11 +50,13 @@ static void	print_cd_error(char *arg)
 	}
 	else if (access(arg, R_OK) == -1)
 	{
-		opendir(arg);
+		file = opendir(arg);
 		if (errno == ENOTDIR)
 			ft_putendl_fd("Not a directory", 2);
 		else
 			ft_putendl_fd("Permission denied", 2);
+		if (file)
+			closedir(file);
 	}
 	else
 		ft_putendl_fd("Not a directory", 2);
