@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:29:21 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/20 11:34:00 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:24:26 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static void	child_heredoc(int fd, t_token *token, char *limit, t_master *master)
 	}
 	if (line)
 		free(line);
-	if (close(fd) == -1)
-		clean_free(master, 1);
+	close(fd);
 	clean_free_no_exit(master);
 	if (g_glbl.g_ctrlc == 1)
 		exit(1);
