@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:05 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/20 15:05:58 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:35:33 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,18 @@ static void	updt_env_var(t_env *env, char *title, char *value, t_master *master)
 	}
 }
 
-static void	print_cd_error(char *arg)
+static void	print_aux(char *arg)
 {
-	DIR	*file;
-	
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd(": ", 2);
+}
+
+static void	print_cd_error(char *arg)
+{
+	DIR	*file;
+
+	print_aux(arg);
 	if (access(arg, F_OK) == -1)
 	{
 		if (errno == ENOENT)
@@ -60,25 +65,6 @@ static void	print_cd_error(char *arg)
 	}
 	else
 		ft_putendl_fd("Not a directory", 2);
-}
-
-int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
-{
-	if (!arg)
-	{
-		ft_putendl_fd("minishell: cd: HOME not set", 2);
-		return (1);
-	}
-	if (chdir(arg) == 0)
-	{
-		update_env(oldpwd, env, master);
-		return (0);
-	}
-	else
-	{
-		print_cd_error(arg);
-		return (1);
-	}
 }
 
 void	update_oldpwd(char *oldpwd, t_env *env, t_master *master)

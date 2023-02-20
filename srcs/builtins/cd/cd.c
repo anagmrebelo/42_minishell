@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:59:56 by mrollo            #+#    #+#             */
-/*   Updated: 2023/02/10 17:51:12 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 16:35:44 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,23 @@ int	ft_cd(t_env *env, char **args, t_master *master)
 		i = change_dir(args[1], pwd, env, master);
 	free (pwd);
 	return (i);
+}
+
+int	change_dir(char *arg, char *oldpwd, t_env *env, t_master *master)
+{
+	if (!arg)
+	{
+		ft_putendl_fd("minishell: cd: HOME not set", 2);
+		return (1);
+	}
+	if (chdir(arg) == 0)
+	{
+		update_env(oldpwd, env, master);
+		return (0);
+	}
+	else
+	{
+		print_cd_error(arg);
+		return (1);
+	}
 }
