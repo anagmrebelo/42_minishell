@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:24:30 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/09 16:08:30 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 12:00:06 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ static int	tokenize(char *line, t_master *master)
 	return (line + i - temp);
 }
 
+static void	syntax_err(void)
+{
+	print_error("minishell", NULL, "syntax error\n");
+	g_glbl.g_error = 258;
+}
+
 /**
  * Transforms char * line from readline into tokens
 */
@@ -100,8 +106,7 @@ _Bool	parsing(t_master *master)
 	i = 0;
 	if (!check_quotes(master->line))
 	{
-		print_error("minishell", NULL, "syntax error\n");
-		g_glbl.g_error = 258;
+		syntax_err();
 		return (0);
 	}
 	home_update(master);

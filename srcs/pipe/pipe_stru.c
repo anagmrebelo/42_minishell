@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:04:55 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/20 10:45:12 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:53:01 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ static void	wait_childs(t_master *master)
 				ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 		else if (pid == master->pid)
-		{
 			if (WIFEXITED(j))
 				g_glbl.g_error = WEXITSTATUS(j);
-		}
 	}
 }
 
