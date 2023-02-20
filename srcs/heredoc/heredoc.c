@@ -6,7 +6,7 @@
 /*   By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 19:29:21 by arebelo           #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:40 by arebelo          ###   ########.fr       */
+/*   Updated: 2023/02/20 10:30:36 by arebelo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 			break ;
 		if (ft_strcmp(line, limit) == 0)
 			break ;
-		ft_putendl_fd(line, fd);
 		if (!token->here)
 			line = heredoc_update(line, NULL, master);
+		ft_putendl_fd(line, fd);
 	}
 	if (g_glbl.g_ctrlc == 1)
 		return ;
