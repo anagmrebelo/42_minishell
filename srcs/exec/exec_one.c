@@ -51,16 +51,16 @@ static void	exec_bin_one(t_master *master, t_command *cmd)
 		clean_free(master, 1);
 	if (pid == 0)
 		exec_bin(master, cmd);
-	init_signal(1, master->env);
+	init_signal(1);
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
 	if (WIFSIGNALED(code))
 	{
 		code += 128;
 		if (code == 130)
-			ft_putchar_fd('\n', STDOUT_FILENO);
+			ft_putendl_fd("^C", STDOUT_FILENO);
 		if (code == 131)
-			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+			ft_putendl_fd("^\\Quit: 3", STDOUT_FILENO);
 		g_glbl.g_error = code;
 	}
 	else if (WIFEXITED(code))

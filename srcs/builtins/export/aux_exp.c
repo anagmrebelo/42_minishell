@@ -32,7 +32,7 @@ static int	equal_check(char *str)
 static int	aux_var_title_check(char c, int i, int len)
 {
 	if ((i == (len - 1)) && c == '+')
-		return (2); //CAMBIO PARA PROBAR
+		return (2);
 	return (0);
 }
 

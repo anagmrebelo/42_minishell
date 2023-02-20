@@ -53,55 +53,52 @@ static int	only_export(t_master *master)
 	return (0);
 }
 
-//PROBANDO CONCATENEAR
+// static void
+// 	update_concat(t_env *env, char *title, char *value, t_master *master)
+// {
+// 	char	*tmp;
 
-static void	update_concat(t_env *env, char *title, char *value, t_master *master)
-{
-	char	*tmp;
+// 	while (env != NULL)
+// 	{
+// 		if (ft_strcmp(title, env->title) == 0)
+// 		{
+// 			tmp = join_double_free(env->value, value);
+// 			env->value = tmp;
+// 			free (title);
+// 			if (!tmp)
+// 			{
+// 				free_aux_master(value, title, NULL, master);
+// 				break ;
+// 			}
+// 			break ;
+// 		}
+// 		env = env->next;
+// 	}
+// }
 
-	while (env != NULL)
-	{
-		if (ft_strcmp(title, env->title) == 0)
-		{
-			tmp = join_double_free(env->value, value);
-			env->value = tmp;
-			free (title);
-			if (!tmp)
-			{
-				free_aux_master(value, title, NULL, master);
-				break ;
-			}
-			break ;
-		}
-		env = env->next;
-	}
-}
+// int	concat_var(t_master *master, char *str)
+// {
+// 	char	*title;
+// 	char	*value;
 
-int	concat_var(t_master *master, char *str)
-{
-	char	*title;
-	char	*value;
-
-	title = get_title(str, master);
-	value = get_value(str, master);
-	if (find_in_env(master->env, title))
-		update_concat(master->env, title, value, master);
-	else
-		add_to_env(title, value, master);
-	return (0);
-}
-//FIN PRUEBA
+// 	title = get_title(str, master);
+// 	value = get_value(str, master);
+// 	if (find_in_env(master->env, title))
+// 		update_concat(master->env, title, value, master);
+// 	else
+// 		add_to_env(title, value, master);
+// 	return (0);
+// }
 
 static int	do_export(t_master *master, char *str)
 {
 	int		rtrn;
 	char	*title;
-	int	check; //probando
+	int		check;
 
 	rtrn = 0;
 	check = var_title_check(str);
-	//if (var_title_check(str))
-	if (check == 1) //probando
+	if (check == 1)
 	{
 		title = get_title(str, master);
 		if (find_in_env(master->env, title))

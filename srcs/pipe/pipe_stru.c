@@ -14,6 +14,14 @@
 #include "free.h"
 #include "exec.h"
 
+static void	aux_wait_childs(int code)
+{
+	if (code == 130)
+		ft_putendl_fd("^C", STDOUT_FILENO);
+	if (code == 131)
+		ft_putstr_fd("^\\", STDOUT_FILENO);
+}
+
 /**
  * Waits for all child processes
  * if there is only one command, the waitpid is done in the function exec_bin_one
@@ -25,7 +33,7 @@ static void	wait_childs(t_master *master)
 	int	j;
 
 	i = master->num_commands;
-	init_signal(1, master->env);
+	init_signal(1);
 	if (i == 1)
 		return ;
 	while (i--)
@@ -37,8 +45,7 @@ static void	wait_childs(t_master *master)
 		if (i == 0 && WIFSIGNALED(j))
 		{
 			j += 128;
-			if (j == 130)
-				ft_putchar_fd('\n', STDOUT_FILENO);
+			aux_wait_childs(j);
 		}
 		else if (pid == master->pid)
 			if (WIFEXITED(j))
@@ -55,7 +62,7 @@ void	minishell(t_master *master)
 {
 	if (parsing(master))
 	{
-		init_signal(0, master->env);
+		init_signal(0);
 		if (master->num_commands == 1)
 			minishell_one(master);
 		else

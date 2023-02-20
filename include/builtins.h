@@ -31,5 +31,6 @@ void	print_export_error(char *str);
 int		first_check(char *str);
 int		var_title_check(char *str);
 int		ft_exit(char **args, t_master *master);
+int		concat_var(t_master *master, char *str);
 
 #endif

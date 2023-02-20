@@ -104,7 +104,7 @@ typedef struct s_master
 t_global	g_glbl;
 
 //signal
-void	init_signal(int mode, t_env *env);
-void	set_term();
+void	init_signal(int mode);
+void	set_term(t_master *master);
 
 #endif

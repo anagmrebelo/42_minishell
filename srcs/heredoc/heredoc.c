@@ -33,7 +33,7 @@ static void	child_heredoc(int fd, t_token *token, char *limit, t_master *master)
 	fd = open(".hdoc", O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (fd < 0)
 		clean_free(master, 1);
-	init_signal(2, master->env);
+	init_signal(2);
 	while (1)
 	{
 		line = readline("> ");
@@ -67,7 +67,7 @@ static void	handle_heredoc(t_token *token, char *limit, t_master *master)
 		clean_free(master, 1);
 	if (pid == 0)
 		child_heredoc(fd, token, limit, master);
-	init_signal(1, master->env);
+	init_signal(1);
 	if (waitpid(pid, &code, 0) == -1)
 		clean_free(master, 1);
 	if (WIFEXITED(code) && WEXITSTATUS(code) == 1)
