@@ -1,7 +1,7 @@
 # minishell
 
 ## Project description:
-Recreate a simple shell
+Recreate a simple shell - group project with [Micaela Rollo](https://github.com/micarollo)
 
 Shell functionalities:
 - Displays a prompt when waiting for a new command
