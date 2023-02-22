@@ -24,7 +24,7 @@ Shell functionalities:
   - exit with no options
 
 ## Grade
-TBC
+100%
 
 ## Usage
 
