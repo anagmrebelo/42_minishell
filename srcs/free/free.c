@@ -13,6 +13,7 @@
 #include "free.h"
 #include "redir.h"
 #include "env.h"
+#include <unistd.h>
 
 void	clean_free_no_exit(t_master *master)
 {
@@ -28,6 +29,8 @@ void	clean_free(t_master *master, int exit_code)
 
 void	prep_next_line(t_master *master)
 {
+	if (unlink(".hdoc") && errno != 2)
+		clean_free(master, 1);	
 	reset_redirs(master);
 	free_token_list(master->token_list);
 	master->token_list = NULL;
