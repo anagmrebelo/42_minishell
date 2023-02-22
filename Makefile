@@ -6,7 +6,7 @@
 #    By: arebelo <arebelo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 15:12:42 by arebelo           #+#    #+#              #
-#    Updated: 2023/02/09 22:09:20 by arebelo          ###   ########.fr        #
+#    Updated: 2023/02/22 13:34:09 by arebelo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ DEPS				=${addprefix ${OBJS_DIR}, ${SRCS:.c=.d}}
 
 # DIRECTORY
 # **************************************************************************** #
-READLINE_DIR		= aitor
+READLINE_DIR		= readline
 LIBFT_DIR			= libft
 OBJS_DIR			= objs/
 SRCS_DIR			= srcs/
@@ -122,8 +122,8 @@ $(READLINE_DIR)/libhistory.a:
 					@make -C $(READLINE_DIR)
 					@cd $(TMP)
 
-$(BINARY): $(OBJS) $(LIBS_EXEC) 
-					@$(LINK) $(CFLAGS) $(INCLUDE) -o $@ $^ $(LIBS)
+$(BINARY): $(OBJS) $(LIBS_EXEC)
+					$(LINK) $(CFLAGS) $(INCLUDE) -o $@ $^ $(LIBS)
 
 clean:
 					@$(RM) $(OBJS_DIR)
