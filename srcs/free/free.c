@@ -30,7 +30,7 @@ void	clean_free(t_master *master, int exit_code)
 void	prep_next_line(t_master *master)
 {
 	if (unlink(".hdoc") && errno != 2)
-		clean_free(master, 1);	
+		clean_free(master, 1);
 	reset_redirs(master);
 	free_token_list(master->token_list);
 	master->token_list = NULL;
