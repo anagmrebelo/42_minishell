@@ -1,4 +1,5 @@
 # minishell
+![ezgif com-video-to-gif-3](https://github.com/anagmrebelo/42_minishell/assets/66007323/23428027-79e5-4863-9e34-61f9cbba3df0)
 
 ## Project description:
 Recreate a simple shell - group project with [Micaela Rollo](https://github.com/micarollo)
